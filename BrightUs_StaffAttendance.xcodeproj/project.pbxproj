@@ -1,0 +1,583 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */; };
+		91EC4A621DFE6A24008F874D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A611DFE6A24008F874D /* ViewController.swift */; };
+		91EC4A651DFE6A24008F874D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91EC4A631DFE6A24008F874D /* Main.storyboard */; };
+		91EC4A671DFE6A24008F874D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91EC4A661DFE6A24008F874D /* Assets.xcassets */; };
+		91EC4A6A1DFE6A24008F874D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91EC4A681DFE6A24008F874D /* LaunchScreen.storyboard */; };
+		91EC4A751DFE6A24008F874D /* BrightUs_StaffAttendanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A741DFE6A24008F874D /* BrightUs_StaffAttendanceTests.swift */; };
+		91EC4A801DFE6A24008F874D /* BrightUs_StaffAttendanceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A7F1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests.swift */; };
+		91EC4A8E1DFE6C93008F874D /* ForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A8D1DFE6C93008F874D /* ForgotPassViewController.swift */; };
+		91EC4A911DFE6F1F008F874D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A901DFE6F1F008F874D /* HomeViewController.swift */; };
+		91EC4A931DFE6F35008F874D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A921DFE6F35008F874D /* Camera.swift */; };
+		91EC4A971DFE801B008F874D /* Dashboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EC4A961DFE801B008F874D /* Dashboard.xib */; };
+		91EC4A991DFE802F008F874D /* Camera.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EC4A981DFE802F008F874D /* Camera.xib */; };
+		91EC4A9B1DFE823D008F874D /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A9A1DFE823D008F874D /* DashboardView.swift */; };
+		91EE38F61DFE900A00CD7838 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */; };
+		91EE38F91DFEA38200CD7838 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE38F81DFEA38200CD7838 /* Constant.swift */; };
+		91EE38FB1DFEA3B400CD7838 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE38FA1DFEA3B400CD7838 /* Reachability.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		91EC4A711DFE6A24008F874D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91EC4A541DFE6A22008F874D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91EC4A5B1DFE6A22008F874D;
+			remoteInfo = BrightUs_StaffAttendance;
+		};
+		91EC4A7C1DFE6A24008F874D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91EC4A541DFE6A22008F874D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91EC4A5B1DFE6A22008F874D;
+			remoteInfo = BrightUs_StaffAttendance;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		91EC4A5C1DFE6A24008F874D /* BrightUs_StaffAttendance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrightUs_StaffAttendance.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		91EC4A611DFE6A24008F874D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		91EC4A641DFE6A24008F874D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		91EC4A661DFE6A24008F874D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		91EC4A691DFE6A24008F874D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		91EC4A6B1DFE6A24008F874D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91EC4A701DFE6A24008F874D /* BrightUs_StaffAttendanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightUs_StaffAttendanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91EC4A741DFE6A24008F874D /* BrightUs_StaffAttendanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightUs_StaffAttendanceTests.swift; sourceTree = "<group>"; };
+		91EC4A761DFE6A24008F874D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91EC4A7B1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightUs_StaffAttendanceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91EC4A7F1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightUs_StaffAttendanceUITests.swift; sourceTree = "<group>"; };
+		91EC4A811DFE6A24008F874D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91EC4A8D1DFE6C93008F874D /* ForgotPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPassViewController.swift; sourceTree = "<group>"; };
+		91EC4A8F1DFE6D77008F874D /* BrightUs_StaffAttendance.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BrightUs_StaffAttendance.entitlements; sourceTree = "<group>"; };
+		91EC4A901DFE6F1F008F874D /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		91EC4A921DFE6F35008F874D /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		91EC4A961DFE801B008F874D /* Dashboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Dashboard.xib; sourceTree = "<group>"; };
+		91EC4A981DFE802F008F874D /* Camera.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Camera.xib; sourceTree = "<group>"; };
+		91EC4A9A1DFE823D008F874D /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		91EE38F81DFEA38200CD7838 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		91EE38FA1DFEA3B400CD7838 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		91EC4A591DFE6A22008F874D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91EC4A6D1DFE6A24008F874D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91EC4A781DFE6A24008F874D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		91EC4A531DFE6A22008F874D = {
+			isa = PBXGroup;
+			children = (
+				91EC4A5E1DFE6A24008F874D /* BrightUs_StaffAttendance */,
+				91EC4A731DFE6A24008F874D /* BrightUs_StaffAttendanceTests */,
+				91EC4A7E1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests */,
+				91EC4A5D1DFE6A24008F874D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		91EC4A5D1DFE6A24008F874D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				91EC4A5C1DFE6A24008F874D /* BrightUs_StaffAttendance.app */,
+				91EC4A701DFE6A24008F874D /* BrightUs_StaffAttendanceTests.xctest */,
+				91EC4A7B1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		91EC4A5E1DFE6A24008F874D /* BrightUs_StaffAttendance */ = {
+			isa = PBXGroup;
+			children = (
+				91EC4A8F1DFE6D77008F874D /* BrightUs_StaffAttendance.entitlements */,
+				91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */,
+				91EE38F81DFEA38200CD7838 /* Constant.swift */,
+				91EE38FA1DFEA3B400CD7838 /* Reachability.swift */,
+				91EC4A611DFE6A24008F874D /* ViewController.swift */,
+				91EC4A8D1DFE6C93008F874D /* ForgotPassViewController.swift */,
+				91EC4A901DFE6F1F008F874D /* HomeViewController.swift */,
+				91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */,
+				91EC4A9A1DFE823D008F874D /* DashboardView.swift */,
+				91EC4A961DFE801B008F874D /* Dashboard.xib */,
+				91EC4A921DFE6F35008F874D /* Camera.swift */,
+				91EC4A981DFE802F008F874D /* Camera.xib */,
+				91EC4A631DFE6A24008F874D /* Main.storyboard */,
+				91EC4A661DFE6A24008F874D /* Assets.xcassets */,
+				91EC4A681DFE6A24008F874D /* LaunchScreen.storyboard */,
+				91EC4A6B1DFE6A24008F874D /* Info.plist */,
+			);
+			path = BrightUs_StaffAttendance;
+			sourceTree = "<group>";
+		};
+		91EC4A731DFE6A24008F874D /* BrightUs_StaffAttendanceTests */ = {
+			isa = PBXGroup;
+			children = (
+				91EC4A741DFE6A24008F874D /* BrightUs_StaffAttendanceTests.swift */,
+				91EC4A761DFE6A24008F874D /* Info.plist */,
+			);
+			path = BrightUs_StaffAttendanceTests;
+			sourceTree = "<group>";
+		};
+		91EC4A7E1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests */ = {
+			isa = PBXGroup;
+			children = (
+				91EC4A7F1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests.swift */,
+				91EC4A811DFE6A24008F874D /* Info.plist */,
+			);
+			path = BrightUs_StaffAttendanceUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		91EC4A5B1DFE6A22008F874D /* BrightUs_StaffAttendance */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91EC4A841DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendance" */;
+			buildPhases = (
+				91EC4A581DFE6A22008F874D /* Sources */,
+				91EC4A591DFE6A22008F874D /* Frameworks */,
+				91EC4A5A1DFE6A22008F874D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BrightUs_StaffAttendance;
+			productName = BrightUs_StaffAttendance;
+			productReference = 91EC4A5C1DFE6A24008F874D /* BrightUs_StaffAttendance.app */;
+			productType = "com.apple.product-type.application";
+		};
+		91EC4A6F1DFE6A24008F874D /* BrightUs_StaffAttendanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91EC4A871DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendanceTests" */;
+			buildPhases = (
+				91EC4A6C1DFE6A24008F874D /* Sources */,
+				91EC4A6D1DFE6A24008F874D /* Frameworks */,
+				91EC4A6E1DFE6A24008F874D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91EC4A721DFE6A24008F874D /* PBXTargetDependency */,
+			);
+			name = BrightUs_StaffAttendanceTests;
+			productName = BrightUs_StaffAttendanceTests;
+			productReference = 91EC4A701DFE6A24008F874D /* BrightUs_StaffAttendanceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		91EC4A7A1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91EC4A8A1DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendanceUITests" */;
+			buildPhases = (
+				91EC4A771DFE6A24008F874D /* Sources */,
+				91EC4A781DFE6A24008F874D /* Frameworks */,
+				91EC4A791DFE6A24008F874D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91EC4A7D1DFE6A24008F874D /* PBXTargetDependency */,
+			);
+			name = BrightUs_StaffAttendanceUITests;
+			productName = BrightUs_StaffAttendanceUITests;
+			productReference = 91EC4A7B1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		91EC4A541DFE6A22008F874D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Techies India Inc";
+				TargetAttributes = {
+					91EC4A5B1DFE6A22008F874D = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = C4UY7M99L8;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+					91EC4A6F1DFE6A24008F874D = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = C4UY7M99L8;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 91EC4A5B1DFE6A22008F874D;
+					};
+					91EC4A7A1DFE6A24008F874D = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = C4UY7M99L8;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 91EC4A5B1DFE6A22008F874D;
+					};
+				};
+			};
+			buildConfigurationList = 91EC4A571DFE6A22008F874D /* Build configuration list for PBXProject "BrightUs_StaffAttendance" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 91EC4A531DFE6A22008F874D;
+			productRefGroup = 91EC4A5D1DFE6A24008F874D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				91EC4A5B1DFE6A22008F874D /* BrightUs_StaffAttendance */,
+				91EC4A6F1DFE6A24008F874D /* BrightUs_StaffAttendanceTests */,
+				91EC4A7A1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		91EC4A5A1DFE6A22008F874D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91EC4A6A1DFE6A24008F874D /* LaunchScreen.storyboard in Resources */,
+				91EC4A671DFE6A24008F874D /* Assets.xcassets in Resources */,
+				91EC4A991DFE802F008F874D /* Camera.xib in Resources */,
+				91EC4A971DFE801B008F874D /* Dashboard.xib in Resources */,
+				91EC4A651DFE6A24008F874D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91EC4A6E1DFE6A24008F874D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91EC4A791DFE6A24008F874D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		91EC4A581DFE6A22008F874D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91EC4A621DFE6A24008F874D /* ViewController.swift in Sources */,
+				91EC4A9B1DFE823D008F874D /* DashboardView.swift in Sources */,
+				91EC4A931DFE6F35008F874D /* Camera.swift in Sources */,
+				91EE38F91DFEA38200CD7838 /* Constant.swift in Sources */,
+				91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */,
+				91EE38FB1DFEA3B400CD7838 /* Reachability.swift in Sources */,
+				91EE38F61DFE900A00CD7838 /* DetailsViewController.swift in Sources */,
+				91EC4A8E1DFE6C93008F874D /* ForgotPassViewController.swift in Sources */,
+				91EC4A911DFE6F1F008F874D /* HomeViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91EC4A6C1DFE6A24008F874D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91EC4A751DFE6A24008F874D /* BrightUs_StaffAttendanceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91EC4A771DFE6A24008F874D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91EC4A801DFE6A24008F874D /* BrightUs_StaffAttendanceUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		91EC4A721DFE6A24008F874D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91EC4A5B1DFE6A22008F874D /* BrightUs_StaffAttendance */;
+			targetProxy = 91EC4A711DFE6A24008F874D /* PBXContainerItemProxy */;
+		};
+		91EC4A7D1DFE6A24008F874D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91EC4A5B1DFE6A22008F874D /* BrightUs_StaffAttendance */;
+			targetProxy = 91EC4A7C1DFE6A24008F874D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		91EC4A631DFE6A24008F874D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91EC4A641DFE6A24008F874D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		91EC4A681DFE6A24008F874D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91EC4A691DFE6A24008F874D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		91EC4A821DFE6A24008F874D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		91EC4A831DFE6A24008F874D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		91EC4A851DFE6A24008F874D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
+				DEVELOPMENT_TEAM = C4UY7M99L8;
+				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "in.brightus.techies.StaffApp--in.brightus.techies.mainAttendance-in.brightus.techies.StaffApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		91EC4A861DFE6A24008F874D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
+				DEVELOPMENT_TEAM = C4UY7M99L8;
+				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "in.brightus.techies.StaffApp--in.brightus.techies.mainAttendance-in.brightus.techies.StaffApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		91EC4A881DFE6A24008F874D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = C4UY7M99L8;
+				INFOPLIST_FILE = BrightUs_StaffAttendanceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrightUs_StaffAttendance.app/BrightUs_StaffAttendance";
+			};
+			name = Debug;
+		};
+		91EC4A891DFE6A24008F874D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = C4UY7M99L8;
+				INFOPLIST_FILE = BrightUs_StaffAttendanceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrightUs_StaffAttendance.app/BrightUs_StaffAttendance";
+			};
+			name = Release;
+		};
+		91EC4A8B1DFE6A24008F874D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = C4UY7M99L8;
+				INFOPLIST_FILE = BrightUs_StaffAttendanceUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = BrightUs_StaffAttendance;
+			};
+			name = Debug;
+		};
+		91EC4A8C1DFE6A24008F874D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = C4UY7M99L8;
+				INFOPLIST_FILE = BrightUs_StaffAttendanceUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = BrightUs_StaffAttendance;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		91EC4A571DFE6A22008F874D /* Build configuration list for PBXProject "BrightUs_StaffAttendance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91EC4A821DFE6A24008F874D /* Debug */,
+				91EC4A831DFE6A24008F874D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91EC4A841DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91EC4A851DFE6A24008F874D /* Debug */,
+				91EC4A861DFE6A24008F874D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91EC4A871DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91EC4A881DFE6A24008F874D /* Debug */,
+				91EC4A891DFE6A24008F874D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91EC4A8A1DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendanceUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91EC4A8B1DFE6A24008F874D /* Debug */,
+				91EC4A8C1DFE6A24008F874D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 91EC4A541DFE6A22008F874D /* Project object */;
+}
