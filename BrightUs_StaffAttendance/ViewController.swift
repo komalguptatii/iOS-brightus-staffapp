@@ -6,13 +6,14 @@
 //  Copyright © 2016 Techies India Inc. All rights reserved.
 //
 
-/// Login View
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 /// Login View
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     /**
     
@@ -32,6 +33,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        emailTextField.delegate = self
+        passTextField.delegate = self
+        
+        emailTextField.text = "staff@maildrop.cc"
+        passTextField.text = "staff"
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,10 +56,9 @@ class ViewController: UIViewController {
     */
     
     @IBAction func LoginButtonPressed(_ sender: UIButton) {
-//        if (Validation()){
+        if (Validation()){
             AuthorizeUser()
-//            performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
-//        }
+        }
     }
 
     /**
@@ -169,9 +175,10 @@ class ViewController: UIViewController {
         jsonDict.setValue("2", forKey: "client_id")
         jsonDict.setValue("XNgcybCHTfz0wfehSQcDOStyGCnwakCIIECZzWtD", forKey: "client_secret")
         jsonDict.setValue("password", forKey: "grant_type")
-        jsonDict.setValue("staff@maildrop.cc", forKey: "username")
-        jsonDict.setValue("staff", forKey: "password")
+        jsonDict.setValue(emailTextField.text, forKey: "username")
+        jsonDict.setValue(passTextField.text, forKey: "password")
         
+       
         print(jsonDict)
         
         var jsonData = Data()
@@ -194,6 +201,17 @@ class ViewController: UIViewController {
                         if httpResponseValue.statusCode == 200{
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
+                            
+                            let tokenTypeValue = dict.value(forKey: "token_type")
+                            let accessTokenValue = dict.value(forKey: "access_token")
+                            let refreshTokenValue = dict.value(forKey: "refresh_token")
+                            
+                            defaults.setValue(tokenTypeValue, forKey: "tokenType")
+                            defaults.setValue(accessTokenValue, forKey: "accessToken")
+                            defaults.setValue(refreshTokenValue, forKey: "refreshToken")
+                            defaults.synchronize()
+                            
+                            self.TokenForFirebase()
                         }
                         else if httpResponseValue.statusCode == 400{
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
@@ -207,5 +225,69 @@ class ViewController: UIViewController {
             }
 
         }.resume()
+    }
+    
+    /**
+     Get Token For Firebase
+     
+     - parameter return : token sent to firebase
+ 
+    */
+    func TokenForFirebase(){
+        let apiString = baseURL + "/api/user/firebase"
+        
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "GET"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let token = defaults.value(forKey: "accessToken") as! String
+//        let header = "\(defaults.value(forKey: "tokenType")!)" + " \(defaults.value(forKey: "accessToken")!)"
+        let header = "Bearer" + " \(token)"
+        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        
+        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+            do {
+                if data != nil{
+                    if let httpResponseValue = response as? HTTPURLResponse{
+                        print(httpResponseValue.statusCode)
+                        if httpResponseValue.statusCode == 200{
+                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                            print(dict)
+                            
+                            let firebaseTokenValue = dict.value(forKey: "token") as! String
+                            defaults.setValue(firebaseTokenValue, forKey: "firebaseToken")
+                            defaults.synchronize()
+                            self.FirebaseLogin(token: "\(firebaseTokenValue)")
+                        }
+                    }
+                }
+            }
+            catch{
+               print("Error")
+            }
+        }.resume()
+    }
+    
+    /**
+     
+     
+    */
+    
+    func FirebaseLogin(token : String){
+        print(token)
+        FIRAuth.auth()?.signIn(withCustomToken: token ) { (user, error) in
+            if let user = FIRAuth.auth()?.currentUser {
+                print(user)
+            }
+            self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+
+        }
     }
 }
