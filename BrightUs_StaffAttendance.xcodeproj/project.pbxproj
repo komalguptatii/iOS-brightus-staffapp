@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0522D28272CC1B633A797703 /* Pods_BrightUs_StaffAttendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */; };
+		29DEFC461E03D1F500098D75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */; };
+		522276C7223AC4C9CAE7E364 /* Pods_BrightUs_StaffAttendanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */; };
 		91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */; };
 		91EC4A621DFE6A24008F874D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A611DFE6A24008F874D /* ViewController.swift */; };
 		91EC4A651DFE6A24008F874D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91EC4A631DFE6A24008F874D /* Main.storyboard */; };
@@ -23,6 +26,7 @@
 		91EE38F61DFE900A00CD7838 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */; };
 		91EE38F91DFEA38200CD7838 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE38F81DFEA38200CD7838 /* Constant.swift */; };
 		91EE38FB1DFEA3B400CD7838 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE38FA1DFEA3B400CD7838 /* Reachability.swift */; };
+		92DF786C73E6916018F92750 /* Pods_BrightUs_StaffAttendanceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD344126C5BEF96491CB364 /* Pods_BrightUs_StaffAttendanceUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		26137209C2F3B185FB897100 /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DDBEE74833556A2E56361A8 /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6DD344126C5BEF96491CB364 /* Pods_BrightUs_StaffAttendanceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendanceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		73AD2033EA490D532311572B /* Pods-BrightUs_StaffAttendanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7C8036141C15511E9ADACEA5 /* Pods-BrightUs_StaffAttendance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendance/Pods-BrightUs_StaffAttendance.debug.xcconfig"; sourceTree = "<group>"; };
 		91EC4A5C1DFE6A24008F874D /* BrightUs_StaffAttendance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrightUs_StaffAttendance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91EC4A611DFE6A24008F874D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +78,8 @@
 		91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		91EE38F81DFEA38200CD7838 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		91EE38FA1DFEA3B400CD7838 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		A8B03A1A8015DBDFF2A3E964 /* Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C2341906CB7604747C3D92A7 /* Pods-BrightUs_StaffAttendance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendance.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendance/Pods-BrightUs_StaffAttendance.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0522D28272CC1B633A797703 /* Pods_BrightUs_StaffAttendance.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				522276C7223AC4C9CAE7E364 /* Pods_BrightUs_StaffAttendanceTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,12 +103,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DF786C73E6916018F92750 /* Pods_BrightUs_StaffAttendanceUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12A713377EE102F74CAE8716 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */,
+				208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */,
+				6DD344126C5BEF96491CB364 /* Pods_BrightUs_StaffAttendanceUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F48DEB19C6FFF7EE794DD5E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7C8036141C15511E9ADACEA5 /* Pods-BrightUs_StaffAttendance.debug.xcconfig */,
+				C2341906CB7604747C3D92A7 /* Pods-BrightUs_StaffAttendance.release.xcconfig */,
+				73AD2033EA490D532311572B /* Pods-BrightUs_StaffAttendanceTests.debug.xcconfig */,
+				26137209C2F3B185FB897100 /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */,
+				A8B03A1A8015DBDFF2A3E964 /* Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig */,
+				5DDBEE74833556A2E56361A8 /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		91EC4A531DFE6A22008F874D = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +140,8 @@
 				91EC4A731DFE6A24008F874D /* BrightUs_StaffAttendanceTests */,
 				91EC4A7E1DFE6A24008F874D /* BrightUs_StaffAttendanceUITests */,
 				91EC4A5D1DFE6A24008F874D /* Products */,
+				7F48DEB19C6FFF7EE794DD5E /* Pods */,
+				12A713377EE102F74CAE8716 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +171,7 @@
 				91EC4A921DFE6F35008F874D /* Camera.swift */,
 				91EC4A981DFE802F008F874D /* Camera.xib */,
 				91EC4A631DFE6A24008F874D /* Main.storyboard */,
+				29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */,
 				91EC4A661DFE6A24008F874D /* Assets.xcassets */,
 				91EC4A681DFE6A24008F874D /* LaunchScreen.storyboard */,
 				91EC4A6B1DFE6A24008F874D /* Info.plist */,
@@ -161,9 +204,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91EC4A841DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendance" */;
 			buildPhases = (
+				7145CC814DAB441F11042F8F /* [CP] Check Pods Manifest.lock */,
 				91EC4A581DFE6A22008F874D /* Sources */,
 				91EC4A591DFE6A22008F874D /* Frameworks */,
 				91EC4A5A1DFE6A22008F874D /* Resources */,
+				EC1BA28D538A7666F8AA9F2D /* [CP] Embed Pods Frameworks */,
+				33CCAEF85A534D9DF461574E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,9 +224,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91EC4A871DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendanceTests" */;
 			buildPhases = (
+				D8B151406225489709A38774 /* [CP] Check Pods Manifest.lock */,
 				91EC4A6C1DFE6A24008F874D /* Sources */,
 				91EC4A6D1DFE6A24008F874D /* Frameworks */,
 				91EC4A6E1DFE6A24008F874D /* Resources */,
+				87DCD446AB606A21D85396FB /* [CP] Embed Pods Frameworks */,
+				DC6EE24AF9F3EC401DE835FA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,9 +245,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91EC4A8A1DFE6A24008F874D /* Build configuration list for PBXNativeTarget "BrightUs_StaffAttendanceUITests" */;
 			buildPhases = (
+				8EF1638AB86F3A262EDC10C3 /* [CP] Check Pods Manifest.lock */,
 				91EC4A771DFE6A24008F874D /* Sources */,
 				91EC4A781DFE6A24008F874D /* Frameworks */,
 				91EC4A791DFE6A24008F874D /* Resources */,
+				EAAD85EE691B96C3918D2A6C /* [CP] Embed Pods Frameworks */,
+				C3179EBE8150E1B935756792 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -217,7 +269,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Techies India Inc";
 				TargetAttributes = {
 					91EC4A5B1DFE6A22008F874D = {
@@ -269,6 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29DEFC461E03D1F500098D75 /* GoogleService-Info.plist in Resources */,
 				91EC4A6A1DFE6A24008F874D /* LaunchScreen.storyboard in Resources */,
 				91EC4A671DFE6A24008F874D /* Assets.xcassets in Resources */,
 				91EC4A991DFE802F008F874D /* Camera.xib in Resources */,
@@ -292,6 +345,144 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		33CCAEF85A534D9DF461574E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightUs_StaffAttendance/Pods-BrightUs_StaffAttendance-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7145CC814DAB441F11042F8F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		87DCD446AB606A21D85396FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8EF1638AB86F3A262EDC10C3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C3179EBE8150E1B935756792 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8B151406225489709A38774 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DC6EE24AF9F3EC401DE835FA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EAAD85EE691B96C3918D2A6C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC1BA28D538A7666F8AA9F2D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightUs_StaffAttendance/Pods-BrightUs_StaffAttendance-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		91EC4A581DFE6A22008F874D /* Sources */ = {
@@ -379,6 +570,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -428,6 +620,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -454,13 +647,14 @@
 		};
 		91EC4A851DFE6A24008F874D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C8036141C15511E9ADACEA5 /* Pods-BrightUs_StaffAttendance.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
 				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "in.brightus.techies.StaffApp--in.brightus.techies.mainAttendance-in.brightus.techies.StaffApp";
+				PRODUCT_BUNDLE_IDENTIFIER = in.brightus.techies.StaffApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -468,13 +662,14 @@
 		};
 		91EC4A861DFE6A24008F874D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2341906CB7604747C3D92A7 /* Pods-BrightUs_StaffAttendance.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
 				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "in.brightus.techies.StaffApp--in.brightus.techies.mainAttendance-in.brightus.techies.StaffApp";
+				PRODUCT_BUNDLE_IDENTIFIER = in.brightus.techies.StaffApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -482,6 +677,7 @@
 		};
 		91EC4A881DFE6A24008F874D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73AD2033EA490D532311572B /* Pods-BrightUs_StaffAttendanceTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -497,6 +693,7 @@
 		};
 		91EC4A891DFE6A24008F874D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26137209C2F3B185FB897100 /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -512,6 +709,7 @@
 		};
 		91EC4A8B1DFE6A24008F874D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8B03A1A8015DBDFF2A3E964 /* Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = C4UY7M99L8;
@@ -526,6 +724,7 @@
 		};
 		91EC4A8C1DFE6A24008F874D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5DDBEE74833556A2E56361A8 /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = C4UY7M99L8;

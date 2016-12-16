@@ -1,0 +1,784 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06F5874254901AA5EF619DB5438EBF56 /* Pods-BrightUs_StaffAttendanceTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 203E1D3B6E017D024D624B960527F382 /* Pods-BrightUs_StaffAttendanceTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11C77A3871FE39807A03EA037892493A /* Pods-BrightUs_StaffAttendanceUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EFD100EEE76F17D23B63C80D94B5E4C /* Pods-BrightUs_StaffAttendanceUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1A1437039E1125AD972E5066C80AAB8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		286C9E627B4091C6CCDC9F4E12230765 /* Pods-BrightUs_StaffAttendanceTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4785175452FA141214B0863CAF578C /* Pods-BrightUs_StaffAttendanceTests-dummy.m */; };
+		4ADB07CEFD3221B5E36FD477D5912087 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		57AA982B962B9E91113476ADF4572D33 /* Pods-BrightUs_StaffAttendanceUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 649814589A766B786FAA3A373D55EBAB /* Pods-BrightUs_StaffAttendanceUITests-dummy.m */; };
+		6FD454C5B385484E40119745465A4D8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		8B6C89307E6562072D93AF84B578E632 /* Pods-BrightUs_StaffAttendance-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AE1365CF3C5179F83C311DF8627B65 /* Pods-BrightUs_StaffAttendance-dummy.m */; };
+		FB833EAA5D1D3E2E0B098911004059DB /* Pods-BrightUs_StaffAttendance-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A0EBCB28DB6C6A00036C0B8346CA75A1 /* Pods-BrightUs_StaffAttendance-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		023A040F850C4BE6CF371DB6C4216480 /* Pods-BrightUs_StaffAttendance.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-BrightUs_StaffAttendance.modulemap"; sourceTree = "<group>"; };
+		036920A6239E78CAE6C8851DFD835F23 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04B9F812D36A4FC4F97A953059C98DE2 /* Pods-BrightUs_StaffAttendance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightUs_StaffAttendance.debug.xcconfig"; sourceTree = "<group>"; };
+		07930FB43EFF1FD8E66CFB8733E26755 /* Pods-BrightUs_StaffAttendance-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightUs_StaffAttendance-acknowledgements.plist"; sourceTree = "<group>"; };
+		0EFD100EEE76F17D23B63C80D94B5E4C /* Pods-BrightUs_StaffAttendanceUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BrightUs_StaffAttendanceUITests-umbrella.h"; sourceTree = "<group>"; };
+		11ECD89D3A1BBDE1AC245FAF028C6C92 /* Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		1F4785175452FA141214B0863CAF578C /* Pods-BrightUs_StaffAttendanceTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BrightUs_StaffAttendanceTests-dummy.m"; sourceTree = "<group>"; };
+		1FB3FB2DF38385808C5C6B53C26146C1 /* Pods-BrightUs_StaffAttendanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightUs_StaffAttendanceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		203E1D3B6E017D024D624B960527F382 /* Pods-BrightUs_StaffAttendanceTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BrightUs_StaffAttendanceTests-umbrella.h"; sourceTree = "<group>"; };
+		219603845216F3E24B767B2A50F80DBE /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		24F6D6C8D132C9CFC6ED62224F9F47E0 /* Pods-BrightUs_StaffAttendanceUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightUs_StaffAttendanceUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		3243E283C86A82D8A0C1E7165ACC7B53 /* Pods-BrightUs_StaffAttendance-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightUs_StaffAttendance-frameworks.sh"; sourceTree = "<group>"; };
+		3981B0E7A057F63C39942B512B317E9B /* Pods-BrightUs_StaffAttendanceTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightUs_StaffAttendanceTests-resources.sh"; sourceTree = "<group>"; };
+		41EA31B23A3632755EA02D8346D35F06 /* Pods-BrightUs_StaffAttendanceUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-BrightUs_StaffAttendanceUITests.modulemap"; sourceTree = "<group>"; };
+		48E15E4CAB6F8F8B9AC9370C314902C7 /* Pods-BrightUs_StaffAttendanceUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightUs_StaffAttendanceUITests-resources.sh"; sourceTree = "<group>"; };
+		4A8636BFBF20A5D80819470C90820DD0 /* Pods-BrightUs_StaffAttendance-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BrightUs_StaffAttendance-acknowledgements.markdown"; sourceTree = "<group>"; };
+		5019594B851FC330713A0B0D846679A5 /* Pods_BrightUs_StaffAttendanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BrightUs_StaffAttendanceTests.framework; path = "Pods-BrightUs_StaffAttendanceTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DE7A2AF81CDA39555CDD1D32393D49C /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		649814589A766B786FAA3A373D55EBAB /* Pods-BrightUs_StaffAttendanceUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BrightUs_StaffAttendanceUITests-dummy.m"; sourceTree = "<group>"; };
+		6AA1A0707AE67E675DE038E812B80082 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70BDE2A0521FBC503F313EB4F9097E30 /* Pods-BrightUs_StaffAttendance-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightUs_StaffAttendance-resources.sh"; sourceTree = "<group>"; };
+		78AA5DF552E6422D8F195E1E35FDF1B5 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Frameworks/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		78B5FA52767116C460B4875FA2FA023A /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; sourceTree = "<group>"; };
+		83001C048BA39C45B476A712EB43B82B /* Pods_BrightUs_StaffAttendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BrightUs_StaffAttendance.framework; path = "Pods-BrightUs_StaffAttendance.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		894596E20F347E6DA74D31E91D40D077 /* Pods-BrightUs_StaffAttendanceTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightUs_StaffAttendanceTests-frameworks.sh"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		94AE1365CF3C5179F83C311DF8627B65 /* Pods-BrightUs_StaffAttendance-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BrightUs_StaffAttendance-dummy.m"; sourceTree = "<group>"; };
+		A0EBCB28DB6C6A00036C0B8346CA75A1 /* Pods-BrightUs_StaffAttendance-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BrightUs_StaffAttendance-umbrella.h"; sourceTree = "<group>"; };
+		AC44FE97D4B39FDAF0280661EAAB44F6 /* Pods-BrightUs_StaffAttendanceUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BrightUs_StaffAttendanceUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		ADF82DBBDB4645CFD8937EA7FFC0DBDE /* Pods_BrightUs_StaffAttendanceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BrightUs_StaffAttendanceUITests.framework; path = "Pods-BrightUs_StaffAttendanceUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C85876BD55795C069DEAD1F7A59984BE /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		DB0C6218955B23214F1D039504530F55 /* FIRInstanceID.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceID.h; path = Headers/Public/FIRInstanceID.h; sourceTree = "<group>"; };
+		DBE3E2D99727705360514420E2025CC5 /* Pods-BrightUs_StaffAttendanceTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BrightUs_StaffAttendanceTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		DBF72F257E5A85983F6DDC571FD12D24 /* Pods-BrightUs_StaffAttendance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightUs_StaffAttendance.release.xcconfig"; sourceTree = "<group>"; };
+		DD9D5AE6D3C7297A6BCBFE0FEDD314EC /* Pods-BrightUs_StaffAttendanceTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-BrightUs_StaffAttendanceTests.modulemap"; sourceTree = "<group>"; };
+		DF275361F137FFFAC95E10B9F0BAE4E5 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
+		DF62004DE480829633C8DA9EFA78F3AE /* Pods-BrightUs_StaffAttendanceTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightUs_StaffAttendanceTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		EC34AC501AF8AA0A610168A98EC0AE88 /* Pods-BrightUs_StaffAttendanceUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightUs_StaffAttendanceUITests-frameworks.sh"; sourceTree = "<group>"; };
+		F1E5620A0289885D1A7BE12952288620 /* Firebase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = Headers/Firebase.h; sourceTree = "<group>"; };
+		FA30E3D180CC9BE72AC65C25621A78E1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAF822D2C02C424982832435D7291DB1 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D5FB1B1FB7B8907B4299533A3AE81F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FD454C5B385484E40119745465A4D8C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C10D18C8E55333ED009376C36607E2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1437039E1125AD972E5066C80AAB8F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FED5C4E23DBC7805AA32DC3430B6D1AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADB07CEFD3221B5E36FD477D5912087 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		056B7FB4565C8F6CFBC262FDCD790C0C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				78AA5DF552E6422D8F195E1E35FDF1B5 /* GoogleSymbolUtilities.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		083387D501A16927F8FDD3E65DAC92B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83001C048BA39C45B476A712EB43B82B /* Pods_BrightUs_StaffAttendance.framework */,
+				5019594B851FC330713A0B0D846679A5 /* Pods_BrightUs_StaffAttendanceTests.framework */,
+				ADF82DBBDB4645CFD8937EA7FFC0DBDE /* Pods_BrightUs_StaffAttendanceUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0B8CEF19337FA4DFF56EC7EF36B16C09 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E87E635A8BA23B6FDD7AFF5F5F24DCFC /* Firebase */,
+				17E963AC9EA7E429C37DA8FEEA72526B /* FirebaseAnalytics */,
+				C12C91F2C4C694776425E40592AE1113 /* FirebaseInstanceID */,
+				AEFF8F1B6621E9AFD02CAB76FC73388F /* GoogleInterchangeUtilities */,
+				D227E2B6883501EB56EEE7DB33608B01 /* GoogleSymbolUtilities */,
+				1FE7E728519B8C441DC0979AF90877D4 /* GoogleUtilities */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		122442F85AC0EEF686F286D9DE35D0A1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAF822D2C02C424982832435D7291DB1 /* FirebaseAnalytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		17E963AC9EA7E429C37DA8FEEA72526B /* FirebaseAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				122442F85AC0EEF686F286D9DE35D0A1 /* Frameworks */,
+			);
+			name = FirebaseAnalytics;
+			path = FirebaseAnalytics;
+			sourceTree = "<group>";
+		};
+		1FE7E728519B8C441DC0979AF90877D4 /* GoogleUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				3A09B82FC34DC854CBB4A7D6B7C35C65 /* Frameworks */,
+			);
+			name = GoogleUtilities;
+			path = GoogleUtilities;
+			sourceTree = "<group>";
+		};
+		324E2F645E937130BB4D82B195447ABD /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				F1E5620A0289885D1A7BE12952288620 /* Firebase.h */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
+		375D9B3772114AC1FB3D1ADA65BDF88D /* Pods-BrightUs_StaffAttendance */ = {
+			isa = PBXGroup;
+			children = (
+				6AA1A0707AE67E675DE038E812B80082 /* Info.plist */,
+				023A040F850C4BE6CF371DB6C4216480 /* Pods-BrightUs_StaffAttendance.modulemap */,
+				4A8636BFBF20A5D80819470C90820DD0 /* Pods-BrightUs_StaffAttendance-acknowledgements.markdown */,
+				07930FB43EFF1FD8E66CFB8733E26755 /* Pods-BrightUs_StaffAttendance-acknowledgements.plist */,
+				94AE1365CF3C5179F83C311DF8627B65 /* Pods-BrightUs_StaffAttendance-dummy.m */,
+				3243E283C86A82D8A0C1E7165ACC7B53 /* Pods-BrightUs_StaffAttendance-frameworks.sh */,
+				70BDE2A0521FBC503F313EB4F9097E30 /* Pods-BrightUs_StaffAttendance-resources.sh */,
+				A0EBCB28DB6C6A00036C0B8346CA75A1 /* Pods-BrightUs_StaffAttendance-umbrella.h */,
+				04B9F812D36A4FC4F97A953059C98DE2 /* Pods-BrightUs_StaffAttendance.debug.xcconfig */,
+				DBF72F257E5A85983F6DDC571FD12D24 /* Pods-BrightUs_StaffAttendance.release.xcconfig */,
+			);
+			name = "Pods-BrightUs_StaffAttendance";
+			path = "Target Support Files/Pods-BrightUs_StaffAttendance";
+			sourceTree = "<group>";
+		};
+		3A09B82FC34DC854CBB4A7D6B7C35C65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DF275361F137FFFAC95E10B9F0BAE4E5 /* GoogleUtilities.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				0B8CEF19337FA4DFF56EC7EF36B16C09 /* Pods */,
+				083387D501A16927F8FDD3E65DAC92B7 /* Products */,
+				A83C2F23B3B904A290EC4CB61CCB8C34 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8D816FB6035310E52D6DA53786BA4F67 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5DE7A2AF81CDA39555CDD1D32393D49C /* FirebaseInstanceID.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A83C2F23B3B904A290EC4CB61CCB8C34 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				375D9B3772114AC1FB3D1ADA65BDF88D /* Pods-BrightUs_StaffAttendance */,
+				FFB8E4B11A4D6DD037B923B10512900C /* Pods-BrightUs_StaffAttendanceTests */,
+				E1A9118289AF7E10A4FAF36CA671FF99 /* Pods-BrightUs_StaffAttendanceUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		AEFF8F1B6621E9AFD02CAB76FC73388F /* GoogleInterchangeUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				F38FA45BD3E1C0E58BF4D98B0F38646B /* Frameworks */,
+			);
+			name = GoogleInterchangeUtilities;
+			path = GoogleInterchangeUtilities;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C12C91F2C4C694776425E40592AE1113 /* FirebaseInstanceID */ = {
+			isa = PBXGroup;
+			children = (
+				DB0C6218955B23214F1D039504530F55 /* FIRInstanceID.h */,
+				8D816FB6035310E52D6DA53786BA4F67 /* Frameworks */,
+			);
+			name = FirebaseInstanceID;
+			path = FirebaseInstanceID;
+			sourceTree = "<group>";
+		};
+		D227E2B6883501EB56EEE7DB33608B01 /* GoogleSymbolUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				056B7FB4565C8F6CFBC262FDCD790C0C /* Frameworks */,
+			);
+			name = GoogleSymbolUtilities;
+			path = GoogleSymbolUtilities;
+			sourceTree = "<group>";
+		};
+		E1A9118289AF7E10A4FAF36CA671FF99 /* Pods-BrightUs_StaffAttendanceUITests */ = {
+			isa = PBXGroup;
+			children = (
+				036920A6239E78CAE6C8851DFD835F23 /* Info.plist */,
+				41EA31B23A3632755EA02D8346D35F06 /* Pods-BrightUs_StaffAttendanceUITests.modulemap */,
+				AC44FE97D4B39FDAF0280661EAAB44F6 /* Pods-BrightUs_StaffAttendanceUITests-acknowledgements.markdown */,
+				24F6D6C8D132C9CFC6ED62224F9F47E0 /* Pods-BrightUs_StaffAttendanceUITests-acknowledgements.plist */,
+				649814589A766B786FAA3A373D55EBAB /* Pods-BrightUs_StaffAttendanceUITests-dummy.m */,
+				EC34AC501AF8AA0A610168A98EC0AE88 /* Pods-BrightUs_StaffAttendanceUITests-frameworks.sh */,
+				48E15E4CAB6F8F8B9AC9370C314902C7 /* Pods-BrightUs_StaffAttendanceUITests-resources.sh */,
+				0EFD100EEE76F17D23B63C80D94B5E4C /* Pods-BrightUs_StaffAttendanceUITests-umbrella.h */,
+				11ECD89D3A1BBDE1AC245FAF028C6C92 /* Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig */,
+				78B5FA52767116C460B4875FA2FA023A /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */,
+			);
+			name = "Pods-BrightUs_StaffAttendanceUITests";
+			path = "Target Support Files/Pods-BrightUs_StaffAttendanceUITests";
+			sourceTree = "<group>";
+		};
+		E87E635A8BA23B6FDD7AFF5F5F24DCFC /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				324E2F645E937130BB4D82B195447ABD /* Analytics */,
+			);
+			name = Firebase;
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		F38FA45BD3E1C0E58BF4D98B0F38646B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				219603845216F3E24B767B2A50F80DBE /* GoogleInterchangeUtilities.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FFB8E4B11A4D6DD037B923B10512900C /* Pods-BrightUs_StaffAttendanceTests */ = {
+			isa = PBXGroup;
+			children = (
+				FA30E3D180CC9BE72AC65C25621A78E1 /* Info.plist */,
+				DD9D5AE6D3C7297A6BCBFE0FEDD314EC /* Pods-BrightUs_StaffAttendanceTests.modulemap */,
+				DBE3E2D99727705360514420E2025CC5 /* Pods-BrightUs_StaffAttendanceTests-acknowledgements.markdown */,
+				DF62004DE480829633C8DA9EFA78F3AE /* Pods-BrightUs_StaffAttendanceTests-acknowledgements.plist */,
+				1F4785175452FA141214B0863CAF578C /* Pods-BrightUs_StaffAttendanceTests-dummy.m */,
+				894596E20F347E6DA74D31E91D40D077 /* Pods-BrightUs_StaffAttendanceTests-frameworks.sh */,
+				3981B0E7A057F63C39942B512B317E9B /* Pods-BrightUs_StaffAttendanceTests-resources.sh */,
+				203E1D3B6E017D024D624B960527F382 /* Pods-BrightUs_StaffAttendanceTests-umbrella.h */,
+				1FB3FB2DF38385808C5C6B53C26146C1 /* Pods-BrightUs_StaffAttendanceTests.debug.xcconfig */,
+				C85876BD55795C069DEAD1F7A59984BE /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */,
+			);
+			name = "Pods-BrightUs_StaffAttendanceTests";
+			path = "Target Support Files/Pods-BrightUs_StaffAttendanceTests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C8BAB0238862B2D2108C96BE454CDD9D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11C77A3871FE39807A03EA037892493A /* Pods-BrightUs_StaffAttendanceUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC96EB9ECB43FB41ACD3F5BEED66BFAB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06F5874254901AA5EF619DB5438EBF56 /* Pods-BrightUs_StaffAttendanceTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D870E8D0269186069FA7CFFFCDDBABC0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB833EAA5D1D3E2E0B098911004059DB /* Pods-BrightUs_StaffAttendance-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		70EF3E57C6F610DF4B8362C12388D62D /* Pods-BrightUs_StaffAttendance */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8BF0ED952E3DBC5E6ADD1477C3F70A14 /* Build configuration list for PBXNativeTarget "Pods-BrightUs_StaffAttendance" */;
+			buildPhases = (
+				D8AB8666D4ABF28CEF654F060F974CF1 /* Sources */,
+				1D5FB1B1FB7B8907B4299533A3AE81F3 /* Frameworks */,
+				D870E8D0269186069FA7CFFFCDDBABC0 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-BrightUs_StaffAttendance";
+			productName = "Pods-BrightUs_StaffAttendance";
+			productReference = 83001C048BA39C45B476A712EB43B82B /* Pods_BrightUs_StaffAttendance.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D3A0B9E978904E0C5C2046296A5FD128 /* Pods-BrightUs_StaffAttendanceUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B39FCB0CBB8CA4865D893C5F20F61D9B /* Build configuration list for PBXNativeTarget "Pods-BrightUs_StaffAttendanceUITests" */;
+			buildPhases = (
+				AC9A3AE4BF3E6AB58F7E9D4F6517A494 /* Sources */,
+				2C10D18C8E55333ED009376C36607E2F /* Frameworks */,
+				C8BAB0238862B2D2108C96BE454CDD9D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-BrightUs_StaffAttendanceUITests";
+			productName = "Pods-BrightUs_StaffAttendanceUITests";
+			productReference = ADF82DBBDB4645CFD8937EA7FFC0DBDE /* Pods_BrightUs_StaffAttendanceUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D7E605F08A99ABF7E830D3984F65F191 /* Pods-BrightUs_StaffAttendanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9611BA5C9C40925D9121ADE555DCFDCC /* Build configuration list for PBXNativeTarget "Pods-BrightUs_StaffAttendanceTests" */;
+			buildPhases = (
+				68E33CA332BB1BF4B73FB8AD5DC079A0 /* Sources */,
+				FED5C4E23DBC7805AA32DC3430B6D1AC /* Frameworks */,
+				CC96EB9ECB43FB41ACD3F5BEED66BFAB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-BrightUs_StaffAttendanceTests";
+			productName = "Pods-BrightUs_StaffAttendanceTests";
+			productReference = 5019594B851FC330713A0B0D846679A5 /* Pods_BrightUs_StaffAttendanceTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 083387D501A16927F8FDD3E65DAC92B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				70EF3E57C6F610DF4B8362C12388D62D /* Pods-BrightUs_StaffAttendance */,
+				D7E605F08A99ABF7E830D3984F65F191 /* Pods-BrightUs_StaffAttendanceTests */,
+				D3A0B9E978904E0C5C2046296A5FD128 /* Pods-BrightUs_StaffAttendanceUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		68E33CA332BB1BF4B73FB8AD5DC079A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				286C9E627B4091C6CCDC9F4E12230765 /* Pods-BrightUs_StaffAttendanceTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC9A3AE4BF3E6AB58F7E9D4F6517A494 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57AA982B962B9E91113476ADF4572D33 /* Pods-BrightUs_StaffAttendanceUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8AB8666D4ABF28CEF654F060F974CF1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B6C89307E6562072D93AF84B578E632 /* Pods-BrightUs_StaffAttendance-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		136EAB827835B5C43FA29E556C55F5CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C85876BD55795C069DEAD1F7A59984BE /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-BrightUs_StaffAttendanceTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_BrightUs_StaffAttendanceTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		29C4461AC43EEFB34A20C891D315198C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FB3FB2DF38385808C5C6B53C26146C1 /* Pods-BrightUs_StaffAttendanceTests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-BrightUs_StaffAttendanceTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_BrightUs_StaffAttendanceTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AD66D5C53025D587B1F1C6F251249BF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78B5FA52767116C460B4875FA2FA023A /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_BrightUs_StaffAttendanceUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		BCAFE4810847AA7A2FB9CF6A2E3891BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11ECD89D3A1BBDE1AC245FAF028C6C92 /* Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_BrightUs_StaffAttendanceUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CACD975BF7F2F6E55D31A807122E703B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBF72F257E5A85983F6DDC571FD12D24 /* Pods-BrightUs_StaffAttendance.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-BrightUs_StaffAttendance/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BrightUs_StaffAttendance/Pods-BrightUs_StaffAttendance.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_BrightUs_StaffAttendance;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CACE7C8415F53E79F07C6BBE57F0F61D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		E65F679B4BAA0D0678E4ADB7C2ACF7C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04B9F812D36A4FC4F97A953059C98DE2 /* Pods-BrightUs_StaffAttendance.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-BrightUs_StaffAttendance/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BrightUs_StaffAttendance/Pods-BrightUs_StaffAttendance.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_BrightUs_StaffAttendance;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		ED4FC68AB2A4E06C718CFF338F6F156B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CACE7C8415F53E79F07C6BBE57F0F61D /* Debug */,
+				ED4FC68AB2A4E06C718CFF338F6F156B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8BF0ED952E3DBC5E6ADD1477C3F70A14 /* Build configuration list for PBXNativeTarget "Pods-BrightUs_StaffAttendance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E65F679B4BAA0D0678E4ADB7C2ACF7C1 /* Debug */,
+				CACD975BF7F2F6E55D31A807122E703B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9611BA5C9C40925D9121ADE555DCFDCC /* Build configuration list for PBXNativeTarget "Pods-BrightUs_StaffAttendanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29C4461AC43EEFB34A20C891D315198C /* Debug */,
+				136EAB827835B5C43FA29E556C55F5CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B39FCB0CBB8CA4865D893C5F20F61D9B /* Build configuration list for PBXNativeTarget "Pods-BrightUs_StaffAttendanceUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCAFE4810847AA7A2FB9CF6A2E3891BA /* Debug */,
+				AD66D5C53025D587B1F1C6F251249BF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

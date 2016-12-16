@@ -49,10 +49,10 @@ class ViewController: UIViewController {
     */
     
     @IBAction func LoginButtonPressed(_ sender: UIButton) {
-        if (Validation()){
+//        if (Validation()){
             AuthorizeUser()
 //            performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
-        }
+//        }
     }
 
     /**
@@ -147,7 +147,11 @@ class ViewController: UIViewController {
     }
     
     /**
+     Authorize User - Method for User to login into App along with authorization
      
+     - parameter input : client_id, client_secret, grant_type, username, password
+     
+     - parameter return : token_type, expires_in, access_token, refresh_token
  
     */
     func AuthorizeUser(){
@@ -158,35 +162,40 @@ class ViewController: UIViewController {
         let request = NSMutableURLRequest(url: url!)
         request.httpMethod = "POST"
         
-        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
-        let contentType = "multipart/form-data; boundary=" + boundary
-        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
-
-        let jsonDict = NSMutableDictionary()
-        jsonDict.setValue("3", forKey: "client_id")
-        jsonDict.setValue("XEMSzYZHclUdj39nDIzhCOkBsGS4uzGvPmmsWbvV", forKey: "client_secret")
-        jsonDict.setValue("password", forKey: "grant_type")
-        jsonDict.setValue("student", forKey: "password")
-        jsonDict.setValue("student@maildrop.cc", forKey: "username")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        let bodyData = NSMutableData()
-        for (key, value) in jsonDict {
-            bodyData.append("--\(boundary)\r\n".data(using: String.Encoding.utf8, allowLossyConversion: true)!)
-            let keyValue = "Content-Disposition: form-data;name=\"" + "\(key)" as String + "\"\r\n\r\n"
-            
-            bodyData.append("\(keyValue)".data(using: String.Encoding.utf8, allowLossyConversion: true)!)
-            bodyData.append("\(value)\r\n".data(using: String.Encoding.utf8, allowLossyConversion: true)!)
+        let jsonDict = NSMutableDictionary()
+        jsonDict.setValue("2", forKey: "client_id")
+        jsonDict.setValue("XNgcybCHTfz0wfehSQcDOStyGCnwakCIIECZzWtD", forKey: "client_secret")
+        jsonDict.setValue("password", forKey: "grant_type")
+        jsonDict.setValue("staff@maildrop.cc", forKey: "username")
+        jsonDict.setValue("staff", forKey: "password")
+        
+        print(jsonDict)
+        
+        var jsonData = Data()
+        
+        do{
+            jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
         }
-        bodyData.append("--\(boundary)\r\n".data(using: String.Encoding.utf8, allowLossyConversion: true)!)
-        request.httpBody = bodyData as Data
-        print(bodyData.length)
+        catch{
+            print("Error")
+        }
+        
+        request.httpBody = jsonData
+        print(jsonData)
         
         _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
             do {
-                print(data)
                 if data != nil{
                     if let httpResponseValue = response as? HTTPURLResponse{
+                        print(httpResponseValue.statusCode)
                         if httpResponseValue.statusCode == 200{
+                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                            print(dict)
+                        }
+                        else if httpResponseValue.statusCode == 400{
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
                         }
@@ -198,7 +207,5 @@ class ViewController: UIViewController {
             }
 
         }.resume()
-
-
     }
 }

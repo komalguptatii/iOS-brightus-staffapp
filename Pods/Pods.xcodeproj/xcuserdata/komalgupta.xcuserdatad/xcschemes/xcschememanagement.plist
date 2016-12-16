@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-BrightUs_StaffAttendance.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-BrightUs_StaffAttendanceTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-BrightUs_StaffAttendanceUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>70EF3E57C6F610DF4B8362C12388D62D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D3A0B9E978904E0C5C2046296A5FD128</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D7E605F08A99ABF7E830D3984F65F191</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

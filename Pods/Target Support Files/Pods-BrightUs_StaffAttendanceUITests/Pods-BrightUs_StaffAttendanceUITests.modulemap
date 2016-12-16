@@ -1,0 +1,6 @@
+framework module Pods_BrightUs_StaffAttendanceUITests {
+  umbrella header "Pods-BrightUs_StaffAttendanceUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
