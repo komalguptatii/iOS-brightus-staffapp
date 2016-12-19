@@ -1,13 +1,13 @@
-version: "Apple Swift version 3.0.1 (swiftlang-800.0.58.6 clang-800.0.42.1)"
-options: "43e4e0e5a0a537ad27cc6213881328ca"
-build_time: [535018178, 605027000]
+version: "Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1)"
+options: "5a510803fc172cb2de12b3541bd99fba"
+build_time: [535439047, 876360000]
 inputs:
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ViewController.swift": [9223372036854775807, 0]
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DashboardView.swift": [9223372036854775807, 0]
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift": [9223372036854775807, 0]
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Constant.swift": [9223372036854775807, 0]
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift": [9223372036854775807, 0]
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Reachability.swift": [9223372036854775807, 0]
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift": [9223372036854775807, 0]
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift": [9223372036854775807, 0]
-  "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ViewController.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DashboardView.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Constant.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Reachability.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift": [9223372036854775807, 0]

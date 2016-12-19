@@ -276,7 +276,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     /**
+     Login into Firebase
      
+     - parameter description : Sign into Firebase & navigate to Home View controller
      
     */
     
