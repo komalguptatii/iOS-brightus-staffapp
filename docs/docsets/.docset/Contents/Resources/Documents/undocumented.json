@@ -1,355 +1,369 @@
 {
   "warnings": [
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
-      "line": 12,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
+      "line": 13,
       "symbol": "AppDelegate",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
-      "line": 14,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
+      "line": 15,
       "symbol": "AppDelegate.window",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
-      "line": 17,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
+      "line": 18,
       "symbol": "AppDelegate.application(_:didFinishLaunchingWithOptions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
-      "line": 22,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
+      "line": 25,
       "symbol": "AppDelegate.applicationWillResignActive(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
-      "line": 27,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
+      "line": 30,
       "symbol": "AppDelegate.applicationDidEnterBackground(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
-      "line": 32,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
+      "line": 35,
       "symbol": "AppDelegate.applicationWillEnterForeground(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
-      "line": 36,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
+      "line": 39,
       "symbol": "AppDelegate.applicationDidBecomeActive(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
-      "line": 40,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift",
+      "line": 43,
       "symbol": "AppDelegate.applicationWillTerminate(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
       "line": 13,
       "symbol": "Camera",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
       "line": 16,
       "symbol": "Camera.objCaptureSession",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
       "line": 17,
       "symbol": "Camera.objCaptureVideoPreviewLayer",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
       "line": 18,
       "symbol": "Camera.vwQRCode",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
       "line": 19,
       "symbol": "Camera.attendanceStatus",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
       "line": 20,
       "symbol": "Camera.randomQRCode",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
-      "line": 25,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "line": 23,
       "symbol": "Camera.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
-      "line": 35,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "line": 33,
       "symbol": "Camera.didReceiveMemoryWarning()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
-      "line": 40,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "line": 38,
       "symbol": "Camera.configureVideoCapture()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
-      "line": 71,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "line": 69,
       "symbol": "Camera.addVideoPreviewLayer()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
-      "line": 81,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "line": 79,
       "symbol": "Camera.initializeQRView()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Camera.swift",
-      "line": 90,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
+      "line": 88,
       "symbol": "Camera.captureOutput(_:didOutputMetadataObjects:from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Constant.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Constant.swift",
       "line": 11,
       "symbol": "IsConnectionAvailable()",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Constant.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Constant.swift",
       "line": 15,
       "symbol": "delegateObject",
       "symbol_kind": "source.lang.swift.decl.var.global",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Constant.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Constant.swift",
       "line": 16,
       "symbol": "defaults",
       "symbol_kind": "source.lang.swift.decl.var.global",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Constant.swift",
+      "line": 20,
+      "symbol": "baseURL",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
       "line": 12,
       "symbol": "DashboardView",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
       "line": 16,
       "symbol": "DashboardView.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
-      "line": 21,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
+      "line": 23,
       "symbol": "DashboardView.didReceiveMemoryWarning()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
-      "line": 26,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
+      "line": 28,
       "symbol": "DashboardView.AttendanceDetailButtonPressed(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
+      "line": 36,
+      "symbol": "DashboardView.ViewProfile(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 12,
       "symbol": "DetailsViewController",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 14,
       "symbol": "DetailsViewController.datePickerView",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 17,
       "symbol": "DetailsViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 23,
       "symbol": "DetailsViewController.didReceiveMemoryWarning()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 28,
       "symbol": "DetailsViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 34,
       "symbol": "DetailsViewController.fromButton(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 39,
       "symbol": "DetailsViewController.toButton(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 43,
       "symbol": "DetailsViewController.searchButton(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
       "line": 12,
       "symbol": "ForgotPassViewController",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
       "line": 14,
       "symbol": "ForgotPassViewController.emailTextField",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
       "line": 17,
       "symbol": "ForgotPassViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
       "line": 22,
       "symbol": "ForgotPassViewController.didReceiveMemoryWarning()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
       "line": 27,
       "symbol": "ForgotPassViewController.submitButton(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
       "line": 33,
       "symbol": "ForgotPassViewController.Validation()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
       "line": 58,
       "symbol": "ForgotPassViewController.ShowAlert()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
       "line": 12,
       "symbol": "HomeViewController",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
       "line": 14,
       "symbol": "HomeViewController.mainScrollView",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
       "line": 17,
       "symbol": "HomeViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
-      "line": 52,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
+      "line": 41,
       "symbol": "HomeViewController.didReceiveMemoryWarning()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
-      "line": 58,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift",
+      "line": 47,
       "symbol": "HomeViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/Reachability.swift",
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Reachability.swift",
       "line": 16,
       "symbol": "Reachability.isConnectedToNetwork()",
       "symbol_kind": "source.lang.swift.decl.function.method.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ViewController.swift",
-      "line": 32,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ViewController.swift",
+      "line": 33,
       "symbol": "ViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance/BrightUs_StaffAttendance/ViewController.swift",
-      "line": 37,
+      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ViewController.swift",
+      "line": 44,
       "symbol": "ViewController.didReceiveMemoryWarning()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Volumes/Mac 2/Techies/2016/BrightUs_StaffAttendance"
+  "source_directory": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance"
 }
