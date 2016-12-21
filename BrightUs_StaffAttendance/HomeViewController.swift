@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet var mainScrollView: UIScrollView!
     
@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         
         let dashboardController = self.storyboard?.instantiateViewController(withIdentifier: "DashboardView") as! DashboardView
         let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "Camera") as! Camera
@@ -35,20 +36,17 @@ class HomeViewController: UIViewController {
         cameraFrame.origin.x = self.view.frame.width
         cameraController.view.frame = cameraFrame
         
-        self.mainScrollView.contentSize = CGSize(width: self.view.frame.width + cameraController.view.frame.width , height: self.view.frame.height)
+        mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
         
-        
+        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)
+        navigationItem.leftBarButtonItem = backButton
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-   
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
-    }
+
     
 }

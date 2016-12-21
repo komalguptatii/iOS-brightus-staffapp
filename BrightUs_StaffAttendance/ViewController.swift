@@ -66,8 +66,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     */
     
     @IBAction func LoginButtonPressed(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+
         if (Validation()){
-            AuthorizeUser()
+//            AuthorizeUser()
         }
     }
 
@@ -132,7 +134,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showHomeViewController"{
-            _ = segue.destination as! HomeViewController
+//            _ = segue.destination as! HomeViewController
         }
     }
     
@@ -301,7 +303,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             //TODO
             DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+//                self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
             }
 
 
