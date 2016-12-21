@@ -14,7 +14,7 @@
     <a title="ViewController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (18% documented)</p>
+        <p><a href="../index.html"> Docs</a> (36% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -49,7 +49,19 @@
                 <a href="../Classes/HomeViewController.html">HomeViewController</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/HoshiTextField.html">HoshiTextField</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Reachability.html">Reachability</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFieldEffects.html">TextFieldEffects</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFieldEffects/AnimationType.html">– AnimationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TiiAttendanceDetailCell.html">TiiAttendanceDetailCell</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ViewController.html">ViewController</a>
@@ -67,6 +79,14 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance14delegateObjectCS_11AppDelegate">delegateObject</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
               </li>
             </ul>
           </li>
@@ -99,9 +119,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC24BrightUs_StaffAttendance14ViewController14emailTextFieldGSQCSo11UITextField_"></a>
+                    <a name="/s:vC24BrightUs_StaffAttendance14ViewController14emailTextFieldGSQCS_14HoshiTextField_"></a>
                     <a name="//apple_ref/swift/Property/emailTextField" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance14ViewController14emailTextFieldGSQCSo11UITextField_">emailTextField</a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance14ViewController14emailTextFieldGSQCS_14HoshiTextField_">emailTextField</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -115,7 +135,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">emailTextField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="o">!</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">emailTextField</span><span class="p">:</span> <span class="kt"><a href="../Classes/HoshiTextField.html">HoshiTextField</a></span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -131,7 +151,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Email entered by user in email textfield</p>
+                                  <p>Email entered by user in email textfield (Instead of UITextfield, it is inherited from HoshiTextField)</p>
 
                                 </div>
                               </td>
@@ -145,9 +165,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC24BrightUs_StaffAttendance14ViewController13passTextFieldGSQCSo11UITextField_"></a>
-                    <a name="//apple_ref/swift/Property/passTextField" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance14ViewController13passTextFieldGSQCSo11UITextField_">passTextField</a>
+                    <a name="/s:vC24BrightUs_StaffAttendance14ViewController17passwordTextFieldGSQCS_14HoshiTextField_"></a>
+                    <a name="//apple_ref/swift/Property/passwordTextField" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance14ViewController17passwordTextFieldGSQCS_14HoshiTextField_">passwordTextField</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -161,7 +181,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">passTextField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="o">!</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">passwordTextField</span><span class="p">:</span> <span class="kt"><a href="../Classes/HoshiTextField.html">HoshiTextField</a></span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -216,6 +236,89 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UITextFieldDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance14ViewController14viewWillAppearFSbT_"></a>
+                    <a name="//apple_ref/swift/Method/viewWillAppear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance14ViewController14viewWillAppearFSbT_">viewWillAppear(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UITextFieldDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance14ViewController17viewWillDisappearFSbT_"></a>
+                    <a name="//apple_ref/swift/Method/viewWillDisappear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance14ViewController17viewWillDisappearFSbT_">viewWillDisappear(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UITextFieldDelegate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance14ViewController18ShowPasswordActionFT7_senderCSo8UIButton_T_"></a>
+                    <a name="//apple_ref/swift/Method/ShowPasswordAction(_sender:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance14ViewController18ShowPasswordActionFT7_senderCSo8UIButton_T_">ShowPasswordAction(_sender:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Show Password in Text Format Action</p>
+
+<p>-parameter description : User can tap on eye to view password and then again to hide the same</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ShowPasswordAction</span><span class="p">(</span><span class="nv">_sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -652,7 +755,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-19)</p>
+          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

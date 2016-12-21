@@ -17,14 +17,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     /**
     
-     - parameter emailTextField : Email entered by user in email textfield
+     - parameter emailTextField : Email entered by user in email textfield (Instead of UITextfield, it is inherited from HoshiTextField)
     
      */
     @IBOutlet var emailTextField: HoshiTextField!
     
     /**
  
-     - parameter passTextField : Password entered by user in password textfield
+     - parameter passTextField : Password entered by user in password textfield (Instead of UITextfield, it is inherited from HoshiTextField)
 
      */
     @IBOutlet var passwordTextField: HoshiTextField!
@@ -34,17 +34,35 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        //Self delegates of TextFields
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
+        //Default Email ID & Password for Testing
+        
         emailTextField.text = "staff@maildrop.cc"
         passwordTextField.text = "staff"
+        
+        
+        // Custom Button to show password
+        let showPasswordButton = UIButton()
+        showPasswordButton.frame = CGRect(x: 330.0, y: 410.0, width: 40.0, height: 40.0)
+        showPasswordButton.setImage(UIImage(named: "eyeIcon"), for: UIControlState.normal)
+        showPasswordButton.addTarget(self, action: #selector(ViewController.ShowPasswordAction(_sender:)), for: UIControlEvents.touchUpInside)
+        self.view.addSubview(showPasswordButton)
+        
+//        let leftView = UIView(frame: CGRect(x: 304.0, y: 10.0, width: 40.0, height: 40.0))
+//        passwordTextField.leftView = leftView;
+//        passwordTextField.leftViewMode = UITextFieldViewMode.always
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -54,6 +72,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillDisappear(_ animated: Bool) {
 //        self.viewWillDisappear(true)
         self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    /**
+     Show Password in Text Format Action
+     
+     -parameter description : User can tap on eye to view password and then again to hide the same
+ 
+    */
+    func ShowPasswordAction(_sender: UIButton){
+        if _sender.tag == 0{
+            passwordTextField.isSecureTextEntry = false
+            _sender.tag = 1
+        }
+        else if _sender.tag == 1{
+            passwordTextField.isSecureTextEntry = true
+            _sender.tag = 0
+        }
     }
     
     //MARK: - Button Actions
@@ -303,7 +338,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             //TODO
             DispatchQueue.main.async {
-//                self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+                self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
             }
 
 

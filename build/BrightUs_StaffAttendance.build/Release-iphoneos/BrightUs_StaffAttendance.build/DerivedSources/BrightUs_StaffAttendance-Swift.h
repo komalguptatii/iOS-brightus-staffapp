@@ -117,6 +117,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__has_feature) && __has_feature(modules)
 @import UIKit;
 @import AVFoundation;
+@import CoreGraphics;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -169,21 +170,19 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 - (void)didReceiveMemoryWarning;
 - (IBAction)AttendanceDetailButtonPressed:(UIButton * _Nonnull)sender;
 - (IBAction)ViewProfile:(UIButton * _Nonnull)sender;
+- (void)CheckTimeSpan;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UIDatePicker;
 
+/**
+  Attendance Details
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 @interface DetailsViewController : UIViewController
-@property (nonatomic, strong) IBOutlet UIDatePicker * _Null_unspecified datePickerView;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
-- (void)viewWillAppear:(BOOL)animated;
-- (IBAction)fromButton:(UIButton * _Nonnull)sender;
-- (IBAction)toButton:(UIButton * _Nonnull)sender;
-- (IBAction)searchButton:(UIButton * _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -204,14 +203,132 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
 @end
 
 @class UIScrollView;
+@class UIBarButtonItem;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
-@interface HomeViewController : UIViewController
+@interface HomeViewController : UIViewController <UIScrollViewDelegate>
 @property (nonatomic, strong) IBOutlet UIScrollView * _Null_unspecified mainScrollView;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
-- (void)viewWillAppear:(BOOL)animated;
+/**
+  Logout Action
+  \param description User can logout from app via tapping on Logout Button
+
+*/
+- (IBAction)LogoutAction:(UIBarButtonItem * _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class UILabel;
+
+/**
+  A TextFieldEffects object is a control that displays editable text and contains the boilerplates to setup unique animations for text entrey and display. You typically use this class the same way you use UITextField.
+*/
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance16TextFieldEffects")
+@interface TextFieldEffects : UITextField
+/**
+  UILabel that holds all the placeholder information
+*/
+@property (nonatomic, readonly, strong) UILabel * _Nonnull placeholderLabel;
+/**
+  Creates all the animations that are used to leave the textfield in the “entering text” state.
+*/
+- (void)animateViewsForTextEntry;
+/**
+  Creates all the animations that are used to leave the textfield in the “display input text” state.
+*/
+- (void)animateViewsForTextDisplay;
+/**
+  Draws the receiver’s image within the passed-in rectangle.
+  \param rect The portion of the view’s bounds that needs to be updated.
+
+*/
+- (void)drawViewsForRect:(CGRect)rect;
+- (void)updateViewsForBoundsChange:(CGRect)bounds;
+- (void)drawRect:(CGRect)rect;
+- (void)drawPlaceholderInRect:(CGRect)rect;
+@property (nonatomic, copy) NSString * _Nullable text;
+- (void)willMoveToSuperview:(UIView * _Null_unspecified)newSuperview;
+/**
+  The textfield has started an editing session.
+*/
+- (void)textFieldDidBeginEditing;
+/**
+  The textfield has ended an editing session.
+*/
+- (void)textFieldDidEndEditing;
+- (void)prepareForInterfaceBuilder;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class UIColor;
+
+/**
+  An HoshiTextField is a subclass of the TextFieldEffects object, is a control that displays an UITextField with a customizable visual effect around the lower edge of the control.
+*/
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14HoshiTextField")
+@interface HoshiTextField : TextFieldEffects
+/**
+  The color of the border when it has no content.
+  This property applies a color to the lower edge of the control. The default value for this property is a clear color.
+*/
+@property (nonatomic, strong) UIColor * _Nullable borderInactiveColor;
+/**
+  The color of the border when it has content.
+  This property applies a color to the lower edge of the control. The default value for this property is a clear color.
+*/
+@property (nonatomic, strong) UIColor * _Nullable borderActiveColor;
+/**
+  The color of the placeholder text.
+  This property applies a color to the complete placeholder string. The default value for this property is a black color.
+*/
+@property (nonatomic, strong) UIColor * _Nonnull placeholderColor;
+/**
+  The scale of the placeholder font.
+  This property determines the size of the placeholder label relative to the font size of the text field.
+*/
+@property (nonatomic) CGFloat placeholderFontScale;
+@property (nonatomic, copy) NSString * _Nullable placeholder;
+@property (nonatomic) CGRect bounds;
+- (void)drawViewsForRect:(CGRect)rect;
+- (void)animateViewsForTextEntry;
+- (void)animateViewsForTextDisplay;
+- (CGRect)editingRectForBounds:(CGRect)bounds;
+- (CGRect)textRectForBounds:(CGRect)bounds;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+/**
+  Attendance Detail Cell
+*/
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23TiiAttendanceDetailCell")
+@interface TiiAttendanceDetailCell : UITableViewCell
+/**
+  Background panel in light gray color contains whole detail
+*/
+@property (nonatomic, strong) IBOutlet UIView * _Null_unspecified panelView;
+/**
+  Particular date is the date to which all the details in one panel will be related
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified particularDate;
+/**
+  Check-In Time is the Time at which user entered in the premises
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified checkinTime;
+/**
+  Check-out Time is the time at which user leaves the premises
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified checkOutTime;
+/**
+  Total time will indicate the number of hours spent by user in BrightUs
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified totalTime;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -223,18 +340,25 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ViewController")
 @interface ViewController : UIViewController <UITextFieldDelegate>
 /**
-  \param emailTextField Email entered by user in email textfield
+  \param emailTextField Email entered by user in email textfield (Instead of UITextfield, it is inherited from HoshiTextField)
 
 */
-@property (nonatomic, strong) IBOutlet UITextField * _Null_unspecified emailTextField;
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified emailTextField;
 /**
   \code
-  - parameter passTextField : Password entered by user in password textfield
+  - parameter passTextField : Password entered by user in password textfield (Instead of UITextfield, it is inherited from HoshiTextField)
 
   \endcode*/
-@property (nonatomic, strong) IBOutlet UITextField * _Null_unspecified passTextField;
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified passwordTextField;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
+/**
+  Show Password in Text Format Action
+  -parameter description : User can tap on eye to view password and then again to hide the same
+*/
+- (void)ShowPasswordActionWith_sender:(UIButton * _Nonnull)_sender;
 /**
   Login Button Action
   \param description Check for Validate Email & Passwords

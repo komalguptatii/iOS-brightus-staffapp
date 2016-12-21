@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0522D28272CC1B633A797703 /* Pods_BrightUs_StaffAttendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */; };
+		2917278E1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917278D1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift */; };
 		2978FCD51E0A58F50038AE06 /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */; };
 		2978FCD61E0A58F50038AE06 /* TextFieldsEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */; };
 		29DEFC461E03D1F500098D75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26137209C2F3B185FB897100 /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		2917278D1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiiAttendanceDetailCell.swift; sourceTree = "<group>"; };
 		2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
 		2978FCD31E0A58F50038AE06 /* TextFieldEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldEffects.h; sourceTree = "<group>"; };
 		2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldsEffects.swift; sourceTree = "<group>"; };
@@ -121,6 +123,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2917278C1E0AA5480099AFB3 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */,
+				2917278D1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift */,
+			);
+			name = Details;
+			sourceTree = "<group>";
+		};
 		2978FCD71E0A58FD0038AE06 /* HoshiTextFieldEffect */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,7 +166,6 @@
 				91EC4A611DFE6A24008F874D /* ViewController.swift */,
 				91EC4A901DFE6F1F008F874D /* HomeViewController.swift */,
 				91EC4A9A1DFE823D008F874D /* DashboardView.swift */,
-				91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */,
 			);
 			name = HomeControllers;
 			sourceTree = "<group>";
@@ -211,6 +221,7 @@
 				2978FCD91E0A597D0038AE06 /* General */,
 				2978FCDA1E0A599E0038AE06 /* HomeControllers */,
 				2978FCDB1E0A59C20038AE06 /* CameraController */,
+				2917278C1E0AA5480099AFB3 /* Details */,
 				2978FCD71E0A58FD0038AE06 /* HoshiTextFieldEffect */,
 				91EC4A631DFE6A24008F874D /* Main.storyboard */,
 				29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */,
@@ -529,6 +540,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2917278E1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift in Sources */,
 				91EC4A621DFE6A24008F874D /* ViewController.swift in Sources */,
 				91EC4A9B1DFE823D008F874D /* DashboardView.swift in Sources */,
 				91EC4A931DFE6F35008F874D /* Camera.swift in Sources */,

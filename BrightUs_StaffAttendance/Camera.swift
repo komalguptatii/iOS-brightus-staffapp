@@ -28,6 +28,14 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         addVideoPreviewLayer()
         initializeQRView()
         
+        //Added Custom Image on Camera Preview
+        let customImagePreview = UIImageView()
+        customImagePreview.frame = CGRect(x: 0.0, y: 0.0, width: 254.0, height: 254.0)
+        customImagePreview.center = self.view.center
+        
+        customImagePreview.image = UIImage(named: "scanArea")
+        self.view.addSubview(customImagePreview)
+        
     }
     
     override func didReceiveMemoryWarning() {

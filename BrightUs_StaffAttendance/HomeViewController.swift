@@ -18,6 +18,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        //Added Dashboard Controller and Camera as child to HomeView
         
         let dashboardController = self.storyboard?.instantiateViewController(withIdentifier: "DashboardView") as! DashboardView
         let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "Camera") as! Camera
@@ -36,8 +37,10 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         cameraFrame.origin.x = self.view.frame.width
         cameraController.view.frame = cameraFrame
         
+        //Changed Content Size of Scroll View
         mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
         
+        //Hide Back button on this view
         let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)
         navigationItem.leftBarButtonItem = backButton
 
@@ -48,5 +51,14 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    /**
+     Logout Action
+     
+     - parameter description : User can logout from app via tapping on Logout Button
+     
+    */
+    @IBAction func LogoutAction(_ sender: UIBarButtonItem) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
     
 }

@@ -60,7 +60,7 @@ class DashboardView: UIViewController {
                         if httpResponseValue.statusCode == 200{
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
-//Result
+//TODO : Result
 //                            {
 //                                "created_at" = "2016-12-15T11:37:58+0000";
 //                                email = "staff@maildrop.cc";
@@ -81,6 +81,7 @@ class DashboardView: UIViewController {
         
     }
     
+    //TODO
     
     func CheckTimeSpan(){       //To Display Morning, Afternoon, Evening
 

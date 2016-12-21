@@ -9,14 +9,12 @@
 import Foundation
 import UIKit
 
+/// Attendance Details 
 class DetailsViewController: UIViewController {
-    
-    @IBOutlet var datePickerView: UIDatePicker!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        datePickerView.isHidden = true
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -25,25 +23,5 @@ class DetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = false
-        
-    }
-    
-    @IBAction func fromButton(_ sender: UIButton) {
-        datePickerView.isHidden = false
-
-    }
-    
-    @IBAction func toButton(_ sender: UIButton) {
-        datePickerView.isHidden = false
-
-    }
-    @IBAction func searchButton(_ sender: UIButton) {
-        
-        datePickerView.isHidden = true
-
-    }
-    
+       
 }
