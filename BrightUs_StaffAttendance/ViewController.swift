@@ -20,14 +20,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
      - parameter emailTextField : Email entered by user in email textfield
     
      */
-    @IBOutlet var emailTextField: UITextField!
+    @IBOutlet var emailTextField: HoshiTextField!
     
     /**
  
      - parameter passTextField : Password entered by user in password textfield
 
      */
-    @IBOutlet var passTextField: UITextField!
+    @IBOutlet var passwordTextField: HoshiTextField!
     
     
     override func viewDidLoad() {
@@ -35,15 +35,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         
         emailTextField.delegate = self
-        passTextField.delegate = self
+        passwordTextField.delegate = self
         
         emailTextField.text = "staff@maildrop.cc"
-        passTextField.text = "staff"
+        passwordTextField.text = "staff"
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+//        self.viewWillDisappear(true)
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     //MARK: - Button Actions
@@ -102,7 +112,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
             return false
         }
-        else if passTextField.text == "" {
+        else if passwordTextField.text == "" {
             
             alert.message = "Password cannot be empty."
             _ = self.present(alert, animated: true, completion: nil)
@@ -160,7 +170,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
      - parameter return : token_type, expires_in, access_token, refresh_token
  
     */
-    func AuthorizeUser(){
+    func AuthorizeUser() {
         let apiString = baseURL + "/oauth/token"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
@@ -176,7 +186,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         jsonDict.setValue("XNgcybCHTfz0wfehSQcDOStyGCnwakCIIECZzWtD", forKey: "client_secret")
         jsonDict.setValue("password", forKey: "grant_type")
         jsonDict.setValue(emailTextField.text, forKey: "username")
-        jsonDict.setValue(passTextField.text, forKey: "password")
+        jsonDict.setValue(passwordTextField.text, forKey: "password")
         
        
         print(jsonDict)
@@ -198,7 +208,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 if data != nil{
                     if let httpResponseValue = response as? HTTPURLResponse{
                         print(httpResponseValue.statusCode)
-                        if httpResponseValue.statusCode == 200{
+                        if httpResponseValue.statusCode == 200 {
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
                             
@@ -282,13 +292,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
      
     */
     
-    func FirebaseLogin(token : String){
+    func FirebaseLogin(token : String) {
         print(token)
         FIRAuth.auth()?.signIn(withCustomToken: token ) { (user, error) in
             if let user = FIRAuth.auth()?.currentUser {
                 print(user)
             }
-            self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+            
+            //TODO
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+            }
+
 
         }
     }

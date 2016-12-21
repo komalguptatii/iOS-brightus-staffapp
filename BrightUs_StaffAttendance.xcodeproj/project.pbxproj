@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0522D28272CC1B633A797703 /* Pods_BrightUs_StaffAttendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */; };
+		2978FCD51E0A58F50038AE06 /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */; };
+		2978FCD61E0A58F50038AE06 /* TextFieldsEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */; };
 		29DEFC461E03D1F500098D75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */; };
 		522276C7223AC4C9CAE7E364 /* Pods_BrightUs_StaffAttendanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */; };
 		91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */; };
@@ -20,8 +22,6 @@
 		91EC4A8E1DFE6C93008F874D /* ForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A8D1DFE6C93008F874D /* ForgotPassViewController.swift */; };
 		91EC4A911DFE6F1F008F874D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A901DFE6F1F008F874D /* HomeViewController.swift */; };
 		91EC4A931DFE6F35008F874D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A921DFE6F35008F874D /* Camera.swift */; };
-		91EC4A971DFE801B008F874D /* Dashboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EC4A961DFE801B008F874D /* Dashboard.xib */; };
-		91EC4A991DFE802F008F874D /* Camera.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91EC4A981DFE802F008F874D /* Camera.xib */; };
 		91EC4A9B1DFE823D008F874D /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A9A1DFE823D008F874D /* DashboardView.swift */; };
 		91EE38F61DFE900A00CD7838 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */; };
 		91EE38F91DFEA38200CD7838 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE38F81DFEA38200CD7838 /* Constant.swift */; };
@@ -49,6 +49,9 @@
 /* Begin PBXFileReference section */
 		208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26137209C2F3B185FB897100 /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; sourceTree = "<group>"; };
+		2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
+		2978FCD31E0A58F50038AE06 /* TextFieldEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldEffects.h; sourceTree = "<group>"; };
+		2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldsEffects.swift; sourceTree = "<group>"; };
 		29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DDBEE74833556A2E56361A8 /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -72,8 +75,6 @@
 		91EC4A8F1DFE6D77008F874D /* BrightUs_StaffAttendance.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BrightUs_StaffAttendance.entitlements; sourceTree = "<group>"; };
 		91EC4A901DFE6F1F008F874D /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		91EC4A921DFE6F35008F874D /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
-		91EC4A961DFE801B008F874D /* Dashboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Dashboard.xib; sourceTree = "<group>"; };
-		91EC4A981DFE802F008F874D /* Camera.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Camera.xib; sourceTree = "<group>"; };
 		91EC4A9A1DFE823D008F874D /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		91EE38F81DFEA38200CD7838 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -120,6 +121,53 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2978FCD71E0A58FD0038AE06 /* HoshiTextFieldEffect */ = {
+			isa = PBXGroup;
+			children = (
+				2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */,
+				2978FCD31E0A58F50038AE06 /* TextFieldEffects.h */,
+				2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */,
+			);
+			name = HoshiTextFieldEffect;
+			sourceTree = "<group>";
+		};
+		2978FCD81E0A596E0038AE06 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		2978FCD91E0A597D0038AE06 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				91EC4A8D1DFE6C93008F874D /* ForgotPassViewController.swift */,
+				91EE38F81DFEA38200CD7838 /* Constant.swift */,
+				91EE38FA1DFEA3B400CD7838 /* Reachability.swift */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		2978FCDA1E0A599E0038AE06 /* HomeControllers */ = {
+			isa = PBXGroup;
+			children = (
+				91EC4A611DFE6A24008F874D /* ViewController.swift */,
+				91EC4A901DFE6F1F008F874D /* HomeViewController.swift */,
+				91EC4A9A1DFE823D008F874D /* DashboardView.swift */,
+				91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */,
+			);
+			name = HomeControllers;
+			sourceTree = "<group>";
+		};
+		2978FCDB1E0A59C20038AE06 /* CameraController */ = {
+			isa = PBXGroup;
+			children = (
+				91EC4A921DFE6F35008F874D /* Camera.swift */,
+			);
+			name = CameraController;
+			sourceTree = "<group>";
+		};
 		7F48DEB19C6FFF7EE794DD5E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,17 +207,11 @@
 			isa = PBXGroup;
 			children = (
 				91EC4A8F1DFE6D77008F874D /* BrightUs_StaffAttendance.entitlements */,
-				91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */,
-				91EE38F81DFEA38200CD7838 /* Constant.swift */,
-				91EE38FA1DFEA3B400CD7838 /* Reachability.swift */,
-				91EC4A611DFE6A24008F874D /* ViewController.swift */,
-				91EC4A8D1DFE6C93008F874D /* ForgotPassViewController.swift */,
-				91EC4A901DFE6F1F008F874D /* HomeViewController.swift */,
-				91EE38F51DFE900A00CD7838 /* DetailsViewController.swift */,
-				91EC4A9A1DFE823D008F874D /* DashboardView.swift */,
-				91EC4A961DFE801B008F874D /* Dashboard.xib */,
-				91EC4A921DFE6F35008F874D /* Camera.swift */,
-				91EC4A981DFE802F008F874D /* Camera.xib */,
+				2978FCD81E0A596E0038AE06 /* Delegate */,
+				2978FCD91E0A597D0038AE06 /* General */,
+				2978FCDA1E0A599E0038AE06 /* HomeControllers */,
+				2978FCDB1E0A59C20038AE06 /* CameraController */,
+				2978FCD71E0A58FD0038AE06 /* HoshiTextFieldEffect */,
 				91EC4A631DFE6A24008F874D /* Main.storyboard */,
 				29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */,
 				91EC4A661DFE6A24008F874D /* Assets.xcassets */,
@@ -324,8 +366,6 @@
 				29DEFC461E03D1F500098D75 /* GoogleService-Info.plist in Resources */,
 				91EC4A6A1DFE6A24008F874D /* LaunchScreen.storyboard in Resources */,
 				91EC4A671DFE6A24008F874D /* Assets.xcassets in Resources */,
-				91EC4A991DFE802F008F874D /* Camera.xib in Resources */,
-				91EC4A971DFE801B008F874D /* Dashboard.xib in Resources */,
 				91EC4A651DFE6A24008F874D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,10 +534,12 @@
 				91EC4A931DFE6F35008F874D /* Camera.swift in Sources */,
 				91EE38F91DFEA38200CD7838 /* Constant.swift in Sources */,
 				91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */,
+				2978FCD61E0A58F50038AE06 /* TextFieldsEffects.swift in Sources */,
 				91EE38FB1DFEA3B400CD7838 /* Reachability.swift in Sources */,
 				91EE38F61DFE900A00CD7838 /* DetailsViewController.swift in Sources */,
 				91EC4A8E1DFE6C93008F874D /* ForgotPassViewController.swift in Sources */,
 				91EC4A911DFE6F1F008F874D /* HomeViewController.swift in Sources */,
+				2978FCD51E0A58F50038AE06 /* HoshiTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

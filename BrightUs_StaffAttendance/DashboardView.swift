@@ -17,6 +17,7 @@ class DashboardView: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 222.0/255.0, green: 60.0/255.0, blue: 77.0/255.0, alpha: 1.0)
 
     }
     
@@ -80,4 +81,11 @@ class DashboardView: UIViewController {
         
     }
     
+    
+    func CheckTimeSpan(){       //To Display Morning, Afternoon, Evening
+
+        let calendar = NSCalendar.current
+        let component = calendar.component(.hour, from: Date())
+        
+    }
 }

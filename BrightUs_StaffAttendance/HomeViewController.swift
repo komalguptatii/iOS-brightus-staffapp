@@ -18,9 +18,10 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let dashboardController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DashboardView") as UIViewController
-        let cameraController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Camera") as UIViewController
-
+        let dashboardController = self.storyboard?.instantiateViewController(withIdentifier: "DashboardView") as! DashboardView
+        let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "Camera") as! Camera
+        
+        
         self.addChildViewController(dashboardController)
         self.mainScrollView.addSubview(dashboardController.view)
         dashboardController.didMove(toParentViewController: self)
@@ -35,6 +36,7 @@ class HomeViewController: UIViewController {
         cameraController.view.frame = cameraFrame
         
         self.mainScrollView.contentSize = CGSize(width: self.view.frame.width + cameraController.view.frame.width , height: self.view.frame.height)
+        
         
     }
     
