@@ -64,10 +64,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         showPasswordButton.setImage(UIImage(named: "eyeIcon"), for: UIControlState.normal)
         showPasswordButton.addTarget(self, action: #selector(ViewController.ShowPasswordAction(_sender:)), for: UIControlEvents.touchUpInside)
         self.view.addSubview(showPasswordButton)
-        
-//        let leftView = UIView(frame: CGRect(x: 304.0, y: 10.0, width: 40.0, height: 40.0))
-//        passwordTextField.leftView = leftView;
-//        passwordTextField.leftViewMode = UITextFieldViewMode.always
+
     }
 
     
@@ -141,28 +138,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
      
      - parameter checks : Empty email, Email format, Empty password
     */
+    
     func Validation()->Bool{
         
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        var result = false
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        result = emailTest.evaluate(with: emailTextField.text)
+        let emailCheck = ValidateEmail(text: emailTextField.text!)
+        let emptyEmail = ValidateEmptyContent(textField: emailTextField)
+        let emptyPassword = ValidateEmptyContent(textField: passwordTextField)
+        
         let alert = ShowAlert()
 
-        if emailTextField.text == "" {
+        if !emptyEmail{
             
             alert.message = "Email cannot be empty."
             _ = self.present(alert, animated: true, completion: nil)
             return false
         }
-        else if result == false {
+        else if !emailCheck {
             
             alert.message = "Invailid email address"
             _ = self.present(alert, animated: true, completion: nil)
 
             return false
         }
-        else if passwordTextField.text == "" {
+        else if !emptyPassword {
             
             alert.message = "Password cannot be empty."
             _ = self.present(alert, animated: true, completion: nil)
@@ -354,7 +352,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
             }
 
-
         }
+    }
+    
+    //MARK: - TextField Delegate
+    //MARK: -
+    
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField{
+            passwordTextField.becomeFirstResponder()
+        }
+        else if textField == passwordTextField{
+            passwordTextField.resignFirstResponder()
+        }
+        return true
     }
 }

@@ -9,7 +9,12 @@
 import Foundation
 import UIKit
 
-class ForgotPassViewController: UIViewController {
+class ForgotPassViewController: UIViewController, UITextFieldDelegate {
+    
+    
+    /**
+     * Email Text field
+    */
     
     @IBOutlet var emailTextField: HoshiTextField!
     
@@ -17,6 +22,8 @@ class ForgotPassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        emailTextField.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -24,32 +31,53 @@ class ForgotPassViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     Back Button Action 
+     
+     - parameter description : When user tap on back button, app will navigate to previous screen along with animation
+     
+    */
+    
     @IBAction func BackButtonAction(_ sender: UIBarButtonItem) {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     
+    /**
+     Submit Button Action
+     
+     - parameter description : performs action to receive email in order to recover the forgotten password
+ 
+    */
+    
     @IBAction func submitButton(_ sender: UIButton) {
-        if (Validation()){
+        if (Validation()){      //Only performed successfully if specified email format get matched
             
         }
     }
     
+    /**
+     Validation Method
+     
+     - parameter return : Return Bool value
+     
+     - parameter checks : Empty email content, email format
+ 
+    */
     func Validation()->Bool{
         
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        var result = false
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        result = emailTest.evaluate(with: emailTextField.text)
+        let emailCheck = ValidateEmail(text: emailTextField.text!)
+        let emptyEmail = ValidateEmptyContent(textField: emailTextField)
+        
         let alert = ShowAlert()
 
-        if emailTextField.text == "" {
+        if !emptyEmail {
             
             alert.message = "Email cannot be empty."
             _ = self.present(alert, animated: true, completion: nil)
             return false
         }
-        else if result == false {
+        else if !emailCheck {
             
             alert.message = "Invalid Email Address"
             _ = self.present(alert, animated: true, completion: nil)
@@ -59,6 +87,14 @@ class ForgotPassViewController: UIViewController {
        
         return true
     }
+    
+    /**
+     Alert Controller Method
+     
+        - paramter return : Returns UIAlertController
+ 
+        - parameter description : Method to intialize and add actions to alert controller
+    */
     
     func ShowAlert() -> UIAlertController{
         let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
@@ -74,5 +110,12 @@ class ForgotPassViewController: UIViewController {
         alertController.addAction(okAction)
         //        _ = self.present(alertController, animated: true, completion: nil)
         return alertController
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField{
+            emailTextField.resignFirstResponder()
+        }
+        return true
     }
 }

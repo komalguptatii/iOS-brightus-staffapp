@@ -12,13 +12,17 @@ import UIKit
 class DashboardView: UIViewController {
     
     
+    @IBOutlet var currentDateLabel: UILabel!
+    @IBOutlet var greetingLAbel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 222.0/255.0, green: 60.0/255.0, blue: 77.0/255.0, alpha: 1.0)
-
+        
+        currentDateLabel.text = "It's \(self.CurrentDateFormat())"
+        self.DisplayGreetings()
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,12 +85,49 @@ class DashboardView: UIViewController {
         
     }
     
+    
+    func CurrentDateFormat() -> String{
+        let todaysDate = Date()
+        
+        let dateFormatOftodayDate = DateFormatter()
+        
+        dateFormatOftodayDate.dateFormat = "EEEE, dd MMMM"
+        
+        dateFormatOftodayDate.timeZone = NSTimeZone.local
+        
+        let returnDate = dateFormatOftodayDate.string(from: todaysDate)
+        print(returnDate)
+        return returnDate
+    }
+    
+    
     //TODO
     
-    func CheckTimeSpan(){       //To Display Morning, Afternoon, Evening
+    func DisplayGreetings(){       //To Display Morning, Afternoon, Evening
 
-        let calendar = NSCalendar.current
-        let component = calendar.component(.hour, from: Date())
+        let hour = NSCalendar.current.component(.hour, from: Date())
         
+        switch hour {
+        case 6..<12 :
+            greetingLAbel.text = "Good Morning!"
+
+            print(NSLocalizedString("Morning", comment: "Morning"))
+        case 12 :
+            greetingLAbel.text = "Good Afternoon!"
+
+            print(NSLocalizedString("Noon", comment: "Noon"))
+        case 13..<17 :
+            greetingLAbel.text = "Good Afternoon!"
+
+            print(NSLocalizedString("Afternoon", comment: "Afternoon"))
+        case 17..<22 :
+            greetingLAbel.text = "Good Evening!"
+
+            print(NSLocalizedString("Evening", comment: "Evening"))
+        default:
+            greetingLAbel.text = "Good Night!"
+
+            print(NSLocalizedString("Night", comment: "Night"))
+        }
     }
 }

@@ -110,10 +110,10 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var rowHeight : CGFloat! = 0
         if ((indexPath as NSIndexPath).section == 0) {
-            rowHeight = 60.0
+            rowHeight = 100.0
         }
         else if ((indexPath as NSIndexPath).section == 1){
-            rowHeight = 30.0
+            rowHeight = 40.0
  
         }
         return rowHeight
@@ -141,7 +141,8 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         cell.preservesSuperviewLayoutMargins = false
         
         if ((indexPath as NSIndexPath).section == 0){
-            cell.backgroundColor = UIColor.blue
+            cell.backgroundColor = UIColor(red: 222.0/255.0, green: 60.0/255.0, blue: 77.0/255.0, alpha: 1.0)
+            cell.textLabel?.textColor = UIColor.white
             cell.textLabel?.text = "User Information"
         }
         else if ((indexPath as NSIndexPath).section == 1){
