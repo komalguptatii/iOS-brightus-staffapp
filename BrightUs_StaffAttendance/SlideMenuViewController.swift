@@ -33,7 +33,8 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
     /**
      *  Menu button which was tapped to display the menu
      */
-    var btnMenu : UIButton!
+//    var btnMenu : UIButton!
+    var btnMenu : UIBarButtonItem!
     
     /**
      *  Delegate of the MenuVC
@@ -75,21 +76,13 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func updateArrayMenuOptions(){
-        arrayMenuOptions.append(["title":"Home", "icon":""])
         arrayMenuOptions.append(["title":"Profile", "icon":""])
-        arrayMenuOptions.append(["title":"Attendance", "icon":""])
-        arrayMenuOptions.append(["title":"Performance", "icon":""])
-        arrayMenuOptions.append(["title":"Feedback", "icon":""])
-        arrayMenuOptions.append(["title":"Exam Booking Details", "icon":""])
-        arrayMenuOptions.append(["title":"Notifications", "icon":""])
-        arrayMenuOptions.append(["title":"Study Plan", "icon":""])
-        arrayMenuOptions.append(["title":"Leave Request", "icon":""])
         arrayMenuOptions.append(["title":"Logout", "icon":""])
 
         tblMenuOptions.reloadData()
     }
 
-    @IBAction func onCloseMenuClick(_ button:UIButton!){
+    @IBAction func onCloseMenuClick(_ button:UIBarButtonItem!){     //Changed UIButton to UIBarButtonItem
         btnMenu.tag = 0
         
         if (self.delegate != nil) {
@@ -168,9 +161,9 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         }
         else {
             
-            let btn = UIButton(type: UIButtonType.custom)
-            btn.tag = (indexPath as NSIndexPath).row
-            self.onCloseMenuClick(btn)
+//            let btn = UIButton(type: UIButtonType.custom)
+//            btn.tag = (indexPath as NSIndexPath).row
+//            self.onCloseMenuClick(btn)
         }
         
         

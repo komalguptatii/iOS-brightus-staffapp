@@ -30,6 +30,12 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func BackButtonAction(_ sender: UIBarButtonItem) {
+        _ = self.navigationController?.popViewController(animated: true)
+
+    }
+    
+    
     //MARK: - TableView Delegate & Datasource
     //MARK: - 
     

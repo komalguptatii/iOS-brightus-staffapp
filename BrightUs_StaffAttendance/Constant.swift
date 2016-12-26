@@ -7,13 +7,14 @@
 //
 
 import Foundation
-
+import UIKit
 func IsConnectionAvailable()->Bool{                     //Reachability Check Function
     return Reachability.isConnectedToNetwork()
 }
 
 let delegateObject = AppDelegate()
 var defaults = UserDefaults.standard
+var screenheight = UIScreen.main.bounds.height
 
 //let baseURL = "https://brightus-attendance.herokuapp.com"
 

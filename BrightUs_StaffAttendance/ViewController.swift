@@ -47,7 +47,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // Custom Button to show password
         let showPasswordButton = UIButton()
-        showPasswordButton.frame = CGRect(x: 330.0, y: 410.0, width: 40.0, height: 40.0)
+        
+        if screenheight <= 568{
+            showPasswordButton.frame = CGRect(x: 236.0, y: 318.0, width: 35.0, height: 35.0)
+
+        }
+        else if screenheight <= 667{
+            showPasswordButton.frame = CGRect(x: 290.0, y: 372.0, width: 35.0, height: 35.0)
+
+        }
+        else if screenheight <= 736{
+            showPasswordButton.frame = CGRect(x: 330.0, y: 410.0, width: 40.0, height: 40.0)
+
+        }
+        
         showPasswordButton.setImage(UIImage(named: "eyeIcon"), for: UIControlState.normal)
         showPasswordButton.addTarget(self, action: #selector(ViewController.ShowPasswordAction(_sender:)), for: UIControlEvents.touchUpInside)
         self.view.addSubview(showPasswordButton)

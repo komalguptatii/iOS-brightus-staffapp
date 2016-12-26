@@ -11,7 +11,7 @@ import UIKit
 
 class ForgotPassViewController: UIViewController {
     
-    @IBOutlet var emailTextField: UITextField!
+    @IBOutlet var emailTextField: HoshiTextField!
     
     
     override func viewDidLoad() {
@@ -23,6 +23,11 @@ class ForgotPassViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func BackButtonAction(_ sender: UIBarButtonItem) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
     
     @IBAction func submitButton(_ sender: UIButton) {
         if (Validation()){

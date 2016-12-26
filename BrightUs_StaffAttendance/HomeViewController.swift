@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class HomeViewController: UIViewController, UIScrollViewDelegate {
+class HomeViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBOutlet var mainScrollView: UIScrollView!
     
@@ -40,9 +40,9 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         //Changed Content Size of Scroll View
         mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
         
-        //Hide Back button on this view
-        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)
-        navigationItem.leftBarButtonItem = backButton
+//        //Hide Back button on this view
+//        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)
+//        navigationItem.leftBarButtonItem = backButton
 
     }
     
@@ -61,4 +61,12 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func MenuButtonPressed(_ sender: Any) {
+        self.onSlideMenuButtonPressed(sender as! UIBarButtonItem)
+    }
+    
+    
+//    func MenuButton(_ sender: UIButton) {
+//        self.onSlideMenuButtonPressed(sender)
+//    }
 }

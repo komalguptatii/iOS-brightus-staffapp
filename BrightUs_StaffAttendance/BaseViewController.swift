@@ -17,7 +17,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        addSlideMenuButton()
         // Do any additional setup after loading the view.
     }
     
@@ -29,33 +29,9 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(_ index: Int32) {
         switch(index){
         case 0:
-            print("Home")
-            break
-        case 1:
             print("Profile")
             break
-        case 2:
-            print("Attendance")
-            break
-        case 3:
-            print("Performance")
-            break
-        case 4:
-            print("Feedback")
-            break
-        case 5:
-            print("Exam Booking Details")
-            break
-        case 6:
-            print("Notifications")
-            break
-        case 7:
-            print("Study Plan")
-            break
-        case 8:
-            print("Leave Request")
-            break
-        case 9:
+        case 1:
             print("Logout")
             break
         default:
@@ -64,12 +40,15 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     }
     
     func addSlideMenuButton(){
+//        let btn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)))
         let btnShowMenu = UIButton(type: UIButtonType.system)
         btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
         btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
-        let customBarItem = UIBarButtonItem(customView: btnShowMenu)
-        self.navigationItem.leftBarButtonItem = customBarItem;
+//        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+//        let customBarItem = UIBarButtonItem(customView: btnShowMenu)
+        let customBarItem = UIBarButtonItem(image: self.defaultMenuImage(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)))
+
+        self.navigationItem.leftBarButtonItem = customBarItem
     }
 
     func defaultMenuImage() -> UIImage {
@@ -94,7 +73,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         return defaultMenuImage;
     }
 
-    func onSlideMenuButtonPressed(_ sender : UIButton){
+    func onSlideMenuButtonPressed(_ sender : UIBarButtonItem){
         if (sender.tag == 10)
         {
             // To Hide Menu If it already there
