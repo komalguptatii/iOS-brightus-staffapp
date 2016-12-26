@@ -1,7 +1,8 @@
 version: "Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1)"
 options: "5a510803fc172cb2de12b3541bd99fba"
-build_time: [535639305, 25791000]
+build_time: [536068168, 792071000]
 inputs:
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/BaseViewController.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/TiiAttendanceDetailCell.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ViewController.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DashboardView.swift": [9223372036854775807, 0]
@@ -12,5 +13,6 @@ inputs:
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Reachability.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/SlideMenuViewController.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/HomeViewController.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/HoshiTextField.swift": [9223372036854775807, 0]

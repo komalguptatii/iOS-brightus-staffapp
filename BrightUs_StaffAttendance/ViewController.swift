@@ -357,9 +357,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - TextField Delegate
     //MARK: -
-    
-    
-    
+    /**
+     TextField Return Delegate
+    */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailTextField{
             passwordTextField.becomeFirstResponder()

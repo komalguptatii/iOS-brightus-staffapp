@@ -40,6 +40,7 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         //Changed Content Size of Scroll View
         mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
         
+        //Enabled bar button for slider menu
 //        //Hide Back button on this view
 //        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)
 //        navigationItem.leftBarButtonItem = backButton
@@ -61,12 +62,14 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    /**
+     Menu Button Action 
+     
+     - parameter description : Slider Menu will be shown to user
+     
+    */
     @IBAction func MenuButtonPressed(_ sender: Any) {
         self.onSlideMenuButtonPressed(sender as! UIBarButtonItem)
     }
-    
-    
-//    func MenuButton(_ sender: UIButton) {
-//        self.onSlideMenuButtonPressed(sender)
-//    }
+
 }

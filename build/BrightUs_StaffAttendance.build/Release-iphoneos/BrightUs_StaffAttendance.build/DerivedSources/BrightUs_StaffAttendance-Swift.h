@@ -117,6 +117,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__has_feature) && __has_feature(modules)
 @import UIKit;
 @import AVFoundation;
+@import Foundation;
 @import CoreGraphics;
 #endif
 
@@ -137,13 +138,28 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11AppDelegate")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UIImage;
+@class UIBarButtonItem;
+@class NSBundle;
+@class NSCoder;
+
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18BaseViewController")
+@interface BaseViewController : UIViewController
+- (void)viewDidLoad;
+- (void)didReceiveMemoryWarning;
+- (void)slideMenuItemSelectedAtIndex:(int32_t)index;
+- (void)addSlideMenuButton;
+- (UIImage * _Nonnull)defaultMenuImage;
+- (void)onSlideMenuButtonPressed:(UIBarButtonItem * _Nonnull)sender;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class AVCaptureSession;
 @class AVCaptureVideoPreviewLayer;
 @class UIView;
 @class AVCaptureOutput;
 @class AVCaptureConnection;
-@class NSBundle;
-@class NSCoder;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 @interface Camera : UIViewController <AVCaptureMetadataOutputObjectsDelegate>
@@ -162,51 +178,135 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UILabel;
 @class UIButton;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 @interface DashboardView : UIViewController
+/**
+  Current Date will be displayed on this label
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified currentDateLabel;
+/**
+  Greet user
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified greetingLabel;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
-- (IBAction)AttendanceDetailButtonPressed:(UIButton * _Nonnull)sender;
+/**
+  Attendance Detail Button Action
+  \param description When user tap this button, app navigates to attendance detail section
+
+*/
+- (IBAction)AttendanceDetailButtonAction:(UIButton * _Nonnull)sender;
 - (IBAction)ViewProfile:(UIButton * _Nonnull)sender;
-- (void)CheckTimeSpan;
+/**
+  Specify date format Methods
+  \param return Returns String Value in format of Day, Date Month
+
+*/
+- (NSString * _Nonnull)CurrentDateFormat;
+/**
+  Greet User Methods
+  \param description Method check the current time range and display morning, afternoon, night etc according to that.
+
+*/
+- (void)DisplayGreetings;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UITableView;
+@class NSMutableArray;
+@class UITableViewCell;
 
 /**
   Attendance Details
 */
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
-@interface DetailsViewController : UIViewController
+@interface DetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) IBOutlet UITableView * _Null_unspecified detailTableView;
+@property (nonatomic, strong) NSMutableArray * _Nonnull attendanceDetailArray;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (IBAction)BackButtonAction:(UIBarButtonItem * _Nonnull)sender;
+/**
+  Number of Sections in TableView
+  \param return number of sections
+
+*/
+- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView;
+/**
+  Number of Rows in Section
+  \param return number of rows in one section
+
+*/
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+/**
+  Definition of Cell
+  \param return TiiAttendanceDetailCell
+
+  \param defined _Terms : particularDate, checkinTime, checkOutTime, totalTime
+
+*/
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UITextField;
+@class HoshiTextField;
 @class UIAlertController;
+@class UITextField;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
-@interface ForgotPassViewController : UIViewController
-@property (nonatomic, strong) IBOutlet UITextField * _Null_unspecified emailTextField;
+@interface ForgotPassViewController : UIViewController <UITextFieldDelegate>
+/**
+  Email Text field
+*/
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified emailTextField;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+/**
+  Back Button Action
+  \param description When user tap on back button, app will navigate to previous screen along with animation
+
+*/
+- (IBAction)BackButtonAction:(UIBarButtonItem * _Nonnull)sender;
+/**
+  Submit Button Action
+  \param description performs action to receive email in order to recover the forgotten password
+
+*/
 - (IBAction)submitButton:(UIButton * _Nonnull)sender;
+/**
+  Validation Method
+  \param return Return Bool value
+
+  \param checks Empty email content, email format
+
+*/
 - (BOOL)Validation;
+/**
+  Alert Controller Method
+  <ul>
+    <li>
+      paramter return : Returns UIAlertController
+    </li>
+  </ul>
+  \param description Method to intialize and add actions to alert controller
+
+*/
 - (UIAlertController * _Nonnull)ShowAlert;
+- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class UIScrollView;
-@class UIBarButtonItem;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
-@interface HomeViewController : UIViewController <UIScrollViewDelegate>
+@interface HomeViewController : BaseViewController <UIScrollViewDelegate>
 @property (nonatomic, strong) IBOutlet UIScrollView * _Null_unspecified mainScrollView;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
@@ -216,11 +316,16 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
 
 */
 - (IBAction)LogoutAction:(UIBarButtonItem * _Nonnull)sender;
+/**
+  Menu Button Action
+  \param description Slider Menu will be shown to user
+
+*/
+- (IBAction)MenuButtonPressed:(id _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UILabel;
 
 /**
   A TextFieldEffects object is a control that displays editable text and contains the boilerplates to setup unique animations for text entrey and display. You typically use this class the same way you use UITextField.
@@ -298,6 +403,37 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14HoshiTextField")
 - (CGRect)editingRectForBounds:(CGRect)bounds;
 - (CGRect)textRectForBounds:(CGRect)bounds;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23SlideMenuViewController")
+@interface SlideMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+/**
+  Array to display menu options
+*/
+@property (nonatomic, strong) IBOutlet UITableView * _Null_unspecified tblMenuOptions;
+/**
+  Transparent button to hide menu
+*/
+@property (nonatomic, strong) IBOutlet UIButton * _Null_unspecified btnCloseMenuOverlay;
+/**
+  Array containing menu options
+*/
+@property (nonatomic, copy) NSArray<NSDictionary<NSString *, NSString *> *> * _Nonnull arrayMenuOptions;
+@property (nonatomic, strong) UIBarButtonItem * _Null_unspecified btnMenu;
+- (void)viewDidLoad;
+- (void)didReceiveMemoryWarning;
+- (void)viewDidDisappear:(BOOL)animated;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)updateArrayMenuOptions;
+- (IBAction)onCloseMenuClick:(UIBarButtonItem * _Null_unspecified)button;
+- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView;
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -411,6 +547,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ViewController")
 
 */
 - (void)FirebaseLoginWithToken:(NSString * _Nonnull)token;
+/**
+  TextField Return Delegate
+*/
+- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end

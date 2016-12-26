@@ -264,7 +264,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="attendanceDetailButton"/>
                                 <connections>
-                                    <action selector="AttendanceDetailButtonPressed:" destination="TBE-Xk-TMj" eventType="touchUpInside" id="Ldr-fb-IDZ"/>
+                                    <action selector="AttendanceDetailButtonAction:" destination="TBE-Xk-TMj" eventType="touchUpInside" id="uG7-hO-Kz8"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="green-checkout" translatesAutoresizingMaskIntoConstraints="NO" id="CqJ-HN-XmB">
@@ -296,7 +296,7 @@
                     </view>
                     <connections>
                         <outlet property="currentDateLabel" destination="hG8-A8-j36" id="iyq-xf-UyY"/>
-                        <outlet property="greetingLAbel" destination="mb4-bT-Pvj" id="Zoj-ut-aEi"/>
+                        <outlet property="greetingLabel" destination="mb4-bT-Pvj" id="zTf-12-PpO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xS7-91-yFH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -402,7 +402,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1YO-nM-oeJ">
-                                                    <rect key="frame" x="14" y="11" width="384" height="117"/>
+                                                    <rect key="frame" x="14" y="10" width="384" height="117"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9 December 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAO-u4-cMv">
@@ -505,7 +505,7 @@
         <scene sceneID="fd6-Al-yji">
             <objects>
                 <navigationController id="IjQ-9f-066" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VMU-is-z9h">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VMU-is-z9h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -554,11 +554,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="300" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydr-2L-H6T">
-                                                    <rect key="frame" x="21" y="13" width="22" height="17"/>
+                                                    <rect key="frame" x="21" y="12" width="22" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="301" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Uq-9L-adJ">
-                                                    <rect key="frame" x="65" y="8" width="267" height="26"/>
+                                                    <rect key="frame" x="65" y="7" width="267" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
