@@ -8,15 +8,30 @@
 
 import Foundation
 import UIKit
+import MapKit
 
-class HomeViewController: BaseViewController, UIScrollViewDelegate {
+class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var mainScrollView: UIScrollView!
     
+    var locationManager = CLLocationManager()
     
+    var isAllowedToMarkAttendance = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //StartUpdatingLocation()
+        if (CLLocationManager.locationServicesEnabled())
+        {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            //            locationManager.distanceFilter = 50
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+        
         
         //Added Dashboard Controller and Camera as child to HomeView
         
@@ -56,13 +71,47 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-//    func CallBacktoScreen(){
-//        print(mainScrollView.bounds.size.width)
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print (locations)
+        if let location = locations.first {
+            print(location)
+            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
+            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
+            
+            let destination = CLLocation(latitude: destinationLatitude!, longitude: destinationLongitude!)
+            
+            let distance = location.distance(from: destination)
+            print(distance)
+            
+            let distanceDouble = Double(distance)
+            
+            if (distanceDouble <= 30.00){
+                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
+                    
+                    //Checkin
+                    isAllowedToMarkAttendance = true
+                    //Disable ScrollView or add child after this
+                    
+                }else{
+                    //Cant check in
+                    isAllowedToMarkAttendance = false
+                }
+                
+            }else{
+                //Cant check in
+                isAllowedToMarkAttendance = false
+            }
+        }
+    }
 
-
-//        mainScrollView.scrollRectToVisible(CGRect(x: mainScrollView.contentSize.width - mainScrollView.bounds.size.width * 2, y: 0.0, width: self.view.frame.width, height: (self.view.frame.height - 64)), animated: true)
-//        mainScrollView.setContentOffset(CGPoint(x: 0.0, y: 0.0), animated: true)
-//    }
+    
     /**
      Logout Action
      
@@ -83,7 +132,8 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         self.onSlideMenuButtonPressed(sender as! UIBarButtonItem)
     }
 
-    //TODO
+    //Profile Call for Name & Location
+    
     func ViewProfile() {
         let apiString = baseURL + "/api/user"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
@@ -110,6 +160,8 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
                         if httpResponseValue.statusCode == 200{
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
+                            
+                            defaults.setValue(dict.value(forKey: "name"), forKey: "name")
                             if let locationValues = dict.value(forKey: "allowed_locations") as? NSArray{
                                 print(locationValues)
                                 if let locationDict = locationValues.object(at: 0) as? NSDictionary{
@@ -118,6 +170,7 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
                                     defaults.setValue(locationDict.value(forKey: "longitude"), forKey: "longitude")
                                 }
                             }
+                            defaults.synchronize()
                         }
                     }
                 }

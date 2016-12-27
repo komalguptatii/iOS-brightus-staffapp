@@ -21,6 +21,11 @@ class DashboardView: UIViewController {
     */
     @IBOutlet var greetingLabel: UILabel!
     
+    /**
+    *   Display User Name
+    */
+    @IBOutlet var userNameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -31,6 +36,8 @@ class DashboardView: UIViewController {
         //Called class functions to display date and greet user
         currentDateLabel.text = "It's \(self.CurrentDateFormat())"
         self.DisplayGreetings()
+        userNameLabel.text = defaults.value(forKey: "name") as! String?
+        
     }
     
     override func didReceiveMemoryWarning() {

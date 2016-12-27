@@ -12,9 +12,8 @@ import AVFoundation
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
-import MapKit
 
-class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CLLocationManagerDelegate {
+class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     var objCaptureSession:AVCaptureSession?
     var objCaptureVideoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -22,22 +21,10 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CLLocati
     var attendanceStatus = String()
     var randomQRCode = String()
     
-    var locationManager = CLLocationManager()
-    
-    var isAllowedToMarkAttendance = false
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        //StartUpdatingLocation()
-        if (CLLocationManager.locationServicesEnabled())
-        {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            //            locationManager.distanceFilter = 50
-            locationManager.requestAlwaysAuthorization()
-            locationManager.startUpdatingLocation()
-        }
         
         configureVideoCapture()
         addVideoPreviewLayer()
@@ -61,44 +48,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CLLocati
     //MARK: - Location Methods
     
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        if status == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-        }
-    }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print (locations)
-        if let location = locations.first {
-            print(location)
-            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
-            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
-            
-            let destination = CLLocation(latitude: destinationLatitude!, longitude: destinationLongitude!)
-            
-            let distance = location.distance(from: destination)
-            print(distance)
-
-            let distanceDouble = Double(distance)
-            
-            if (distanceDouble <= 30.00){
-                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
-                    
-                    //Checkin
-                    isAllowedToMarkAttendance = true
-                    
-                }else{
-                    //Cant check in
-                    isAllowedToMarkAttendance = false
-                }
-                
-            }else{
-                    //Cant check in
-                isAllowedToMarkAttendance = false
-            }
-        }
-    }
     
     //MARK: - Camera Methods
     
@@ -187,7 +137,6 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CLLocati
                     let nmbr = String(describing: randomNmbr!)
                     
                     //Check for location here
-                    if self.isAllowedToMarkAttendance{
                         print("\(randomNmbr!) == \(self.randomQRCode)")
                         if (nmbr == self.randomQRCode){
                             if (self.attendanceStatus == "new"){
@@ -211,7 +160,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CLLocati
                             scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
                         }
 
-                    }
+                    
                     
                 }
                 
