@@ -201,6 +201,7 @@
                     <connections>
                         <outlet property="mainScrollView" destination="UgA-EG-XkT" id="Lqg-Hz-qWF"/>
                         <segue destination="DVM-g4-yAs" kind="show" id="B4W-SX-jfg"/>
+                        <segue destination="Rp7-Z9-Uue" kind="show" id="Vf4-PT-NfH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PfA-zX-Rz6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -320,6 +321,57 @@
             </objects>
             <point key="canvasLocation" x="1746" y="884"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="60e-RM-1yn">
+            <objects>
+                <viewController storyboardIdentifier="UserProfile" id="Rp7-Z9-Uue" customClass="UserProfile" customModule="BrightUs_StaffAttendance" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QYy-kw-0py"/>
+                        <viewControllerLayoutGuide type="bottom" id="hUO-av-GJ7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Lk-sK-Agm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Profile" id="z7E-cQ-BVF">
+                        <barButtonItem key="leftBarButtonItem" image="back-icon" id="dNO-kf-HR7">
+                            <connections>
+                                <action selector="BackButtonAction:" destination="Rp7-Z9-Uue" id="tDN-JJ-kra"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="S8O-sW-hed">
+                            <connections>
+                                <segue destination="LWV-UW-fxc" kind="show" id="2dF-Kh-ntS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Hp-Jy-W9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-561" y="1771"/>
+        </scene>
+        <!--Change Password-->
+        <scene sceneID="quC-Ye-KFg">
+            <objects>
+                <viewController id="LWV-UW-fxc" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GIn-uX-FKK"/>
+                        <viewControllerLayoutGuide type="bottom" id="teI-d0-tee"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bif-dd-HFQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Change Password" id="UFe-ef-rvx">
+                        <barButtonItem key="leftBarButtonItem" image="back-icon" id="fJK-Yq-Fgp"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jbW-cG-6hO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-562" y="2458"/>
+        </scene>
         <!--Attendance Details-->
         <scene sceneID="4ea-bk-adM">
             <objects>
@@ -402,7 +454,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1YO-nM-oeJ">
-                                                    <rect key="frame" x="14" y="10" width="384" height="117"/>
+                                                    <rect key="frame" x="14" y="9" width="384" height="117"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9 December 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAO-u4-cMv">
@@ -505,7 +557,7 @@
         <scene sceneID="fd6-Al-yji">
             <objects>
                 <navigationController id="IjQ-9f-066" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VMU-is-z9h">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VMU-is-z9h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -554,11 +606,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="300" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydr-2L-H6T">
-                                                    <rect key="frame" x="21" y="12" width="22" height="17"/>
+                                                    <rect key="frame" x="21" y="11" width="22" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="301" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Uq-9L-adJ">
-                                                    <rect key="frame" x="65" y="7" width="267" height="26"/>
+                                                    <rect key="frame" x="65" y="6" width="267" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <nil key="highlightedColor"/>

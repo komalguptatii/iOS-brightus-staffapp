@@ -1,106 +1,36 @@
 //
-//  ForgotPassViewController.swift
+//  ChangePassword.swift
 //  BrightUs_StaffAttendance
 //
-//  Created by Mohit Sharma on 12/12/16.
+//  Created by Komal Gupta on 27/12/16.
 //  Copyright © 2016 Techies India Inc. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class ForgotPassViewController: UIViewController, UITextFieldDelegate {
-    
-    
-    /**
-     * Email Text field
-    */
-    
-    @IBOutlet var emailTextField: HoshiTextField!
-    
+class ChangePassword: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        emailTextField.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     /**
-     Back Button Action 
-     
-     - parameter description : When user tap on back button, app will navigate to previous screen along with animation
-     
-    */
-    
-    @IBAction func BackButtonAction(_ sender: UIBarButtonItem) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    
-    /**
-     Submit Button Action
-     
-     - parameter description : performs action to receive email in order to recover the forgotten password
- 
-    */
-    
-    @IBAction func submitButton(_ sender: UIButton) {
-        if (Validation()){      //Only performed successfully if specified email format get matched
-            
-        }
-    }
-    
-    /**
-     Validation Method
-     
-     - parameter return : Return Bool value
-     
-     - parameter checks : Empty email content, email format
- 
+     Validation Method to validate content on the screen
     */
     func Validation()->Bool{
-        
-        let emailCheck = ValidateEmail(text: emailTextField.text!)
-        let emptyEmail = ValidateEmptyContent(textField: emailTextField)
-        
-        let alert = ShowAlert()
-        
-        if !emptyEmail {
-            
-            alert.message = "Email cannot be empty."
-            _ = self.present(alert, animated: true, completion: nil)
-            return false
-        }
-        else if !emailCheck {
-            
-            alert.message = "Invalid Email Address"
-            _ = self.present(alert, animated: true, completion: nil)
-
-            return false
-        }
-       
+        //OldPassword
+        //NewPassword
+        //Match Old and New password
         return true
     }
     
-    //MARK: - API Call
-    /**
-     API Call - Forgot Password
-     
-     - parameter method : POST
-     
-     - parameter send : Email, Content-Type
-     
-     - parameter return : Empty Content to mark success
-     
-    */
-    func ForgotPasswordActionCall(){
-        let apiString = baseURL + "/api/user/forgot-password"
+    func ChanePasswordCall(){
+        let apiString = baseURL + "/api/user"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
         
@@ -108,9 +38,17 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         request.httpMethod = "POST"
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        
+        let token = defaults.value(forKey: "accessToken") as! String
+        //        let header = "\(defaults.value(forKey: "tokenType")!)" + " \(defaults.value(forKey: "accessToken")!)"
+        let header = "Bearer" + " \(token)"
+        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
         let jsonDict = NSMutableDictionary()
-        jsonDict.setValue(emailTextField.text!, forKey: "email")
+        jsonDict.setValue("", forKey: "old_password")
+        jsonDict.setValue("", forKey: "new_password")
         
         var jsonData = Data()
         
@@ -131,17 +69,20 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
                         print(httpResponseValue.statusCode)
                         if httpResponseValue.statusCode == 204 {
                             let alert = self.ShowAlert()
-                            alert.message = "Please check your email and recover the password"
+                            alert.message = "Password is successfully changed"
                             _ = self.present(alert, animated: true, completion: nil)
+
                         }
                         else if httpResponseValue.statusCode == 401 {
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
                             let alert = self.ShowAlert()
-
+                            
                             alert.message = "\(dict.value(forKey: "message"))"
                             alert.title = "\(dict.value(forKey: "title"))"
                             _ = self.present(alert, animated: true, completion: nil)
+                            
+                            
                         }
                         else if httpResponseValue.statusCode == 422{
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
@@ -156,10 +97,12 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
                                     alert.message = "\(dictInArray.value(forKey: "message"))"
                                     alert.title = "\(dictInArray.value(forKey: "detail"))"
                                     _ = self.present(alert, animated: true, completion: nil)
+                                    
                                 }
                             }
                             
                         }
+
                     }
                 }
             }
@@ -168,19 +111,7 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
             }
         }.resume()
 
-    }
-    
-       
-    //MARK: - TextField Delegate
-    /**
-     TextField Return Delegate
-     
-    */
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField{
-            emailTextField.resignFirstResponder()
-        }
-        return true
+
     }
     
     /**

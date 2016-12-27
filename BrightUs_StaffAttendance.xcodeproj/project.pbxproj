@@ -13,6 +13,8 @@
 		2976797C1E10F49F00DFFDDA /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976797A1E10F49F00DFFDDA /* SlideMenuViewController.swift */; };
 		2978FCD51E0A58F50038AE06 /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */; };
 		2978FCD61E0A58F50038AE06 /* TextFieldsEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */; };
+		2986AAFC1E12339B009D75C6 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2986AAFB1E12339B009D75C6 /* UserProfile.swift */; };
+		2986AAFE1E1233FF009D75C6 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2986AAFD1E1233FF009D75C6 /* ChangePassword.swift */; };
 		29DEFC461E03D1F500098D75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */; };
 		522276C7223AC4C9CAE7E364 /* Pods_BrightUs_StaffAttendanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */; };
 		91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */; };
@@ -58,6 +60,8 @@
 		2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
 		2978FCD31E0A58F50038AE06 /* TextFieldEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldEffects.h; sourceTree = "<group>"; };
 		2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldsEffects.swift; sourceTree = "<group>"; };
+		2986AAFB1E12339B009D75C6 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		2986AAFD1E1233FF009D75C6 /* ChangePassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
 		29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DDBEE74833556A2E56361A8 /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 				91EC4A8D1DFE6C93008F874D /* ForgotPassViewController.swift */,
 				91EE38F81DFEA38200CD7838 /* Constant.swift */,
 				91EE38FA1DFEA3B400CD7838 /* Reachability.swift */,
+				2986AAFB1E12339B009D75C6 /* UserProfile.swift */,
+				2986AAFD1E1233FF009D75C6 /* ChangePassword.swift */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -556,11 +562,13 @@
 			files = (
 				2976797B1E10F49F00DFFDDA /* BaseViewController.swift in Sources */,
 				2917278E1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift in Sources */,
+				2986AAFC1E12339B009D75C6 /* UserProfile.swift in Sources */,
 				91EC4A621DFE6A24008F874D /* ViewController.swift in Sources */,
 				91EC4A9B1DFE823D008F874D /* DashboardView.swift in Sources */,
 				91EC4A931DFE6F35008F874D /* Camera.swift in Sources */,
 				91EE38F91DFEA38200CD7838 /* Constant.swift in Sources */,
 				91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */,
+				2986AAFE1E1233FF009D75C6 /* ChangePassword.swift in Sources */,
 				2978FCD61E0A58F50038AE06 /* TextFieldsEffects.swift in Sources */,
 				91EE38FB1DFEA3B400CD7838 /* Reachability.swift in Sources */,
 				91EE38F61DFE900A00CD7838 /* DetailsViewController.swift in Sources */,

@@ -161,7 +161,7 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
             
         }
         else {
-            
+            // Call & Navigate to Profile, Change Password & Logout
 //            let btn = UIButton(type: UIButtonType.custom)
 //            btn.tag = (indexPath as NSIndexPath).row
 //            self.onCloseMenuClick(btn)
@@ -170,4 +170,16 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
 
+    //TODO 
+    
+    func NavigateToProfile(){
+        
+    }
+    
+    func LogoutCall(){
+        //Delete Token from server & local end
+        //Firebase Logout
+        //Pop to ViewController
+    }
+    
 }
