@@ -39,7 +39,11 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         
         //Changed Content Size of Scroll View
         mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
-        
+        mainScrollView.tag = 200
+        print(mainScrollView.bounds.size.width)
+        print(mainScrollView.contentSize.width)
+
+
         //Enabled bar button for slider menu
 //        //Hide Back button on this view
 //        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: navigationController, action: nil)
@@ -52,6 +56,13 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+//    func CallBacktoScreen(){
+//        print(mainScrollView.bounds.size.width)
+
+
+//        mainScrollView.scrollRectToVisible(CGRect(x: mainScrollView.contentSize.width - mainScrollView.bounds.size.width * 2, y: 0.0, width: self.view.frame.width, height: (self.view.frame.height - 64)), animated: true)
+//        mainScrollView.setContentOffset(CGPoint(x: 0.0, y: 0.0), animated: true)
+//    }
     /**
      Logout Action
      
@@ -70,6 +81,52 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
     */
     @IBAction func MenuButtonPressed(_ sender: Any) {
         self.onSlideMenuButtonPressed(sender as! UIBarButtonItem)
+    }
+
+    //TODO
+    func ViewProfile() {
+        let apiString = baseURL + "/api/user"
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "GET"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let token = defaults.value(forKey: "accessToken") as! String
+        
+        let header = "Bearer" + " \(token)"
+        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        
+        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+            do {
+                if data != nil{
+                    if let httpResponseValue = response as? HTTPURLResponse{
+                        print(httpResponseValue.statusCode)
+                        if httpResponseValue.statusCode == 200{
+                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                            print(dict)
+                            if let locationValues = dict.value(forKey: "allowed_locations") as? NSArray{
+                                print(locationValues)
+                                if let locationDict = locationValues.object(at: 0) as? NSDictionary{
+                                    print(locationDict)
+                                    defaults.setValue(locationDict.value(forKey: "lattitude"), forKey: "latitude")
+                                    defaults.setValue(locationDict.value(forKey: "longitude"), forKey: "longitude")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch{
+                print("Error")
+            }
+            }.resume()
+        
     }
 
 }

@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 import AVFoundation
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import MapKit
 
-class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    
+class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate, CLLocationManagerDelegate {
     
     var objCaptureSession:AVCaptureSession?
     var objCaptureVideoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -19,10 +22,22 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var attendanceStatus = String()
     var randomQRCode = String()
     
+    var locationManager = CLLocationManager()
     
+    var isAllowedToMarkAttendance = false
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //StartUpdatingLocation()
+        if (CLLocationManager.locationServicesEnabled())
+        {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            //            locationManager.distanceFilter = 50
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+        }
         
         configureVideoCapture()
         addVideoPreviewLayer()
@@ -42,6 +57,51 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK: - Location Methods
+    
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print (locations)
+        if let location = locations.first {
+            print(location)
+            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
+            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
+            
+            let destination = CLLocation(latitude: destinationLatitude!, longitude: destinationLongitude!)
+            
+            let distance = location.distance(from: destination)
+            print(distance)
+
+            let distanceDouble = Double(distance)
+            
+            if (distanceDouble <= 30.00){
+                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
+                    
+                    //Checkin
+                    isAllowedToMarkAttendance = true
+                    
+                }else{
+                    //Cant check in
+                    isAllowedToMarkAttendance = false
+                }
+                
+            }else{
+                    //Cant check in
+                isAllowedToMarkAttendance = false
+            }
+        }
+    }
+    
+    //MARK: - Camera Methods
+    
     
     func configureVideoCapture() {
         let objCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
@@ -86,8 +146,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     func initializeQRView() {
         vwQRCode = UIView()
-        vwQRCode?.layer.borderColor = UIColor.red.cgColor
-        vwQRCode?.layer.borderWidth = 5
+//        vwQRCode?.layer.borderColor = UIColor.red.cgColor
+//        vwQRCode?.layer.borderWidth = 5
         self.view.addSubview(vwQRCode!)
         self.view.bringSubview(toFront: vwQRCode!)
     }
@@ -107,11 +167,75 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 randomQRCode = objMetadataMachineReadableCodeObject.stringValue
                 print(randomQRCode)
                 objCaptureSession?.stopRunning()
-                
+                if let userId = FIRAuth.auth()?.currentUser?.uid {
+                    getQrCodeStatus(userId)
+                }
             }
         }
     }
 
+    func getQrCodeStatus (_ uid : String){
+        let ref = FIRDatabase.database().reference()
+        ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
+
+            
+            if (snapshot.hasChildren() == true){
+                if let snapValue = snapshot.value as? NSMutableDictionary {
+                    let status = snapValue.value(forKey: "status")
+                    let randomNmbr = snapValue.value(forKey: "code")
+                    self.attendanceStatus = status as! String
+                    let nmbr = String(describing: randomNmbr!)
+                    
+                    //Check for location here
+                    if self.isAllowedToMarkAttendance{
+                        print("\(randomNmbr!) == \(self.randomQRCode)")
+                        if (nmbr == self.randomQRCode){
+                            if (self.attendanceStatus == "new"){
+                                
+                                self.changeStatus()
+                                //Back to Dashboard
+                                
+                            }
+                            
+                        }else {
+                            print("different code")
+                            
+                            self.vwQRCode?.frame = CGRect.zero
+                            self.objCaptureSession?.startRunning()
+                            
+                            let controller = self.parent as? HomeViewController
+                            let tag = controller?.mainScrollView.tag
+                            print(tag!)
+                            
+                            let scrollView = controller?.mainScrollView
+                            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                        }
+
+                    }
+                    
+                }
+                
+                
+            }else{ // if no data available
+                
+                
+            }
+            
+        })
+        
+    }
     
+    func changeStatus() {
+        let ref = FIRDatabase.database().reference()
+        ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
+            ref.child("qrCode").updateChildValues(["status" : "old"])
+            self.randomQRCode = ""
+            self.vwQRCode?.frame = CGRect.zero
+            self.objCaptureSession?.startRunning()
+            let controller = self.parent as? HomeViewController
+            let scrollView = controller?.mainScrollView
+            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+        })
+    }
     
 }

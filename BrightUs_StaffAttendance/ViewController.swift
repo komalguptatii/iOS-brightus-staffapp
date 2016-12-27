@@ -76,6 +76,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        if let tokenValue = defaults.value(forKey: "accessToken"){
+            if tokenValue as! String == ""{
+                print("No token exists")
+            }
+            else{
+                
+                let vc = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
+            
+        }
         self.navigationController?.navigationBar.isHidden = true
     }
     
@@ -111,22 +122,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     */
     
     @IBAction func LoginButtonPressed(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+//        self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
 
         if (Validation()){
-//            AuthorizeUser()
+            AuthorizeUser()
         }
     }
 
-    /**
-     Forgot Password Button Action
- 
-     - parameter description : User can access this feature to create new password.
-    */
-    
-    @IBAction func ForgotPasswordButtonPressed(_ sender: UIButton) {
-        
-    }
     
     //MARK: - Validation Method
     //MARK: -

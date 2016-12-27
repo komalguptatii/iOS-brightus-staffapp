@@ -9,14 +9,34 @@
 import Foundation
 import UIKit
 
-class ChangePassword: UIViewController {
+class ChangePassword: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet var currentPasswordTextField: HoshiTextField!
+    @IBOutlet var newPasswordTextfield: HoshiTextField!
+    @IBOutlet var confirmNewPasswordTextfield: HoshiTextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currentPasswordTextField.delegate = self
+        newPasswordTextfield.delegate = self
+        confirmNewPasswordTextfield.delegate = self
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func BackButtonAction(_ sender: UIBarButtonItem) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func SubmitButtonAction(_ sender: UIButton) {
+        if Validation(){
+            self.ChangePasswordCall()
+        }
     }
     
     /**
@@ -29,7 +49,7 @@ class ChangePassword: UIViewController {
         return true
     }
     
-    func ChanePasswordCall(){
+    func ChangePasswordCall(){
         let apiString = baseURL + "/api/user"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
@@ -71,6 +91,8 @@ class ChangePassword: UIViewController {
                             let alert = self.ShowAlert()
                             alert.message = "Password is successfully changed"
                             _ = self.present(alert, animated: true, completion: nil)
+                            _ = self.navigationController?.popViewController(animated: true)
+
 
                         }
                         else if httpResponseValue.statusCode == 401 {
@@ -138,4 +160,5 @@ class ChangePassword: UIViewController {
         return alertController
     }
 
+    
 }

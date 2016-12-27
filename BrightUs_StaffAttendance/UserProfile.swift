@@ -20,7 +20,7 @@ class UserProfile: UIViewController {
     }
     
     @IBAction func BackButtonAction(_ sender: UIBarButtonItem) {
-        
+        _ = self.navigationController?.popViewController(animated: true)            //Testing Required
     }
     
     //TODO
@@ -50,7 +50,6 @@ class UserProfile: UIViewController {
                         if httpResponseValue.statusCode == 200{
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
-                            //TODO : Result
                             //                            {
                             //                                "created_at" = "2016-12-15T11:37:58+0000";
                             //                                email = "staff@maildrop.cc";
