@@ -26,6 +26,11 @@ class DashboardView: UIViewController {
     */
     @IBOutlet var userNameLabel: UILabel!
     
+    
+    @IBOutlet var checkInTimeValueLabel: UILabel!
+    
+    @IBOutlet var checkOutTimeValueLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -37,6 +42,9 @@ class DashboardView: UIViewController {
         currentDateLabel.text = "It's \(self.CurrentDateFormat())"
         self.DisplayGreetings()
         userNameLabel.text = defaults.value(forKey: "name") as! String?
+        
+        
+        //Display Check - In/Out time
         
     }
     
