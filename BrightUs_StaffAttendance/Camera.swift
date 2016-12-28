@@ -45,10 +45,6 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: - Location Methods
-    
-    
-    
     
     //MARK: - Camera Methods
     
@@ -179,6 +175,9 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
             ref.child("qrCode").updateChildValues(["status" : "old"])
             self.randomQRCode = ""
+            //Call MArk Attendance API here
+            self.MarkAttendanceOnServer()
+            
             self.vwQRCode?.frame = CGRect.zero
             self.objCaptureSession?.startRunning()
             let controller = self.parent as? HomeViewController
@@ -187,4 +186,58 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         })
     }
     
+    func MarkAttendanceOnServer(){
+        let apiString = baseURL + "/api/user/attendance/"
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "POST"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let token = defaults.value(forKey: "accessToken") as! String
+        
+        let header = "Bearer" + " \(token)"
+        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        let jsonDict = NSMutableDictionary()
+        
+        if isCheckedIn{
+            jsonDict.setValue("check_out", forKey: "type")
+        }
+        else{
+            jsonDict.setValue("check_in", forKey: "type")
+        }
+        
+        var jsonData = Data()
+        
+        do{
+            jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+        }
+        catch{
+            print("Error")
+        }
+        
+        request.httpBody = jsonData
+        print(jsonData)
+        
+        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+            do {
+                if data != nil{
+                    if let httpResponseValue = response as? HTTPURLResponse{
+                        print(httpResponseValue.statusCode)
+                        if httpResponseValue.statusCode == 200 {
+                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                            print(dict)
+                        }
+                    }
+                }
+            }
+            catch{
+                print(error)
+            }
+            }.resume()
+    }
 }

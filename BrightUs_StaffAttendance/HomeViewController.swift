@@ -23,6 +23,7 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
         // Do any additional setup after loading the view, typically from a nib.
         
         //StartUpdatingLocation()
+        
         if (CLLocationManager.locationServicesEnabled())
         {
             locationManager.delegate = self
@@ -97,16 +98,23 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
                     
                     //Checkin
                     isAllowedToMarkAttendance = true
+                    
                     //Disable ScrollView or add child after this
+                    self.mainScrollView.isPagingEnabled = true
+                    
                     
                 }else{
                     //Cant check in
                     isAllowedToMarkAttendance = false
+                    self.mainScrollView.isPagingEnabled = false
+
                 }
                 
             }else{
                 //Cant check in
                 isAllowedToMarkAttendance = false
+                self.mainScrollView.isPagingEnabled = false
+
             }
         }
     }
@@ -161,7 +169,10 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
                             
+                            //Get User name from here
                             defaults.setValue(dict.value(forKey: "name"), forKey: "name")
+                            
+                            //Get Latitude & longitude of branch
                             if let locationValues = dict.value(forKey: "allowed_locations") as? NSArray{
                                 print(locationValues)
                                 if let locationDict = locationValues.object(at: 0) as? NSDictionary{
@@ -182,4 +193,69 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
         
     }
 
+    //Attendance detail
+    
+    func GetTodayAttendanceDetail(){
+        let apiString = "http://staffattendance.seobudd.it/attendance/?filter=today"
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "GET"
+
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let token = defaults.value(forKey: "accessToken") as! String
+        
+        let header = "Bearer" + " \(token)"
+        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+
+        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+            do {
+                if data != nil{
+                    if let httpResponseValue = response as? HTTPURLResponse{
+                        print(httpResponseValue.statusCode)
+                        if httpResponseValue.statusCode == 200{
+                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                            print(dict)
+                            
+                            if let detailArray = dict.value(forKey: "data") as? NSArray{
+                                print(detailArray)
+                                if let detailDictionary = detailArray.object(at: 0) as? NSDictionary{
+                                    print(detailDictionary)
+                                    if let checkInValue = detailDictionary.value(forKey: "Check_in") as? String{
+                                        if checkInValue.isEmpty{
+                                            isCheckedIn = false
+                                            defaults.setValue("", forKey: "CheckInTime")
+
+                                        }
+                                        else{
+                                            //Here it means check in time is there already
+                                            isCheckedIn = true
+                                            defaults.setValue(checkInValue, forKey: "CheckInTime")
+                                            if let checkOutValue = detailDictionary.value(forKey: "Check_out") as? String{
+                                                if !checkOutValue.isEmpty{
+                                                    defaults.setValue(checkInValue, forKey: "CheckOutTime")
+                                                }
+                                                else{
+                                                    defaults.setValue("", forKey: "CheckOutTime")
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch{
+                print(error)
+            }
+        }.resume()
+    }
 }
