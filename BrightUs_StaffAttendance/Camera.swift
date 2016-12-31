@@ -120,6 +120,12 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
 
+    /**
+     Get QR Code Status 
+     
+     - parameter check : Firebase checks are implementedn i.e. new or old
+ 
+    */
     func getQrCodeStatus (_ uid : String){
         let ref = FIRDatabase.database().reference()
         ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
@@ -170,24 +176,41 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
     }
     
+    /**
+     Change Status of QR code
+     
+     - parameter description : If QR code scanned successfully then change status to "old" & MArk Attendance on Server
+     
+    */
+    
     func changeStatus() {
         let ref = FIRDatabase.database().reference()
         ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
             ref.child("qrCode").updateChildValues(["status" : "old"])
             self.randomQRCode = ""
             //Call MArk Attendance API here
-            self.MarkAttendanceOnServer()
-            
-            self.vwQRCode?.frame = CGRect.zero
-            self.objCaptureSession?.startRunning()
-            let controller = self.parent as? HomeViewController
-            let scrollView = controller?.mainScrollView
-            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+
+            DispatchQueue.main.async {
+                self.MarkAttendanceOnServer()
+
+                self.vwQRCode?.frame = CGRect.zero
+                self.objCaptureSession?.startRunning()
+                let controller = self.parent as? HomeViewController
+                let scrollView = controller?.mainScrollView
+                scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+            }
+           
         })
     }
     
+    /**
+     Mark Attendance Request 
+     
+     - parameter sent : type i.e. check_in,check_out
+ 
+    */
     func MarkAttendanceOnServer(){
-        let apiString = baseURL + "/api/user/attendance/"
+        let apiString = baseURL + "/api/user/attendance"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
         

@@ -74,3 +74,8 @@ func ValidateEmptyContent(textField : UITextField)->Bool{
  * Bool to describe that user check in/out, Set value of this bool from "Attendance Detail API & Use it in Marking Attendance"
  */
 var isCheckedIn = false
+
+//TODO
+//Attendance Details Custom Part, Pagination & details (2 hours )
+//Loading Indicator (Need device to see wherever is applicable or not)
+//Test the app at particular location

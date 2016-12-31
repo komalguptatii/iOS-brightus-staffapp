@@ -41,11 +41,34 @@ class DashboardView: UIViewController {
         //Called class functions to display date and greet user
         currentDateLabel.text = "It's \(self.CurrentDateFormat())"
         self.DisplayGreetings()
-        userNameLabel.text = defaults.value(forKey: "name") as! String?
+        if let nameOfUser = defaults.value(forKey: "name") as? String{
+            userNameLabel.text = "\(nameOfUser)"
+        }
         
-        
+
         //Display Check - In/Out time
-        
+        if isCheckedIn{
+            if let checkInTime = defaults.value(forKey: "CheckInTime") as? String{
+                if !checkInTime.isEmpty{
+                    //Test
+                    let value = ConvertTimeStampToRequiredHours(dateValue: "2016-12-19T07:25:57+0000")
+//                    let value = ConvertTimeStampToRequiredHours(dateValue: checkInTime)
+                    checkInTimeValueLabel.text = "\(value)"
+                }
+                else{
+                    checkInTimeValueLabel.text = "Let's go"
+                }
+            }
+            if let checkOutTime = defaults.value(forKey: "") as? String{
+                if !checkOutTime.isEmpty{
+                    let value = ConvertTimeStampToRequiredHours(dateValue: checkOutTime)
+                    checkOutTimeValueLabel.text = "\(value)"
+                }
+                else{
+                    checkOutTimeValueLabel.text = "Pending"
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -124,4 +147,30 @@ class DashboardView: UIViewController {
             print(NSLocalizedString("Night", comment: "Night"))
         }
     }
+    
+    /**
+     Conversion of TimeStamp (ISO 8601) to required value
+     
+     - parameter argument : Date (String)
+     
+     - parameter return : Date in required format (String)
+     
+    */
+    func ConvertTimeStampToRequiredHours(dateValue : String)-> String{
+        let formatStyle = DateFormatter()
+        formatStyle.timeZone = TimeZone.current
+        formatStyle.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
+        formatStyle.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"   //"2016-12-19T07:25:57+0000"  ZZZZZ SSSS
+
+        print(dateValue)
+        let receivedDateTime = formatStyle.date(from: dateValue)
+        
+        print(receivedDateTime!)
+        formatStyle.dateFormat = "HH:mm"
+        let timeValue = formatStyle.string(from: receivedDateTime!)
+        print(timeValue)
+        return timeValue
+    }
+    
+    
 }

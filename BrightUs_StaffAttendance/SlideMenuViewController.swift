@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseAuth
 
 protocol SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(_ index : Int32)
@@ -71,7 +73,7 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.isUserInteractionEnabled = true
-        
+        arrayMenuOptions.removeAll()
         updateArrayMenuOptions()
     }
     
@@ -162,6 +164,13 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         }
         else {
             // Call & Navigate to Profile, Change Password & Logout
+            if indexPath.row == 0{
+                self.NavigateToProfile()
+            }
+            else if indexPath.row == 1{
+                self.LogoutCall()
+            }
+            
 //            let btn = UIButton(type: UIButtonType.custom)
 //            btn.tag = (indexPath as NSIndexPath).row
 //            self.onCloseMenuClick(btn)
@@ -173,13 +182,34 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
     //TODO 
     
     func NavigateToProfile(){
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "UserProfile") as UIViewController
+        self.navigationController?.show(vc, sender: nil)
     }
     
     func LogoutCall(){
         //Delete Token from server & local end
         //Firebase Logout
         //Pop to ViewController
+        let firebaseAuth = FIRAuth.auth()
+        do {
+            try firebaseAuth?.signOut()
+            defaults.setValue("", forKey: "tokenType")
+            defaults.setValue("", forKey: "accessToken")
+            defaults.setValue("", forKey: "refreshToken")
+            defaults.setValue("", forKey: "name")
+            defaults.setValue("", forKey: "latitude")
+            defaults.setValue("", forKey: "longitude")
+            defaults.setValue("", forKey: "CheckInTime")
+            defaults.setValue("", forKey: "CheckOutTime")
+
+            defaults.synchronize()
+            
+            _ = self.navigationController?.popToRootViewController(animated: true)
+            
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
     
 }
