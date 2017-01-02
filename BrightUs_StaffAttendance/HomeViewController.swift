@@ -44,14 +44,14 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
         self.mainScrollView.addSubview(dashboardController.view)
         dashboardController.didMove(toParentViewController: self)
         
-//        self.addChildViewController(cameraController)
-//        self.mainScrollView.addSubview(cameraController.view)
-//        cameraController.didMove(toParentViewController: self)
-//        
-//        
-//        var cameraFrame : CGRect = cameraController.view.frame
-//        cameraFrame.origin.x = self.view.frame.width
-//        cameraController.view.frame = cameraFrame
+        self.addChildViewController(cameraController)
+        self.mainScrollView.addSubview(cameraController.view)
+        cameraController.didMove(toParentViewController: self)
+        
+        
+        var cameraFrame : CGRect = cameraController.view.frame
+        cameraFrame.origin.x = self.view.frame.width
+        cameraController.view.frame = cameraFrame
         
         //Changed Content Size of Scroll View
         mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
@@ -59,8 +59,6 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
         print(mainScrollView.bounds.size.width)
         print(mainScrollView.contentSize.width)
 
-        performSelector(inBackground: #selector(HomeViewController.ViewProfile), with: nil)
-//        ViewProfile()
 
         //Enabled bar button for slider menu
 //        //Hide Back button on this view
@@ -120,17 +118,6 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
             }
         }
     }
-
-    
-    /**
-     Logout Action
-     
-     - parameter description : User can logout from app via tapping on Logout Button
-     
-    */
-    @IBAction func LogoutAction(_ sender: UIBarButtonItem) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
     
     /**
      Menu Button Action 
@@ -143,146 +130,5 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
     }
     
     
-    //MARK: -
-    /**
-     View Profile Request
-     
-     - parameter method : GET
-     
-     - parameter return : Name, Latitude & Longitude of Branch Location
-     
-     */
-    func ViewProfile() {
-        let apiString = baseURL + "/api/user"
-        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        let url = URL(string: encodedApiString!)
-        
-        let request = NSMutableURLRequest(url: url!)
-        request.httpMethod = "GET"
-        
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let token = defaults.value(forKey: "accessToken") as! String
-        
-        let header = "Bearer" + " \(token)"
-        print(header)
-        
-        request.setValue(header, forHTTPHeaderField: "Authorization")
-        
-        
-        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-            do {
-                if data != nil{
-                    if let httpResponseValue = response as? HTTPURLResponse{
-                        print(httpResponseValue.statusCode)
-                        if httpResponseValue.statusCode == 200{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-                            //Get User name from here
-                            defaults.setValue(dict.value(forKey: "name")!, forKey: "name")
-                            
-                            //Get Latitude & longitude of branch
-                            if let locationValues = dict.value(forKey: "allowed_locations") as? NSArray{
-                                print(locationValues)
-                                if let locationDict = locationValues.object(at: 0) as? NSDictionary{
-                                    print(locationDict)
-                                    defaults.setValue(locationDict.value(forKey: "lattitude"), forKey: "latitude")
-                                    defaults.setValue(locationDict.value(forKey: "longitude"), forKey: "longitude")
-                                }
-                            }
-                            defaults.synchronize()
-                            self.GetTodayAttendanceDetail()
-
-                        }
-                    }
-                }
-            }
-            catch{
-                print("Error")
-            }
-            }.resume()
-        
-    }
-    
-    //MARK: - Today's Attendance detail
-    
-    /**
-     Today Attendance Detail Request
-     
-     - parameter return : Check - In/Out Time
  
-    */
-    func GetTodayAttendanceDetail(){
-        let apiString = baseURL + "/api/user/attendance?filter=today"
-        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        let url = URL(string: encodedApiString!)
-        
-        let request = NSMutableURLRequest(url: url!)
-        request.httpMethod = "GET"
-        
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let token = defaults.value(forKey: "accessToken") as! String
-        
-        let header = "Bearer" + " \(token)"
-        print(header)
-        
-        request.setValue(header, forHTTPHeaderField: "Authorization")
-        
-        
-        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-            do {
-                if data != nil{
-                    if let httpResponseValue = response as? HTTPURLResponse{
-                        print(httpResponseValue.statusCode)
-                        if httpResponseValue.statusCode == 200{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-                            if let detailArray = dict.value(forKey: "data") as? NSArray{
-                                print(detailArray)
-                                if detailArray.count > 0{
-                                    if let detailDictionary = detailArray.object(at: 0) as? NSDictionary{
-                                        print(detailDictionary)
-                                        if let checkInValue = detailDictionary.value(forKey: "Check_in") as? String{
-                                            if checkInValue.isEmpty{
-                                                isCheckedIn = false
-                                                defaults.setValue("", forKey: "CheckInTime")
-                                                
-                                            }
-                                            else{
-                                                //Here it means check in time is there already
-                                                isCheckedIn = true
-                                                defaults.setValue(checkInValue, forKey: "CheckInTime")
-                                                if let checkOutValue = detailDictionary.value(forKey: "Check_out") as? String{
-                                                    if !checkOutValue.isEmpty{
-                                                        defaults.setValue(checkInValue, forKey: "CheckOutTime")
-                                                    }
-                                                    else{
-                                                        defaults.setValue("", forKey: "CheckOutTime")
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-                            }
-                            
-                        }
-                        else if httpResponseValue.statusCode == 401{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-
-                        }
-                    }
-                }
-            }
-            catch{
-                print(error)
-            }
-            }.resume()
-    }
-
 }

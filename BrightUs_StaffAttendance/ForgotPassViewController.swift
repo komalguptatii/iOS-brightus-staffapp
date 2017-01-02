@@ -18,12 +18,26 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var emailTextField: HoshiTextField!
     
+    /**
+     * Indicator to let user know about data loading
+     */
+    var indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         emailTextField.delegate = self
+        emailTextField.text = "staff@maildrop.cc"
+
+        //Custom Loading Indicator
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        indicator.center = self.view.center
+        indicator.backgroundColor = UIColor.clear
+        indicator.color = UIColor.black
+        indicator.startAnimating()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,8 +65,14 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
     */
     
     @IBAction func submitButton(_ sender: UIButton) {
+        let checkValue = Validation()
+        print(checkValue)
         if (Validation()){      //Only performed successfully if specified email format get matched
-            
+            self.view.addSubview(indicator)
+            self.view.isUserInteractionEnabled = false
+            self.view.window?.isUserInteractionEnabled = false
+
+            ForgotPasswordActionCall()
         }
     }
     
@@ -108,6 +128,7 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         request.httpMethod = "POST"
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
 
         let jsonDict = NSMutableDictionary()
         jsonDict.setValue(emailTextField.text!, forKey: "email")
@@ -134,6 +155,7 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
                                 let alert = self.ShowAlert()
                                 alert.message = "Please check your email and recover the password"
                                 _ = self.present(alert, animated: true, completion: nil)
+                                _ = self.navigationController?.popViewController(animated: true)
 
                             }
                         }
@@ -173,15 +195,22 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
                         }
                     }
                 }
+                
             }
             catch{
                 print(error)
             }
         }.resume()
 
+        DispatchQueue.main.async {
+            self.indicator.removeFromSuperview()
+            self.view.isUserInteractionEnabled = true
+            self.view.window?.isUserInteractionEnabled = true
+
+        }
     }
     
-       
+    
     //MARK: - TextField Delegate
     /**
      TextField Return Delegate

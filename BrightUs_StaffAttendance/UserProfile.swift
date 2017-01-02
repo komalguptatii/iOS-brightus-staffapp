@@ -26,10 +26,26 @@ class UserProfile: UIViewController, UITextFieldDelegate {
      */
     @IBOutlet var roleLabel: HoshiTextField!
     
+    /**
+     * Indicator to let user know about data loading
+     */
+    var indicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Add Loading Indicator
+        //Custom Loading Indicator
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        indicator.center = self.view.center
+        indicator.backgroundColor = UIColor.clear
+        indicator.color = UIColor.black
+        indicator.startAnimating()
+        
+        self.view.addSubview(indicator)
+        self.view.isUserInteractionEnabled = false
+        self.view.window?.isUserInteractionEnabled = false
+        
         self.ViewProfile()
     }
     
@@ -57,6 +73,7 @@ class UserProfile: UIViewController, UITextFieldDelegate {
      
     */
     func ViewProfile() {
+        
         let apiString = baseURL + "/api/user"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
@@ -98,7 +115,12 @@ class UserProfile: UIViewController, UITextFieldDelegate {
                 print("Error")
             }
             }.resume()
-        
+        DispatchQueue.main.async {
+            self.indicator.removeFromSuperview()
+            self.view.isUserInteractionEnabled = true
+            self.view.window?.isUserInteractionEnabled = true
+            
+        }
     }
 
 }

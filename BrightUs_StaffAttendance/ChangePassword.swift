@@ -26,10 +26,23 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
     */
     @IBOutlet var confirmNewPasswordTextfield: HoshiTextField!
     
+    /**
+     * Indicator to let user know about data loading
+     */
+    var indicator = UIActivityIndicatorView()
     
+    //MARK: - Methods (ViewDidLoad, DidReceiveMemoryWarning)
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Custom Loading Indicator
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        indicator.center = self.view.center
+        indicator.backgroundColor = UIColor.clear
+        indicator.color = UIColor.black
+        indicator.startAnimating()
+
         currentPasswordTextField.delegate = self
         newPasswordTextfield.delegate = self
         confirmNewPasswordTextfield.delegate = self
@@ -40,6 +53,8 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    //MARK: - Button Actions
+    //MARK: -
     /**
      Back Button Action
      
@@ -59,19 +74,67 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
     */
     @IBAction func SubmitButtonAction(_ sender: UIButton) {
         if Validation(){
+            self.view.addSubview(indicator)
+            self.view.isUserInteractionEnabled = false
+            self.view.window?.isUserInteractionEnabled = false
+
             self.ChangePasswordCall()
         }
     }
     
+    //MARK: - Validations
+    //MARK: -
     /**
      Validation Method to validate content on the screen
     */
     func Validation()->Bool{
-        //OldPassword
-        //NewPassword
-        //Match Old and New password
+        let currentPassword = defaults.value(forKey: "password") as! String
+        let emptyCurrentPassword = ValidateEmptyContent(textField: currentPasswordTextField)
+        let emptyNewPassword = ValidateEmptyContent(textField: newPasswordTextfield)
+        let emptyConfirmPassword = ValidateEmptyContent(textField: confirmNewPasswordTextfield)
+        let alert = self.ShowAlert()
+
+        alert.title = "Alert"
+        
+        if !emptyCurrentPassword{
+            
+            
+            alert.message = "Current Password can't be empty"
+            _ = self.present(alert, animated: true, completion: nil)
+            
+            return false
+        }
+        else if currentPasswordTextField.text != currentPassword{
+            
+            alert.message = "Please enter the correct current password"
+            _ = self.present(alert, animated: true, completion: nil)
+    
+            return false
+        }
+        else if !emptyNewPassword{
+            
+            alert.message = "New Password can't be empty"
+            _ = self.present(alert, animated: true, completion: nil)
+            
+            return false
+        }
+        else if !emptyConfirmPassword{
+            alert.message = "Confirm Password can't be empty"
+            _ = self.present(alert, animated: true, completion: nil)
+
+            return false
+        }
+        else if newPasswordTextfield.text != confirmNewPasswordTextfield.text{
+            alert.message = "New Password and Confirm password didn't match"
+            _ = self.present(alert, animated: true, completion: nil)
+
+            return false
+        }
         return true
     }
+    
+    //MARK: - Change Password API Request
+    //MARK: - 
     
     func ChangePasswordCall(){
         let apiString = baseURL + "/api/user"
@@ -166,9 +229,14 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
             }
         }.resume()
 
-
+        DispatchQueue.main.async {
+            self.indicator.removeFromSuperview()
+            self.view.isUserInteractionEnabled = true
+            self.view.window?.isUserInteractionEnabled = true
+        }
     }
     
+    //MARK: - Alert Controller
     /**
      Alert Controller Method
      

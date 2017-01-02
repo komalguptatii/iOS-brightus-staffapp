@@ -29,6 +29,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
      */
     @IBOutlet var passwordTextField: HoshiTextField!
     
+    /**
+     * Indicator to let user know about data loading
+    */
+    var indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +48,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         emailTextField.text = "staff@maildrop.cc"
         passwordTextField.text = "staff"
         
+        //Custom Loading Indicator
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        indicator.center = self.view.center
+        indicator.backgroundColor = UIColor.clear
+        indicator.color = UIColor.black
+        indicator.startAnimating()
         
         // Custom Button to show password
         let showPasswordButton = UIButton()
@@ -125,6 +136,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
 
         if (Validation()){
+            
+            self.view.addSubview(indicator)
+            self.view.isUserInteractionEnabled = false
+            self.view.window?.isUserInteractionEnabled = false
+
             AuthorizeUser()
         }
     }
@@ -266,6 +282,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             let accessTokenValue = dict.value(forKey: "access_token")
                             let refreshTokenValue = dict.value(forKey: "refresh_token")
                             
+                            defaults.setValue(self.passwordTextField.text!, forKey: "password")
                             defaults.setValue(tokenTypeValue, forKey: "tokenType")
                             defaults.setValue(accessTokenValue, forKey: "accessToken")
                             defaults.setValue(refreshTokenValue, forKey: "refreshToken")
@@ -351,6 +368,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             //TODO
             DispatchQueue.main.async {
+                self.indicator.removeFromSuperview()
+                self.view.isUserInteractionEnabled = true
+                self.view.window?.isUserInteractionEnabled = true
+
                 self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
             }
 

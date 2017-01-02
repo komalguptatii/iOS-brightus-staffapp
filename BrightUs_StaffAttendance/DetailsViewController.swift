@@ -62,10 +62,15 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view, typically from a nib.
         detailTableView.delegate = self
         detailTableView.dataSource = self
+        detailTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        detailTableView.backgroundColor = UIColor.clear
+        
+        
         
         filterPickerView.delegate = self
         filterPickerView.dataSource = self
         filterPickerView.isHidden = true
+        filterPickerView.isUserInteractionEnabled = false
         
         datePickerView.isHidden = true
         datePickerView.isUserInteractionEnabled = false
@@ -104,6 +109,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func FilterAction(_ sender: UIBarButtonItem) {
         filterPickerView.isHidden = false
+        filterPickerView.isUserInteractionEnabled = true
+
         self.view.bringSubview(toFront: filterPickerView)
 
     }
@@ -213,6 +220,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TiiAttendanceDetailCell
         
+        
         return cell
     }
 
@@ -239,11 +247,16 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedFilter = filterValueArray[row]
-        
+        print(selectedFilter)
         if selectedFilter == "custom"{
             fromDateButton.isUserInteractionEnabled = true
             toDateButton.isUserInteractionEnabled = true
         }
+        self.GetAttendanceDetails()
+        
+        filterPickerView.isHidden = true
+        filterPickerView.isUserInteractionEnabled = false
+
         filterPickerView.resignFirstResponder()
         self.view.endEditing(true)
     }

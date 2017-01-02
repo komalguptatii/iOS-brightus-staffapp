@@ -119,6 +119,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import AVFoundation;
 @import Foundation;
 @import CoreGraphics;
+@import CoreLocation;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -174,12 +175,84 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 - (void)addVideoPreviewLayer;
 - (void)initializeQRView SWIFT_METHOD_FAMILY(none);
 - (void)captureOutput:(AVCaptureOutput * _Null_unspecified)captureOutput didOutputMetadataObjects:(NSArray * _Null_unspecified)metadataObjects fromConnection:(AVCaptureConnection * _Null_unspecified)connection;
+/**
+  Get QR Code Status
+  \param check Firebase checks are implementedn i.e. new or old
+
+*/
+- (void)getQrCodeStatus:(NSString * _Nonnull)uid;
+/**
+  Change Status of QR code
+  \param description If QR code scanned successfully then change status to “old” & MArk Attendance on Server
+
+*/
+- (void)changeStatus;
+/**
+  Mark Attendance Request
+  \param sent type i.e. check_in,check_out
+
+*/
+- (void)MarkAttendanceOnServer;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class HoshiTextField;
+@class UIButton;
+@class UIAlertController;
+
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
+@interface ChangePassword : UIViewController <UITextFieldDelegate>
+/**
+  Current Password TextField
+*/
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified currentPasswordTextField;
+/**
+  New Password TextField
+*/
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified newPasswordTextfield;
+/**
+  Confirm New Password TextField
+*/
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified confirmNewPasswordTextfield;
+- (void)viewDidLoad;
+- (void)didReceiveMemoryWarning;
+/**
+  Back Button Action
+  <ul>
+    <li>
+      paramater description : Pop Controller to Previous View
+    </li>
+  </ul>
+*/
+- (IBAction)BackButtonAction:(UIBarButtonItem * _Nonnull)sender;
+/**
+  Submit Process Action
+  \param description To complete the request of Change Password process
+
+*/
+- (IBAction)SubmitButtonAction:(UIButton * _Nonnull)sender;
+/**
+  Validation Method to validate content on the screen
+*/
+- (BOOL)Validation;
+- (void)ChangePasswordCall;
+/**
+  Alert Controller Method
+  <ul>
+    <li>
+      paramter return : Returns UIAlertController
+    </li>
+  </ul>
+  \param description Method to intialize and add actions to alert controller
+
+*/
+- (UIAlertController * _Nonnull)ShowAlert;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class UILabel;
-@class UIButton;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 @interface DashboardView : UIViewController
@@ -191,6 +264,16 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
   Greet user
 */
 @property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified greetingLabel;
+/**
+  <ul>
+    <li>
+      Display User Name
+    </li>
+  </ul>
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified userNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified checkInTimeValueLabel;
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified checkOutTimeValueLabel;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 /**
@@ -199,7 +282,6 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 
 */
 - (IBAction)AttendanceDetailButtonAction:(UIButton * _Nonnull)sender;
-- (IBAction)ViewProfile:(UIButton * _Nonnull)sender;
 /**
   Specify date format Methods
   \param return Returns String Value in format of Day, Date Month
@@ -212,11 +294,21 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 
 */
 - (void)DisplayGreetings;
+/**
+  Conversion of TimeStamp (ISO 8601) to required value
+  \param argument Date (String)
+
+  \param return Date in required format (String)
+
+*/
+- (NSString * _Nonnull)ConvertTimeStampToRequiredHoursWithDateValue:(NSString * _Nonnull)dateValue;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class UITableView;
+@class UIPickerView;
+@class UIDatePicker;
 @class NSMutableArray;
 @class UITableViewCell;
 
@@ -224,12 +316,81 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
   Attendance Details
 */
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
-@interface DetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface DetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource>
+/**
+  Table View to display attendance details
+*/
 @property (nonatomic, strong) IBOutlet UITableView * _Null_unspecified detailTableView;
+/**
+  Picker View to select filters
+*/
+@property (nonatomic, strong) IBOutlet UIPickerView * _Null_unspecified filterPickerView;
+/**
+  From Date Button i.e. start date from which user want to see the details
+*/
+@property (nonatomic, strong) IBOutlet UIButton * _Null_unspecified fromDateButton;
+/**
+  From Date Button i.e. end date upto which user want to see the details
+*/
+@property (nonatomic, strong) IBOutlet UIButton * _Null_unspecified toDateButton;
+/**
+  Date Picker View Outler
+*/
+@property (nonatomic, strong) IBOutlet UIDatePicker * _Null_unspecified datePickerView;
+/**
+  Array of values marked as filters
+*/
+@property (nonatomic, copy) NSArray<NSString *> * _Nonnull filterValueArray;
+/**
+  Array that hold the detail fetched temporarily to be displayed
+*/
 @property (nonatomic, strong) NSMutableArray * _Nonnull attendanceDetailArray;
+/**
+  Selected Filer Value, default is “Today”
+*/
+@property (nonatomic, copy) NSString * _Nonnull selectedFilter;
+/**
+  Bool to check that From Date is selected before moving to selection of End date
+*/
+@property (nonatomic) BOOL isSelectedFromDate;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+/**
+  Back Button Action
+  <ul>
+    <li>
+      paramater description : Pop Controller to Previous View
+    </li>
+  </ul>
+*/
 - (IBAction)BackButtonAction:(UIBarButtonItem * _Nonnull)sender;
+/**
+  Filter Action
+  <ul>
+    <li>
+      paramater description : Display picker view to select filter
+    </li>
+  </ul>
+*/
+- (IBAction)FilterAction:(UIBarButtonItem * _Nonnull)sender;
+/**
+  From Date Button Action
+  \param description Display date picker view to select date as “From Date”
+
+*/
+- (IBAction)FromDateButtonAction:(UIButton * _Nonnull)sender;
+/**
+  To Date Button Action
+  \param description Display date picker view to select date as “To Date”
+
+*/
+- (IBAction)ToDateButtonAction:(UIButton * _Nonnull)sender;
+/**
+  Date Picker Selected Value Method
+  \param description To deal with the selected date, this method is target for date picker view
+
+*/
+- (void)DatePickerValueSelectedWithSender:(UIDatePicker * _Nonnull)sender;
 /**
   Number of Sections in TableView
   \param return number of sections
@@ -251,12 +412,23 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 
 */
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+/**
+  Picker View Delegate & Datasources
+  \param methodsInAction numberOfComponents, numberOfRowsInComponent, titleForRow, didSelectRow
+
+*/
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView * _Nonnull)pickerView;
+- (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component;
+- (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
+- (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+/**
+  Attendance Detail Request
+*/
+- (void)GetAttendanceDetails;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class HoshiTextField;
-@class UIAlertController;
 @class UITextField;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
@@ -288,6 +460,20 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
 */
 - (BOOL)Validation;
 /**
+  API Call - Forgot Password
+  \param method POST
+
+  \param send Email, Content-Type
+
+  \param return Empty Content to mark success
+
+*/
+- (void)ForgotPasswordActionCall;
+/**
+  TextField Return Delegate
+*/
+- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField;
+/**
   Alert Controller Method
   <ul>
     <li>
@@ -298,18 +484,23 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
 
 */
 - (UIAlertController * _Nonnull)ShowAlert;
-- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class UIScrollView;
+@class CLLocationManager;
+@class CLLocation;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
-@interface HomeViewController : BaseViewController <UIScrollViewDelegate>
+@interface HomeViewController : BaseViewController <UIScrollViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) IBOutlet UIScrollView * _Null_unspecified mainScrollView;
+@property (nonatomic, strong) CLLocationManager * _Nonnull locationManager;
+@property (nonatomic) BOOL isAllowedToMarkAttendance;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
 /**
   Logout Action
   \param description User can logout from app via tapping on Logout Button
@@ -322,6 +513,20 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
 
 */
 - (IBAction)MenuButtonPressed:(id _Nonnull)sender;
+/**
+  View Profile Request
+  \param method GET
+
+  \param return Name, Latitude & Longitude of Branch Location
+
+*/
+- (void)ViewProfile;
+/**
+  Today Attendance Detail Request
+  \param return Check - In/Out Time
+
+*/
+- (void)GetTodayAttendanceDetail;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -433,6 +638,8 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23SlideMenuViewController")
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)NavigateToProfile;
+- (void)LogoutCall;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -465,6 +672,44 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23TiiAttendanceDetailCell")
 */
 @property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified totalTime;
 - (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11UserProfile")
+@interface UserProfile : UIViewController <UITextFieldDelegate>
+/**
+  *Name label to Display User Name
+*/
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified nameLabel;
+/**
+  *Email label to Display User Email
+*/
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified emailLabel;
+/**
+  *Role label to Display User Role
+*/
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified roleLabel;
+- (void)viewDidLoad;
+- (void)didReceiveMemoryWarning;
+/**
+  Back Button Action
+  <ul>
+    <li>
+      paramater description : Pop Controller to Previous View
+    </li>
+  </ul>
+*/
+- (IBAction)BackButtonAction:(UIBarButtonItem * _Nonnull)sender;
+/**
+  View Profile Request
+  \param method GET
+
+  \param return Name, Email, Role
+
+*/
+- (void)ViewProfile;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -501,12 +746,6 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ViewController")
 
 */
 - (IBAction)LoginButtonPressed:(UIButton * _Nonnull)sender;
-/**
-  Forgot Password Button Action
-  \param description User can access this feature to create new password.
-
-*/
-- (IBAction)ForgotPasswordButtonPressed:(UIButton * _Nonnull)sender;
 /**
   Validation Method
   \param return Bool to denote whether the content is valid or not.

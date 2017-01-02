@@ -26,9 +26,14 @@ class DashboardView: UIViewController {
     */
     @IBOutlet var userNameLabel: UILabel!
     
-    
+    /**
+     * Label that displays Check-In Time
+    */
     @IBOutlet var checkInTimeValueLabel: UILabel!
     
+    /**
+     * Label that displays Check-Out Time
+     */
     @IBOutlet var checkOutTimeValueLabel: UILabel!
     
     override func viewDidLoad() {
@@ -41,39 +46,23 @@ class DashboardView: UIViewController {
         //Called class functions to display date and greet user
         currentDateLabel.text = "It's \(self.CurrentDateFormat())"
         self.DisplayGreetings()
-        if let nameOfUser = defaults.value(forKey: "name") as? String{
-            userNameLabel.text = "\(nameOfUser)"
-        }
         
+        performSelector(inBackground: #selector(DashboardView.ViewProfile), with: nil)
+        performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
 
-        //Display Check - In/Out time
-        if isCheckedIn{
-            if let checkInTime = defaults.value(forKey: "CheckInTime") as? String{
-                if !checkInTime.isEmpty{
-                    //Test
-                    let value = ConvertTimeStampToRequiredHours(dateValue: "2016-12-19T07:25:57+0000")
-//                    let value = ConvertTimeStampToRequiredHours(dateValue: checkInTime)
-                    checkInTimeValueLabel.text = "\(value)"
-                }
-                else{
-                    checkInTimeValueLabel.text = "Let's go"
-                }
-            }
-            if let checkOutTime = defaults.value(forKey: "") as? String{
-                if !checkOutTime.isEmpty{
-                    let value = ConvertTimeStampToRequiredHours(dateValue: checkOutTime)
-                    checkOutTimeValueLabel.text = "\(value)"
-                }
-                else{
-                    checkOutTimeValueLabel.text = "Pending"
-                }
-            }
-        }
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if let nameOfUser = defaults.value(forKey: "name") as? String{
+            userNameLabel.text = "\(nameOfUser)"
+        }
     }
     
     /**
@@ -166,11 +155,185 @@ class DashboardView: UIViewController {
         let receivedDateTime = formatStyle.date(from: dateValue)
         
         print(receivedDateTime!)
-        formatStyle.dateFormat = "HH:mm"
+        formatStyle.dateFormat = "HH:mm a"
         let timeValue = formatStyle.string(from: receivedDateTime!)
         print(timeValue)
         return timeValue
     }
     
+    //MARK: -
+    /**
+     View Profile Request
+     
+     - parameter method : GET
+     
+     - parameter return : Name, Latitude & Longitude of Branch Location
+     
+     */
+    func ViewProfile() {
+        let apiString = baseURL + "/api/user"
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "GET"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let token = defaults.value(forKey: "accessToken") as! String
+        
+        let header = "Bearer" + " \(token)"
+        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        
+        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+            do {
+                if data != nil{
+                    if let httpResponseValue = response as? HTTPURLResponse{
+                        print(httpResponseValue.statusCode)
+                        if httpResponseValue.statusCode == 200{
+                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                            print(dict)
+                            
+                            //Get User name from here
+                            defaults.setValue(dict.value(forKey: "name")!, forKey: "name")
+                            
+                            DispatchQueue.main.async {
+                                if let nameOfUser = defaults.value(forKey: "name") as? String{
+                                    self.userNameLabel.text = "\(nameOfUser)"
+                                }
+
+                            }
+                            //Get Latitude & longitude of branch
+                            if let locationValues = dict.value(forKey: "allowed_locations") as? NSArray{
+                                print(locationValues)
+                                if let locationDict = locationValues.object(at: 0) as? NSDictionary{
+                                    print(locationDict)
+                                    defaults.setValue(locationDict.value(forKey: "lattitude"), forKey: "latitude")
+                                    defaults.setValue(locationDict.value(forKey: "longitude"), forKey: "longitude")
+                                }
+                            }
+                            defaults.synchronize()
+                            
+                        }
+                    }
+                }
+            }
+            catch{
+                print("Error")
+            }
+            }.resume()
+        
+    }
+
+    
+    //MARK: - Today's Attendance detail
+    
+    /**
+     Today Attendance Detail Request
+     
+     - parameter return : Check - In/Out Time
+     
+     */
+    func GetTodayAttendanceDetail(){
+        let apiString = baseURL + "/api/user/attendance?filter=today"
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "GET"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let token = defaults.value(forKey: "accessToken") as! String
+        
+        let header = "Bearer" + " \(token)"
+        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        
+        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+            do {
+                if data != nil{
+                    if let httpResponseValue = response as? HTTPURLResponse{
+                        print(httpResponseValue.statusCode)
+                        if httpResponseValue.statusCode == 200{
+                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                            print(dict)
+                            
+                            if let detailArray = dict.value(forKey: "data") as? NSArray{
+                                print(detailArray)
+                                if detailArray.count > 0{
+                                    if let detailDictionary = detailArray.object(at: 0) as? NSDictionary{
+                                        print(detailDictionary)
+                                        if let checkInValue = detailDictionary.value(forKey: "check_in") as? String{
+                                            if checkInValue.isEmpty{
+                                                isCheckedIn = false
+                                                defaults.setValue("", forKey: "CheckInTime")
+                                                
+                                            }
+                                            else{
+                                                //Here it means check in time is there already
+                                                isCheckedIn = true
+                                                defaults.setValue(checkInValue, forKey: "CheckInTime")
+                                                if let checkOutValue = detailDictionary.value(forKey: "check_out") as? String{
+                                                    if !checkOutValue.isEmpty{
+                                                        defaults.setValue(checkInValue, forKey: "CheckOutTime")
+                                                    }
+                                                    else{
+                                                        defaults.setValue("", forKey: "CheckOutTime")
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                            DispatchQueue.main.async {
+                                //Display Check - In/Out time
+                                if let checkInTime = defaults.value(forKey: "CheckInTime") as? String{
+                                    if !checkInTime.isEmpty{
+                                        //Test
+                                        //                    let value = ConvertTimeStampToRequiredHours(dateValue: "2016-12-19T07:25:57+0000")
+                                        print(checkInTime)
+                                        let value = self.ConvertTimeStampToRequiredHours(dateValue: checkInTime)
+                                        self.checkInTimeValueLabel.text = "\(value)"
+                                    }
+                                    else{
+                                        self.checkInTimeValueLabel.text = "Let's go"
+                                    }
+                                }
+                                if let checkOutTime = defaults.value(forKey: "CheckOutTime") as? String{
+                                    if !checkOutTime.isEmpty{
+                                        let value = self.ConvertTimeStampToRequiredHours(dateValue: checkOutTime)
+                                        self.checkOutTimeValueLabel.text = "\(value)"
+                                    }
+                                    else{
+                                        self.checkOutTimeValueLabel.text = "Pending"
+                                    }
+                                }
+
+                            }
+                            
+                        }
+                        else if httpResponseValue.statusCode == 401{
+                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                            print(dict)
+                            
+                        }
+                    }
+                }
+            }
+            catch{
+                print(error)
+            }
+            }.resume()
+    }
+
     
 }
