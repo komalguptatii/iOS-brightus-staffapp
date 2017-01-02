@@ -57,6 +57,17 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     var isSelectedFromDate = false
     
+    /**
+     *
+    */
+    var currentPage = 1
+    
+    var totalNoOfPages = 0
+    var checkCurrentPage = 1
+    
+    var selectedFromDate = ""
+    var selectedToDate = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -75,6 +86,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         datePickerView.isHidden = true
         datePickerView.isUserInteractionEnabled = false
         datePickerView.maximumDate = Date()
+        
         datePickerView.addTarget(self, action: #selector(DetailsViewController.DatePickerValueSelected(sender:)), for: UIControlEvents.valueChanged)
         
         fromDateButton.isUserInteractionEnabled = false
@@ -98,6 +110,11 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func BackButtonAction(_ sender: UIBarButtonItem) {
         _ = self.navigationController?.popViewController(animated: true)
 
+    }
+    
+    
+    @IBAction func SearchButtonAction(_ sender: UIButton) {
+        self.GetAttendanceDetails()
     }
     
     /**
@@ -161,17 +178,19 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func DatePickerValueSelected(sender : UIDatePicker){
         
         let selectedDateFormatter = DateFormatter()
-        selectedDateFormatter.dateFormat = "yyyy-MM-dd"
+        selectedDateFormatter.dateFormat = "dd-MM-yyyy"
         
         
         if sender.tag == 1{
             isSelectedFromDate = true
-            fromDateButton.setTitle(selectedDateFormatter.string(from: sender.date), for: UIControlState.normal)
+            selectedFromDate = selectedDateFormatter.string(from: sender.date)
+            fromDateButton.setTitle(selectedFromDate, for: UIControlState.normal)
         }
         else{
-            toDateButton.setTitle(selectedDateFormatter.string(from: sender.date), for: UIControlState.normal)
-
+            selectedToDate = selectedDateFormatter.string(from: sender.date)
+            toDateButton.setTitle(selectedToDate, for: UIControlState.normal)
         }
+        
         datePickerView.isHidden = true
         datePickerView.isUserInteractionEnabled = false
         self.view.endEditing(true)
@@ -200,7 +219,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return attendanceDetailArray.count
-        return 2
+        return attendanceDetailArray.count
         
     }
 
@@ -220,6 +239,35 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TiiAttendanceDetailCell
         
+        let dict = attendanceDetailArray.object(at: (indexPath as NSIndexPath).section) as! NSDictionary
+        print(dict)
+        
+        cell.particularDate.text = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").0
+        
+        let checkinTimeValue = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").1
+        print(checkinTimeValue)
+        cell.checkinTime.text = "\(checkinTimeValue)"
+        
+        let checkInHours = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").2
+        print(checkInHours)
+        
+        let checkInMinutes = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").3
+        print(checkInMinutes)
+
+        let checkOutTimeValue = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").1
+        print(checkOutTimeValue)
+        cell.checkOutTime.text = "\(checkOutTimeValue)"
+        
+        let checkOutHours = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").2
+        print(checkOutHours)
+        
+        let checkOutMinutes = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").3
+        print(checkOutMinutes)
+        
+        let totalHourValue = Int(checkOutHours)! - Int(checkInHours)!
+        let totalMinuteValue = Int(checkOutMinutes)! - Int(checkInMinutes)!
+
+        cell.totalTime.text = "\(totalHourValue)h \(totalMinuteValue)min"
         
         return cell
     }
@@ -246,13 +294,31 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.attendanceDetailArray.removeAllObjects()
+        
         selectedFilter = filterValueArray[row]
         print(selectedFilter)
         if selectedFilter == "custom"{
             fromDateButton.isUserInteractionEnabled = true
             toDateButton.isUserInteractionEnabled = true
         }
-        self.GetAttendanceDetails()
+        else if selectedFilter == "this week"{
+            selectedFilter = "this_week"
+        }
+        else if selectedFilter == "last week"{
+            selectedFilter = "last_week"
+
+        }
+        else if selectedFilter == "this month"{
+            selectedFilter = "this_month"
+        }
+        else if selectedFilter == "last month"{
+            selectedFilter = "last_month"
+        }
+        
+        if selectedFilter != "custom"{
+            self.GetAttendanceDetails()
+        }
         
         filterPickerView.isHidden = true
         filterPickerView.isUserInteractionEnabled = false
@@ -261,8 +327,22 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.endEditing(true)
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let scrollViewHeight = scrollView.frame.size.height
+        let scrollViewContentSizeHeight = scrollView.contentSize.height
+        let scrollViewContentOfSetY = scrollView.contentOffset.y
+        print("\(scrollViewContentOfSetY), \(scrollViewHeight),\(scrollViewContentSizeHeight)")
+        if (scrollViewContentOfSetY + scrollViewHeight == scrollViewContentSizeHeight) {
+            if currentPage < totalNoOfPages{
+                currentPage = currentPage + 1
+                self.GetAttendanceDetails()
+            }
+        }
+    }
     /**
      Attendance Detail Request
+     
+     - parameter method : GET
      
     */
     func GetAttendanceDetails(){
@@ -271,10 +351,10 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if selectedFilter == "custom"{
             //Send From Date & To Date
-            stringToBePassed = "/api/user/attendance?filter=\(selectedFilter)"
+            stringToBePassed = "/api/user/attendance?filter=\(selectedFilter)&page=\(currentPage)&from=\(selectedFromDate)&to=\(selectedToDate)"
         }
         else{
-            stringToBePassed = "/api/user/attendance?filter=\(selectedFilter)"
+            stringToBePassed = "/api/user/attendance?filter=\(selectedFilter)&page=\(currentPage)"
         }
         let apiString = baseURL + stringToBePassed
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
@@ -302,16 +382,19 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
                             
+                            self.totalNoOfPages = dict.value(forKey: "last_page") as! Int
+                            self.currentPage = dict.value(forKey: "current_page") as! Int
+                            
                             if let detailArray = dict.value(forKey: "data") as? NSArray{
                                 print(detailArray)
-                                
-                                
+//                                self.attendanceDetailArray = detailArray.mutableCopy() as! NSArray
+                                self.attendanceDetailArray.addObjects(from: detailArray.mutableCopy() as! [AnyObject])
+
                                 DispatchQueue.main.async {
-                                    if detailArray.count > 0{
-                                        
+                                        //Section is 1
                                         //Pagination Required + Fetch and display details on tableView
-                                        
-                                    }
+                            
+                                    self.detailTableView.reloadData()
                                 }
                                 
                             }
@@ -330,4 +413,40 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             }.resume()
     }
+    
+    /**
+     Conversion of TimeStamp (ISO 8601) to required value
+     
+     - parameter argument : Date (String)
+     
+     - parameter return : Date, Time, Hours, Minutes in required format (String)
+     
+     */
+    func ConvertTimeStampToRequiredHours(dateValue : String)-> (String,String, String, String){
+        let formatStyle = DateFormatter()
+        print(dateValue)
+        formatStyle.timeZone = TimeZone.current
+        formatStyle.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
+        formatStyle.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"   //"2016-12-19T07:25:57+0000"  ZZZZZ SSSS
+        
+        print(dateValue)
+        let receivedDateTime = formatStyle.date(from: dateValue)
+        
+        print(receivedDateTime!)
+        formatStyle.dateFormat = "dd EEEE,yyyy"
+        let dateValue = formatStyle.string(from: receivedDateTime!)
+        
+        formatStyle.dateFormat = "HH:mm a"
+        let timeValue = formatStyle.string(from: receivedDateTime!)
+        print(timeValue)
+
+        formatStyle.dateFormat = "HH"
+        let hourValue = formatStyle.string(from: receivedDateTime!)
+        
+        formatStyle.dateFormat = "mm"
+        let minuteValue = formatStyle.string(from: receivedDateTime!)
+        
+        return (dateValue,timeValue,hourValue,minuteValue)
+    }
+
 }
