@@ -36,6 +36,9 @@ class DashboardView: UIViewController {
      */
     @IBOutlet var checkOutTimeValueLabel: UILabel!
     
+    //MARK: - Methods
+    //MARK: -
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -65,6 +68,8 @@ class DashboardView: UIViewController {
         }
     }
     
+    //MARK: - Button Action 
+    //MARK: -
     /**
      Attendance Detail Button Action
      
@@ -137,6 +142,9 @@ class DashboardView: UIViewController {
         }
     }
     
+    //MARK: - TimeStamp Conversion
+    //MARK: -
+
     /**
      Conversion of TimeStamp (ISO 8601) to required value
      
@@ -161,6 +169,7 @@ class DashboardView: UIViewController {
         return timeValue
     }
     
+    //MARK: - View Profile Request
     //MARK: -
     /**
      View Profile Request
@@ -194,29 +203,29 @@ class DashboardView: UIViewController {
                     if let httpResponseValue = response as? HTTPURLResponse{
                         print(httpResponseValue.statusCode)
                         if httpResponseValue.statusCode == 200{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-                            //Get User name from here
-                            defaults.setValue(dict.value(forKey: "name")!, forKey: "name")
-                            
-                            DispatchQueue.main.async {
-                                if let nameOfUser = defaults.value(forKey: "name") as? String{
-                                    self.userNameLabel.text = "\(nameOfUser)"
+                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                print(dict)
+                                
+                                //Get User name from here
+                                defaults.setValue(dict.value(forKey: "name")!, forKey: "name")
+                                
+                                DispatchQueue.main.async {
+                                    if let nameOfUser = defaults.value(forKey: "name") as? String{
+                                        self.userNameLabel.text = "\(nameOfUser)"
+                                    }
+                                    
                                 }
-
-                            }
-                            //Get Latitude & longitude of branch
-                            if let locationValues = dict.value(forKey: "allowed_locations") as? NSArray{
-                                print(locationValues)
-                                if let locationDict = locationValues.object(at: 0) as? NSDictionary{
-                                    print(locationDict)
-                                    defaults.setValue(locationDict.value(forKey: "lattitude"), forKey: "latitude")
-                                    defaults.setValue(locationDict.value(forKey: "longitude"), forKey: "longitude")
+                                //Get Latitude & longitude of branch
+                                if let locationValues = dict.value(forKey: "allowed_locations") as? NSArray{
+                                    print(locationValues)
+                                    if let locationDict = locationValues.object(at: 0) as? NSDictionary{
+                                        print(locationDict)
+                                        defaults.setValue(locationDict.value(forKey: "lattitude"), forKey: "latitude")
+                                        defaults.setValue(locationDict.value(forKey: "longitude"), forKey: "longitude")
+                                    }
                                 }
-                            }
-                            defaults.synchronize()
-                            
+                                defaults.synchronize()
+                            }                            
                         }
                     }
                 }
@@ -230,7 +239,7 @@ class DashboardView: UIViewController {
 
     
     //MARK: - Today's Attendance detail
-    
+    //MARK: -
     /**
      Today Attendance Detail Request
      

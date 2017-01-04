@@ -31,6 +31,9 @@ class UserProfile: UIViewController, UITextFieldDelegate {
      */
     var indicator = UIActivityIndicatorView()
     
+    //MARK: - Methods
+    //MARK: -
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +56,9 @@ class UserProfile: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    //MARK: - Button Action
+    //MARK: -
+
     /**
      Back Button Action
      
@@ -63,6 +69,7 @@ class UserProfile: UIViewController, UITextFieldDelegate {
         _ = self.navigationController?.popViewController(animated: true)            //Testing Required
     }
     
+    //MARK: - API Request
     //MARK: - 
     /**
      View Profile Request
@@ -97,16 +104,16 @@ class UserProfile: UIViewController, UITextFieldDelegate {
                     if let httpResponseValue = response as? HTTPURLResponse{
                         print(httpResponseValue.statusCode)
                         if httpResponseValue.statusCode == 200{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                    
-                            DispatchQueue.main.async {
-                                self.nameLabel.text = dict.value(forKey: "name") as? String
-                                self.emailLabel.text = dict.value(forKey: "email") as? String
-                                self.roleLabel.text = dict.value(forKey: "role") as? String
-
+                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                print(dict)
+                                
+                                DispatchQueue.main.async {
+                                    self.nameLabel.text = dict.value(forKey: "name") as? String
+                                    self.emailLabel.text = dict.value(forKey: "email") as? String
+                                    self.roleLabel.text = dict.value(forKey: "role") as? String
+                                    
+                                }
                             }
-                            
                         }
                     }
                 }
@@ -115,6 +122,7 @@ class UserProfile: UIViewController, UITextFieldDelegate {
                 print("Error")
             }
             }.resume()
+        
         DispatchQueue.main.async {
             self.indicator.removeFromSuperview()
             self.view.isUserInteractionEnabled = true

@@ -23,6 +23,9 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
      */
     var indicator = UIActivityIndicatorView()
     
+    //MARK: - Methods
+    //MARK: -
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -45,6 +48,9 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: - Button Actions
+    //MARK: -
+
     /**
      Back Button Action 
      
@@ -76,6 +82,9 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //MARK: - Validation Method
+    //MARK: -
+
     /**
      Validation Method
      
@@ -137,71 +146,75 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         
         do{
             jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            
+            request.httpBody = jsonData
+            print(jsonData)
+            
+            _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+                do {
+                    if data != nil{
+                        if let httpResponseValue = response as? HTTPURLResponse{
+                            print(httpResponseValue.statusCode)
+                            if httpResponseValue.statusCode == 204 {
+                                DispatchQueue.main.async {
+                                    let alert = self.ShowAlert()
+                                    alert.message = "Please check your email and recover the password"
+                                    _ = self.present(alert, animated: true, completion: nil)
+                                    _ = self.navigationController?.popViewController(animated: true)
+                                    
+                                }
+                            }
+                            else if httpResponseValue.statusCode == 401 {
+                                if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                    print(dict)
+                                    
+                                    DispatchQueue.main.async {
+                                        let alert = self.ShowAlert()
+                                        
+                                        alert.message = "\(dict.value(forKey: "message"))"
+                                        alert.title = "\(dict.value(forKey: "title"))"
+                                        _ = self.present(alert, animated: true, completion: nil)
+                                        
+                                    }
+                                }
+                               
+                            }
+                            else if httpResponseValue.statusCode == 422{
+                                let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                                print(dict)
+                                
+                                
+                                if let arrayReceived = dict.value(forKey: "error") as? NSArray{
+                                    print(arrayReceived)
+                                    if let dictInArray = arrayReceived.object(at: 0) as? NSDictionary{
+                                        print(dictInArray)
+                                        DispatchQueue.main.async {
+                                            let alert = self.ShowAlert()
+                                            
+                                            alert.message = "\(dictInArray.value(forKey: "message"))"
+                                            alert.title = "\(dictInArray.value(forKey: "detail"))"
+                                            _ = self.present(alert, animated: true, completion: nil)
+                                            
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                    
+                }
+                catch{
+                    print(error)
+                }
+                }.resume()
+
         }
         catch{
             print("Error")
         }
         
-        request.httpBody = jsonData
-        print(jsonData)
-        
-        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-            do {
-                if data != nil{
-                    if let httpResponseValue = response as? HTTPURLResponse{
-                        print(httpResponseValue.statusCode)
-                        if httpResponseValue.statusCode == 204 {
-                            DispatchQueue.main.async {
-                                let alert = self.ShowAlert()
-                                alert.message = "Please check your email and recover the password"
-                                _ = self.present(alert, animated: true, completion: nil)
-                                _ = self.navigationController?.popViewController(animated: true)
-
-                            }
-                        }
-                        else if httpResponseValue.statusCode == 401 {
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-                            DispatchQueue.main.async {
-                                let alert = self.ShowAlert()
-                                
-                                alert.message = "\(dict.value(forKey: "message"))"
-                                alert.title = "\(dict.value(forKey: "title"))"
-                                _ = self.present(alert, animated: true, completion: nil)
-
-                            }
-                        }
-                        else if httpResponseValue.statusCode == 422{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-                            
-                            if let arrayReceived = dict.value(forKey: "error") as? NSArray{
-                                print(arrayReceived)
-                                if let dictInArray = arrayReceived.object(at: 0) as? NSDictionary{
-                                    print(dictInArray)
-                                    DispatchQueue.main.async {
-                                        let alert = self.ShowAlert()
-                                        
-                                        alert.message = "\(dictInArray.value(forKey: "message"))"
-                                        alert.title = "\(dictInArray.value(forKey: "detail"))"
-                                        _ = self.present(alert, animated: true, completion: nil)
-
-                                    }
-                                }
-                            }
-                            
-                        }
-                    }
-                }
-                
-            }
-            catch{
-                print(error)
-            }
-        }.resume()
-
+       
         DispatchQueue.main.async {
             self.indicator.removeFromSuperview()
             self.view.isUserInteractionEnabled = true
@@ -222,6 +235,10 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+    
+    //MARK: - Alert Controller
+    //MARK: -
+
     
     /**
      Alert Controller Method

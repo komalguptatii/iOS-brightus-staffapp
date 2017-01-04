@@ -21,6 +21,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var attendanceStatus = String()
     var randomQRCode = String()
     
+    //MARK: - Methods
+    //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -47,7 +49,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     
     //MARK: - Camera Methods
-    
+    //MARK: -
     
     func configureVideoCapture() {
         let objCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
@@ -120,6 +122,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
 
+    //MARK: - Get & Set QR Code Status
+    //MARK: -
     /**
      Get QR Code Status 
      
@@ -238,29 +242,31 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         do{
             jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            request.httpBody = jsonData
+            print(jsonData)
+            
+            _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+                do {
+                    if data != nil{
+                        if let httpResponseValue = response as? HTTPURLResponse{
+                            print(httpResponseValue.statusCode)
+                            if httpResponseValue.statusCode == 200 {
+                                if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                    print(dict)
+                                }
+                            }
+                        }
+                    }
+                }
+                catch{
+                    print(error)
+                }
+                }.resume()
         }
         catch{
             print("Error")
         }
         
-        request.httpBody = jsonData
-        print(jsonData)
         
-        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-            do {
-                if data != nil{
-                    if let httpResponseValue = response as? HTTPURLResponse{
-                        print(httpResponseValue.statusCode)
-                        if httpResponseValue.statusCode == 200 {
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                        }
-                    }
-                }
-            }
-            catch{
-                print(error)
-            }
-            }.resume()
     }
 }

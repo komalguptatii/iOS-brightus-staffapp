@@ -38,6 +38,21 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var datePickerView: UIDatePicker!
    
     /**
+     * View which contains date picker view - as it is not allowed to change the background color of date picker
+    */
+    @IBOutlet var datePickerCustomView: UIView!
+    
+    /**
+     * Done button
+    */
+    @IBOutlet var doneButton: UIButton!
+    
+    /**
+     * Indicator to let user know about data loading
+     */
+    var indicator = UIActivityIndicatorView()
+
+    /**
      * Array of values marked as filters
     */
     var filterValueArray = ["today","yesterday", "this week", "last week", "this month", "last month", "custom"]
@@ -58,36 +73,59 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var isSelectedFromDate = false
     
     /**
-     *
+     * Current Page of Detail Request
     */
     var currentPage = 1
     
+    /**
+     * Total number of Pages of Detail Request
+     */
     var totalNoOfPages = 0
-    var checkCurrentPage = 1
     
+    /**
+     * This will contain selected from date
+     */
     var selectedFromDate = ""
+    
+    /**
+     * This will contain selected to date
+     */
     var selectedToDate = ""
     
+    
+    //MARK: - Methods
+    //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //Custom Loading Indicator
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        indicator.center = self.view.center
+        indicator.backgroundColor = UIColor.clear
+        indicator.color = UIColor.black
+        indicator.startAnimating()
+
         detailTableView.delegate = self
         detailTableView.dataSource = self
         detailTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         detailTableView.backgroundColor = UIColor.clear
-        
-        
         
         filterPickerView.delegate = self
         filterPickerView.dataSource = self
         filterPickerView.isHidden = true
         filterPickerView.isUserInteractionEnabled = false
         
+        doneButton.isHidden = true
+        doneButton.isUserInteractionEnabled = false
+        datePickerCustomView.isHidden = true
         datePickerView.isHidden = true
         datePickerView.isUserInteractionEnabled = false
         datePickerView.maximumDate = Date()
         
-        datePickerView.addTarget(self, action: #selector(DetailsViewController.DatePickerValueSelected(sender:)), for: UIControlEvents.valueChanged)
+//        datePickerView.addTarget(self, action: #selector(DetailsViewController.DatePickerValueSelected(sender:)), for: UIControlEvents.valueChanged)
+        
         
         fromDateButton.isUserInteractionEnabled = false
         toDateButton.isUserInteractionEnabled = false
@@ -100,6 +138,9 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: - Button Actions
+    //MARK: -
+
     /**
      Back Button Action
      
@@ -112,9 +153,72 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     }
     
+    /**
+     Search Button Action
+     
+     - paramater description : Search for the data on the basis of filter and time period selected
+     
+     */
+
     
     @IBAction func SearchButtonAction(_ sender: UIButton) {
+        
+        self.view.addSubview(indicator)
+        self.view.isUserInteractionEnabled = false
+        self.view.window?.isUserInteractionEnabled = false
+
         self.GetAttendanceDetails()
+    }
+    
+    /**
+     Done Button Action
+     
+     - parameter description : It will hide the date picker and filter picker view on the screen
+     
+    */
+    @IBAction func DoneButtonAction(_ sender: UIButton) {
+        
+        
+        if sender.tag == 0{
+            
+            doneButton.isHidden = true
+            doneButton.isUserInteractionEnabled = false
+            
+            filterPickerView.isHidden = true
+            filterPickerView.isUserInteractionEnabled = false
+            
+            self.view.endEditing(true)
+
+            sender.tag = 1
+        }
+        else if sender.tag == 1{
+            
+            let selectedDateFormatter = DateFormatter()
+            selectedDateFormatter.dateFormat = "dd-MM-yyyy"
+            
+            
+            if datePickerView.tag == 1{
+                isSelectedFromDate = true
+                selectedFromDate = selectedDateFormatter.string(from: datePickerView.date)
+                fromDateButton.setTitle(selectedFromDate, for: UIControlState.normal)
+            }
+            else{
+                selectedToDate = selectedDateFormatter.string(from: datePickerView.date)
+                toDateButton.setTitle(selectedToDate, for: UIControlState.normal)
+            }
+            
+            doneButton.isHidden = true
+            doneButton.isUserInteractionEnabled = false
+
+            datePickerCustomView.isHidden = true
+            datePickerView.isHidden = true
+            datePickerView.isUserInteractionEnabled = false
+            self.view.endEditing(true)
+            
+            sender.tag = 0
+        }
+        
+        
     }
     
     /**
@@ -125,10 +229,30 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      */
 
     @IBAction func FilterAction(_ sender: UIBarButtonItem) {
+        
+        datePickerCustomView.isHidden = true
+        datePickerView.isHidden = true
+        datePickerView.isUserInteractionEnabled = false
+        
+        selectedFilter = "today"
+        selectedFromDate = "From Date"
+        selectedToDate = "To Date"
+        fromDateButton.setTitle(selectedFromDate, for: UIControlState.normal)
+        toDateButton.setTitle(selectedToDate, for: UIControlState.normal)
+
+        
+        fromDateButton.isUserInteractionEnabled = false
+        toDateButton.isUserInteractionEnabled = false
+
+        doneButton.isHidden = false
+        doneButton.isUserInteractionEnabled = true
+        doneButton.tag = 0
+        
         filterPickerView.isHidden = false
         filterPickerView.isUserInteractionEnabled = true
 
         self.view.bringSubview(toFront: filterPickerView)
+        
 
     }
     
@@ -139,10 +263,16 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      
     */
     @IBAction func FromDateButtonAction(_ sender: UIButton) {
+        doneButton.isHidden = false
+        doneButton.isUserInteractionEnabled = true
+        
+        datePickerCustomView.isHidden = false
+
         datePickerView.isHidden = false
         datePickerView.isUserInteractionEnabled = true
         
         datePickerView.setDate(Date(), animated: false)
+        doneButton.tag = 1
         datePickerView.tag = 1
         
     }
@@ -155,45 +285,27 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      */
 
     @IBAction func ToDateButtonAction(_ sender: UIButton) {
+        
         if isSelectedFromDate{
+            
+            doneButton.isHidden = false
+            doneButton.isUserInteractionEnabled = true
+            doneButton.tag = 1
+
+            datePickerCustomView.isHidden = false
+
             datePickerView.isHidden = false
             datePickerView.isUserInteractionEnabled = true
             datePickerView.setDate(Date(), animated: false)
             datePickerView.tag = 2
+            
+            
 
         }
         else{
             print("Please select the From Date first")
         }
 
-    }
-    
-    /**
-     Date Picker Selected Value Method
-     
-     - parameter description : To deal with the selected date, this method is target for date picker view
-     
-     */
-
-    func DatePickerValueSelected(sender : UIDatePicker){
-        
-        let selectedDateFormatter = DateFormatter()
-        selectedDateFormatter.dateFormat = "dd-MM-yyyy"
-        
-        
-        if sender.tag == 1{
-            isSelectedFromDate = true
-            selectedFromDate = selectedDateFormatter.string(from: sender.date)
-            fromDateButton.setTitle(selectedFromDate, for: UIControlState.normal)
-        }
-        else{
-            selectedToDate = selectedDateFormatter.string(from: sender.date)
-            toDateButton.setTitle(selectedToDate, for: UIControlState.normal)
-        }
-        
-        datePickerView.isHidden = true
-        datePickerView.isUserInteractionEnabled = false
-        self.view.endEditing(true)
     }
     
     //MARK: - TableView Delegate & Datasource
@@ -239,35 +351,39 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TiiAttendanceDetailCell
         
-        let dict = attendanceDetailArray.object(at: (indexPath as NSIndexPath).section) as! NSDictionary
-        print(dict)
-        
-        cell.particularDate.text = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").0
-        
-        let checkinTimeValue = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").1
-        print(checkinTimeValue)
-        cell.checkinTime.text = "\(checkinTimeValue)"
-        
-        let checkInHours = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").2
-        print(checkInHours)
-        
-        let checkInMinutes = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").3
-        print(checkInMinutes)
-
-        let checkOutTimeValue = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").1
-        print(checkOutTimeValue)
-        cell.checkOutTime.text = "\(checkOutTimeValue)"
-        
-        let checkOutHours = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").2
-        print(checkOutHours)
-        
-        let checkOutMinutes = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").3
-        print(checkOutMinutes)
-        
-        let totalHourValue = Int(checkOutHours)! - Int(checkInHours)!
-        let totalMinuteValue = Int(checkOutMinutes)! - Int(checkInMinutes)!
-
-        cell.totalTime.text = "\(totalHourValue)h \(totalMinuteValue)min"
+        if attendanceDetailArray.count > 0 {
+            let dict = attendanceDetailArray.object(at: (indexPath as NSIndexPath).row) as! NSDictionary
+            print(dict)
+            
+            cell.particularDate.text = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").0
+            
+            let checkinTimeValue = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").1
+            print(checkinTimeValue)
+            cell.checkinTime.text = "\(checkinTimeValue)"
+            
+            let checkInHours = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").2
+            print(checkInHours)
+            
+            let checkInMinutes = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_in")!)").3
+            print(checkInMinutes)
+            
+            //TODO - Check for empty check out
+            let checkOutTimeValue = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").1
+            print(checkOutTimeValue)
+            cell.checkOutTime.text = "\(checkOutTimeValue)"
+            
+            let checkOutHours = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").2
+            print(checkOutHours)
+            
+            let checkOutMinutes = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").3
+            print(checkOutMinutes)
+            
+            let totalHourValue = Int(checkOutHours)! - Int(checkInHours)!
+            let totalMinuteValue = Int(checkOutMinutes)! - Int(checkInMinutes)!
+            
+            cell.totalTime.text = "\(totalHourValue)h \(totalMinuteValue)min"
+        }
+       
         
         return cell
     }
@@ -317,16 +433,24 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         if selectedFilter != "custom"{
+            self.view.addSubview(indicator)
+            self.view.isUserInteractionEnabled = false
+            self.view.window?.isUserInteractionEnabled = false
+
             self.GetAttendanceDetails()
         }
         
-        filterPickerView.isHidden = true
-        filterPickerView.isUserInteractionEnabled = false
-
-        filterPickerView.resignFirstResponder()
-        self.view.endEditing(true)
     }
     
+    //MARK: - ScrollView Delegate
+    //MARK: -
+
+    /**
+     Delegate method of scroll view 
+     
+     - parameter - to check whether user is moving onto next page or data and request for data accordingly
+     
+    */
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let scrollViewHeight = scrollView.frame.size.height
         let scrollViewContentSizeHeight = scrollView.contentSize.height
@@ -335,10 +459,18 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (scrollViewContentOfSetY + scrollViewHeight == scrollViewContentSizeHeight) {
             if currentPage < totalNoOfPages{
                 currentPage = currentPage + 1
+                self.view.addSubview(indicator)
+                self.view.isUserInteractionEnabled = false
+                self.view.window?.isUserInteractionEnabled = false
+
                 self.GetAttendanceDetails()
             }
         }
     }
+    
+    //MARK: - API Request
+    //MARK: -
+
     /**
      Attendance Detail Request
      
@@ -379,31 +511,60 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     if let httpResponseValue = response as? HTTPURLResponse{
                         print(httpResponseValue.statusCode)
                         if httpResponseValue.statusCode == 200{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-                            self.totalNoOfPages = dict.value(forKey: "last_page") as! Int
-                            self.currentPage = dict.value(forKey: "current_page") as! Int
-                            
-                            if let detailArray = dict.value(forKey: "data") as? NSArray{
-                                print(detailArray)
-//                                self.attendanceDetailArray = detailArray.mutableCopy() as! NSArray
-                                self.attendanceDetailArray.addObjects(from: detailArray.mutableCopy() as! [AnyObject])
-
-                                DispatchQueue.main.async {
+                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                print(dict)
+                                
+                                self.totalNoOfPages = dict.value(forKey: "last_page") as! Int
+                                self.currentPage = dict.value(forKey: "current_page") as! Int
+                                
+                                if let detailArray = dict.value(forKey: "data") as? NSArray{
+                                    print(detailArray)
+                                    //                                self.attendanceDetailArray = detailArray.mutableCopy() as! NSArray
+                                    self.attendanceDetailArray.addObjects(from: detailArray.mutableCopy() as! [AnyObject])
+                                    
+                                    DispatchQueue.main.async {
                                         //Section is 1
                                         //Pagination Required + Fetch and display details on tableView
-                            
-                                    self.detailTableView.reloadData()
+                                        
+                                        self.detailTableView.reloadData()
+                                    }
+                                    
                                 }
-                                
+
                             }
                             
                         }
                         else if httpResponseValue.statusCode == 401{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
+                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                print(dict)
+                                
+                                DispatchQueue.main.async {
+                                    let alert = self.ShowAlert()
+                                    
+                                    alert.message = "\(dict.value(forKey: "message"))"
+                                    alert.title = "\(dict.value(forKey: "title"))"
+                                    _ = self.present(alert, animated: true, completion: nil)
+                                    
+                                }
+                            }
+                           
+
+                        }
+                        else if httpResponseValue.statusCode == 403{
+                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                print(dict)
+                                
+                                DispatchQueue.main.async {
+                                    let alert = self.ShowAlert()
+                                    
+                                    alert.message = "\(dict.value(forKey: "message"))"
+                                    alert.title = "\(dict.value(forKey: "title"))"
+                                    _ = self.present(alert, animated: true, completion: nil)
+                                    
+                                }
+                            }
+
+
                         }
                     }
                 }
@@ -412,8 +573,18 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 print(error)
             }
             }.resume()
+        
+        DispatchQueue.main.async {
+            self.indicator.removeFromSuperview()
+            self.view.isUserInteractionEnabled = true
+            self.view.window?.isUserInteractionEnabled = true
+
+        }
     }
     
+    //MARK: - TimeStamp Conversion Method
+    //MARK: -
+
     /**
      Conversion of TimeStamp (ISO 8601) to required value
      
@@ -433,7 +604,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let receivedDateTime = formatStyle.date(from: dateValue)
         
         print(receivedDateTime!)
-        formatStyle.dateFormat = "dd EEEE,yyyy"
+        formatStyle.dateFormat = "dd MMMM, yyyy"
         let dateValue = formatStyle.string(from: receivedDateTime!)
         
         formatStyle.dateFormat = "HH:mm a"
@@ -447,6 +618,31 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let minuteValue = formatStyle.string(from: receivedDateTime!)
         
         return (dateValue,timeValue,hourValue,minuteValue)
+    }
+
+    //MARK: - Alert Controller
+    /**
+     Alert Controller Method
+     
+     - paramter return : Returns UIAlertController
+     
+     - parameter description : Method to intialize and add actions to alert controller
+     */
+    
+    func ShowAlert() -> UIAlertController{
+        let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: false, completion: nil)
+            print("Cancel")
+        }
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: false, completion: nil)
+            print("OK")
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        //        _ = self.present(alertController, animated: true, completion: nil)
+        return alertController
     }
 
 }

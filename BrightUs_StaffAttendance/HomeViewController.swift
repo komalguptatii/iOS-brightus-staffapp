@@ -12,12 +12,24 @@ import MapKit
 
 class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationManagerDelegate {
     
+    /**
+     * ScrollView on which dashboard & camera controller view is added
+    */
     @IBOutlet var mainScrollView: UIScrollView!
     
+    /**
+     * Intialized instance of CLLocationManager
+     */
+
     var locationManager = CLLocationManager()
     
+    /**
+     * To keep check of access to mark attendance
+    */
     var isAllowedToMarkAttendance = false
 
+    //MARK: - Methods
+    //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -72,6 +84,12 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
         // Dispose of any resources that can be recreated.
     }
 
+    //MARK: - Location Methods
+    //MARK: -
+
+    /**
+     Authorization Status to use location method
+    */
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         if status == .authorizedWhenInUse {
@@ -79,6 +97,11 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
         }
     }
     
+    /**
+     Update Location Method
+     
+     - parameter description : Check whether user is in premises or not
+    */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print (locations)
         if let location = locations.first {
@@ -119,6 +142,8 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
         }
     }
     
+    //MARK: - Button Action
+    //MARK: -
     /**
      Menu Button Action 
      

@@ -228,6 +228,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return alertController
     }
     
+    //MARK: - API Requests
+    //MARK: -
+
     /**
      Authorize User - Method for User to login into App along with authorization
      
@@ -261,47 +264,51 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         do{
             jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            
+            request.httpBody = jsonData
+            print(jsonData)
+            
+            _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+                do {
+                    if data != nil{
+                        if let httpResponseValue = response as? HTTPURLResponse{
+                            print(httpResponseValue.statusCode)
+                            if httpResponseValue.statusCode == 200 {
+                                if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                    print(dict)
+                                    
+                                    let tokenTypeValue = dict.value(forKey: "token_type")
+                                    let accessTokenValue = dict.value(forKey: "access_token")
+                                    let refreshTokenValue = dict.value(forKey: "refresh_token")
+                                    
+                                    defaults.setValue(self.passwordTextField.text!, forKey: "password")
+                                    defaults.setValue(tokenTypeValue, forKey: "tokenType")
+                                    defaults.setValue(accessTokenValue, forKey: "accessToken")
+                                    defaults.setValue(refreshTokenValue, forKey: "refreshToken")
+                                    defaults.synchronize()
+                                    
+                                    self.TokenForFirebase()
+                                }
+                               
+                            }
+                            else if httpResponseValue.statusCode == 400{
+                                let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                                print(dict)
+                            }
+                        }
+                    }
+                }
+                catch{
+                    print("Error")
+                }
+                
+                }.resume()
         }
         catch{
             print("Error")
         }
         
-        request.httpBody = jsonData
-        print(jsonData)
-        
-        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-            do {
-                if data != nil{
-                    if let httpResponseValue = response as? HTTPURLResponse{
-                        print(httpResponseValue.statusCode)
-                        if httpResponseValue.statusCode == 200 {
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-                            let tokenTypeValue = dict.value(forKey: "token_type")
-                            let accessTokenValue = dict.value(forKey: "access_token")
-                            let refreshTokenValue = dict.value(forKey: "refresh_token")
-                            
-                            defaults.setValue(self.passwordTextField.text!, forKey: "password")
-                            defaults.setValue(tokenTypeValue, forKey: "tokenType")
-                            defaults.setValue(accessTokenValue, forKey: "accessToken")
-                            defaults.setValue(refreshTokenValue, forKey: "refreshToken")
-                            defaults.synchronize()
-                            
-                            self.TokenForFirebase()
-                        }
-                        else if httpResponseValue.statusCode == 400{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                        }
-                    }
-                }
-            }
-            catch{
-                print("Error")
-            }
-
-        }.resume()
+       
     }
     
     /**
@@ -335,13 +342,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     if let httpResponseValue = response as? HTTPURLResponse{
                         print(httpResponseValue.statusCode)
                         if httpResponseValue.statusCode == 200{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-                            let firebaseTokenValue = dict.value(forKey: "token") as! String
-                            defaults.setValue(firebaseTokenValue, forKey: "firebaseToken")
-                            defaults.synchronize()
-                            self.FirebaseLogin(token: "\(firebaseTokenValue)")
+                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                print(dict)
+                                
+                                let firebaseTokenValue = dict.value(forKey: "token") as! String
+                                defaults.setValue(firebaseTokenValue, forKey: "firebaseToken")
+                                defaults.synchronize()
+                                self.FirebaseLogin(token: "\(firebaseTokenValue)")
+                            }
                         }
                     }
                 }
