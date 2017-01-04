@@ -8,43 +8,19 @@
 
 import Foundation
 import UIKit
-import MapKit
 
-class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationManagerDelegate {
+class HomeViewController: BaseViewController, UIScrollViewDelegate {
     
     /**
      * ScrollView on which dashboard & camera controller view is added
     */
     @IBOutlet var mainScrollView: UIScrollView!
     
-    /**
-     * Intialized instance of CLLocationManager
-     */
-
-    var locationManager = CLLocationManager()
-    
-    /**
-     * To keep check of access to mark attendance
-    */
-    var isAllowedToMarkAttendance = false
-
-    //MARK: - Methods
+      //MARK: - Methods
     //MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        //StartUpdatingLocation()
-        
-        if (CLLocationManager.locationServicesEnabled())
-        {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            //            locationManager.distanceFilter = 50
-            locationManager.requestAlwaysAuthorization()
-            locationManager.startUpdatingLocation()
-        }
-        
         
         //Added Dashboard Controller and Camera as child to HomeView
         
@@ -84,64 +60,7 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate, CLLocationMa
         // Dispose of any resources that can be recreated.
     }
 
-    //MARK: - Location Methods
-    //MARK: -
-
-    /**
-     Authorization Status to use location method
-    */
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        if status == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-        }
-    }
-    
-    /**
-     Update Location Method
-     
-     - parameter description : Check whether user is in premises or not
-    */
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print (locations)
-        if let location = locations.first {
-            print(location)
-            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
-            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
-            
-            let destination = CLLocation(latitude: destinationLatitude!, longitude: destinationLongitude!)
-            
-            let distance = location.distance(from: destination)
-            print(distance)
-            
-            let distanceDouble = Double(distance)
-            
-            if (distanceDouble <= 30.00){
-                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
-                    
-                    //Checkin
-                    isAllowedToMarkAttendance = true
-                    
-                    //Disable ScrollView or add child after this
-                    self.mainScrollView.isPagingEnabled = true
-                    
-                    
-                }else{
-                    //Cant check in
-                    isAllowedToMarkAttendance = false
-                    self.mainScrollView.isPagingEnabled = false
-
-                }
-                
-            }else{
-                //Cant check in
-                isAllowedToMarkAttendance = false
-                self.mainScrollView.isPagingEnabled = false
-
-            }
-        }
-    }
-    
+      
     //MARK: - Button Action
     //MARK: -
     /**

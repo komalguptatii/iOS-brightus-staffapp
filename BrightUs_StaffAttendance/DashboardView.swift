@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import MapKit
 
-class DashboardView: UIViewController {
+class DashboardView: UIViewController,CLLocationManagerDelegate {
     
     /**
      * Current Date will be displayed on this label
@@ -36,6 +37,18 @@ class DashboardView: UIViewController {
      */
     @IBOutlet var checkOutTimeValueLabel: UILabel!
     
+    /**
+     * Intialized instance of CLLocationManager
+     */
+    
+    var locationManager = CLLocationManager()
+    
+    /**
+     * To keep check of access to mark attendance
+     */
+    var isAllowedToMarkAttendance = false
+    
+
     //MARK: - Methods
     //MARK: -
 
@@ -52,6 +65,17 @@ class DashboardView: UIViewController {
         
         performSelector(inBackground: #selector(DashboardView.ViewProfile), with: nil)
         performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
+
+        //StartUpdatingLocation()
+        
+        if (CLLocationManager.locationServicesEnabled())
+        {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            //            locationManager.distanceFilter = 50
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+        }
 
 
     }
@@ -344,5 +368,69 @@ class DashboardView: UIViewController {
             }.resume()
     }
 
+    //MARK: - Location Methods
+    //MARK: -
     
+    /**
+     Authorization Status to use location method
+     */
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    /**
+     Update Location Method
+     
+     - parameter description : Check whether user is in premises or not
+     */
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print (locations)
+        if let location = locations.first {
+            print(location)
+            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
+            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
+            
+            //TODO - Testing Pending as not receiving lat long yet
+            let destination = CLLocation(latitude: destinationLatitude!, longitude: destinationLongitude!)
+            
+            let distance = location.distance(from: destination)
+            print(distance)
+            
+            let distanceDouble = Double(distance)
+            let controller = self.parent as? HomeViewController
+            let scrollView = controller?.mainScrollView
+
+            if (distanceDouble <= 30.00){
+                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
+                    
+                    //Checkin
+                    isAllowedToMarkAttendance = true
+                    
+                    //Disable ScrollView or add child after this
+//                    self.mainScrollView.isPagingEnabled = true
+//                    let tag = controller?.mainScrollView.tag
+//                    print(tag!)
+                    
+                    scrollView?.isPagingEnabled = true
+
+                    
+                }else{
+                    //Cant check in
+                    isAllowedToMarkAttendance = false
+                    scrollView?.isPagingEnabled = false
+                    
+                }
+                
+            }else{
+                //Cant check in
+                isAllowedToMarkAttendance = false
+                scrollView?.isPagingEnabled = false
+                
+            }
+        }
+    }
+
 }
