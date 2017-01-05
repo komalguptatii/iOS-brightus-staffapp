@@ -20,6 +20,9 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var vwQRCode:UIView?
     var attendanceStatus = String()
     var randomQRCode = String()
+
+    let ref = FIRDatabase.database().reference()
+    var snapshotReference = FIRDataSnapshot()
     
     //MARK: - Methods
     //MARK: -
@@ -39,6 +42,16 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
         customImagePreview.image = UIImage(named: "scanArea")
         self.view.addSubview(customImagePreview)
+        
+        ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
+            
+            print(Date())
+            
+            if (snapshot.hasChildren() == true){
+                
+                self.snapshotReference = snapshot
+            }
+        })
         
     }
     
@@ -114,10 +127,13 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             if objMetadataMachineReadableCodeObject.stringValue != nil {
                 randomQRCode = objMetadataMachineReadableCodeObject.stringValue
                 print(randomQRCode)
+                getQrCodeStatus()
+
                 objCaptureSession?.stopRunning()
-                if let userId = FIRAuth.auth()?.currentUser?.uid {
-                    getQrCodeStatus(userId)
-                }
+
+//                if let userId = FIRAuth.auth()?.currentUser?.uid {
+//                    getQrCodeStatus(userId)
+//                }
             }
         }
     }
@@ -130,54 +146,75 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
      - parameter check : Firebase checks are implementedn i.e. new or old
  
     */
-    func getQrCodeStatus (_ uid : String){
-        let ref = FIRDatabase.database().reference()
-        ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
-
+//    func getQrCodeStatus (_ ids : String){
+    func getQrCodeStatus (){
+        print(Date())
+////        let ref = FIRDatabase.database().reference()
+//        ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
+//
+//            print(Date())
+//
+//            if (snapshot.hasChildren() == true){
+//                
+//                
+//            }else{ // if no data available
+//                
+//                
+//            }
+//            
+//        })
+        
+        if let snapValue = snapshotReference.value as? NSMutableDictionary{
             
-            if (snapshot.hasChildren() == true){
-                if let snapValue = snapshot.value as? NSMutableDictionary {
-                    let status = snapValue.value(forKey: "status")
-                    let randomNmbr = snapValue.value(forKey: "code")
-                    self.attendanceStatus = status as! String
-                    let nmbr = String(describing: randomNmbr!)
+            let status = snapValue.value(forKey: "status")
+            let randomNmbr = snapValue.value(forKey: "code")
+            self.attendanceStatus = status as! String
+            let nmbr = String(describing: randomNmbr!)
+            
+            //Check for location here
+            //                        print("\(randomNmbr!) == \(self.randomQRCode)")
+            
+            if (nmbr == self.randomQRCode){
+                if (self.attendanceStatus == "new"){
                     
-                    //Check for location here
-                        print("\(randomNmbr!) == \(self.randomQRCode)")
-                        if (nmbr == self.randomQRCode){
-                            if (self.attendanceStatus == "new"){
-                                
-                                self.changeStatus()
-                                //Back to Dashboard
-                                
-                            }
-                            
-                        }else {
-                            print("different code")
-                            
-                            self.vwQRCode?.frame = CGRect.zero
-                            self.objCaptureSession?.startRunning()
-                            
-                            let controller = self.parent as? HomeViewController
-                            let tag = controller?.mainScrollView.tag
-                            print(tag!)
-                            
-                            let scrollView = controller?.mainScrollView
-                            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-                        }
-
+                    self.ref.child("qrCode").updateChildValues(["status" : "old"])
                     
-                    
+                    DispatchQueue.main.async {
+                        //                self.MarkAttendanceOnServer()
+                        self.randomQRCode = ""
+                        
+                        self.vwQRCode?.frame = CGRect.zero
+                        self.objCaptureSession?.startRunning()
+                        let controller = self.parent as? HomeViewController
+                        let scrollView = controller?.mainScrollView
+                        scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                        
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+                        
+                    }
+                                        
                 }
                 
+            }else {
+                print("different code")
                 
-            }else{ // if no data available
-                
+                DispatchQueue.main.async {
+                    self.vwQRCode?.frame = CGRect.zero
+                    self.objCaptureSession?.startRunning()
+                    
+                    let controller = self.parent as? HomeViewController
+                    let tag = controller?.mainScrollView.tag
+                    print(tag!)
+                    
+                    let scrollView = controller?.mainScrollView
+                    scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                }
                 
             }
             
-        })
-        
+            
+            
+        }
     }
     
     /**
@@ -188,85 +225,18 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     */
     
     func changeStatus() {
-        let ref = FIRDatabase.database().reference()
-        ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
-            ref.child("qrCode").updateChildValues(["status" : "old"])
-            self.randomQRCode = ""
-            //Call MArk Attendance API here
-
-            DispatchQueue.main.async {
-                self.MarkAttendanceOnServer()
-
-                self.vwQRCode?.frame = CGRect.zero
-                self.objCaptureSession?.startRunning()
-                let controller = self.parent as? HomeViewController
-                let scrollView = controller?.mainScrollView
-                scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-            }
-           
-        })
+//        let ref = FIRDatabase.database().reference()
+        DispatchQueue.main.async {
+            //                self.MarkAttendanceOnServer()
+            self.vwQRCode?.frame = CGRect.zero
+            self.objCaptureSession?.startRunning()
+            let controller = self.parent as? HomeViewController
+            let scrollView = controller?.mainScrollView
+            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+            
+        }
     }
     
-    /**
-     Mark Attendance Request 
-     
-     - parameter sent : type i.e. check_in,check_out
- 
-    */
-    func MarkAttendanceOnServer(){
-        let apiString = baseURL + "/api/user/attendance"
-        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        let url = URL(string: encodedApiString!)
-        
-        let request = NSMutableURLRequest(url: url!)
-        request.httpMethod = "POST"
-        
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = defaults.value(forKey: "accessToken") as! String
-        
-        let header = "Bearer" + " \(token)"
-        print(header)
-        
-        request.setValue(header, forHTTPHeaderField: "Authorization")
-        
-        let jsonDict = NSMutableDictionary()
-        
-        if isCheckedIn{
-            jsonDict.setValue("check_out", forKey: "type")
-        }
-        else{
-            jsonDict.setValue("check_in", forKey: "type")
-        }
-        
-        var jsonData = Data()
-        
-        do{
-            jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
-            request.httpBody = jsonData
-            print(jsonData)
-            
-            _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-                do {
-                    if data != nil{
-                        if let httpResponseValue = response as? HTTPURLResponse{
-                            print(httpResponseValue.statusCode)
-                            if httpResponseValue.statusCode == 200 {
-                                if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
-                                    print(dict)
-                                }
-                            }
-                        }
-                    }
-                }
-                catch{
-                    print(error)
-                }
-                }.resume()
-        }
-        catch{
-            print("Error")
-        }
-        
-        
-    }
 }

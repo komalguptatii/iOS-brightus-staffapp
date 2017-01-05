@@ -47,8 +47,11 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
      * To keep check of access to mark attendance
      */
     var isAllowedToMarkAttendance = false
-    
 
+    /**
+     * Display and give alert to user that whether he is allowed or not to mark attendance
+    */
+    @IBOutlet var locationUpdateLabel: UILabel!
     //MARK: - Methods
     //MARK: -
 
@@ -68,14 +71,14 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
 
         //StartUpdatingLocation()
         
-        if (CLLocationManager.locationServicesEnabled())
-        {
+//        if (CLLocationManager.locationServicesEnabled())
+//        {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             //            locationManager.distanceFilter = 50
-            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
-        }
+//        }
 
 
     }
@@ -390,47 +393,115 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
         print (locations)
         if let location = locations.first {
             print(location)
-            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
-            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
             
+            // Techies Office Location = 30.892668,75.8225618
+            // Grand Walk Location = 30.8868835,75.7906816
+//            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
+//            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
+            
+            let destinationLatitude = 30.892668
+            let destinationLongitude = 75.8225618
+
             //TODO - Testing Pending as not receiving lat long yet
-            let destination = CLLocation(latitude: destinationLatitude!, longitude: destinationLongitude!)
+            let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
             
             let distance = location.distance(from: destination)
             print(distance)
             
             let distanceDouble = Double(distance)
+            print(distanceDouble)
             let controller = self.parent as? HomeViewController
             let scrollView = controller?.mainScrollView
 
-            if (distanceDouble <= 30.00){
-                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
-                    
+            if (distanceDouble <= 300.00){
+//                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
+                
+                    print("in premises")
                     //Checkin
                     isAllowedToMarkAttendance = true
-                    
-                    //Disable ScrollView or add child after this
-//                    self.mainScrollView.isPagingEnabled = true
-//                    let tag = controller?.mainScrollView.tag
-//                    print(tag!)
-                    
-                    scrollView?.isPagingEnabled = true
+                scrollView?.isScrollEnabled = true
+                locationUpdateLabel.text = "You are allowed to mark attendance"
+                locationManager.stopUpdatingLocation()
 
-                    
-                }else{
-                    //Cant check in
-                    isAllowedToMarkAttendance = false
-                    scrollView?.isPagingEnabled = false
-                    
-                }
+                NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
                 
             }else{
+                print("out of premises")
+                locationUpdateLabel.text = "You are not allowed to mark attendance"
+
                 //Cant check in
                 isAllowedToMarkAttendance = false
-                scrollView?.isPagingEnabled = false
+                scrollView?.isScrollEnabled = false
                 
             }
         }
+    }
+
+    /**
+     Mark Attendance Request
+     
+     - parameter sent : type i.e. check_in,check_out
+     
+     */
+    func MarkAttendanceOnServer(){
+        let apiString = baseURL + "/api/user/attendance"
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "POST"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let token = defaults.value(forKey: "accessToken") as! String
+        
+        let header = "Bearer" + " \(token)"
+        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        let jsonDict = NSMutableDictionary()
+        
+        if isCheckedIn{
+            jsonDict.setValue("check_out", forKey: "type")
+        }
+        else{
+            jsonDict.setValue("check_in", forKey: "type")
+        }
+        
+        var jsonData = Data()
+        
+        do{
+            jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            request.httpBody = jsonData
+            print(jsonData)
+            
+            _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+                do {
+                    if data != nil{
+                        if let httpResponseValue = response as? HTTPURLResponse{
+                            print(httpResponseValue.statusCode)
+                            if httpResponseValue.statusCode == 200 {
+                                NotificationCenter.default.removeObserver(self)
+
+                                if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                    print(dict)
+                                }
+                                self.performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
+
+                            }
+                        }
+                    }
+                }
+                catch{
+                    print(error)
+                }
+                }.resume()
+        }
+        catch{
+            print("Error")
+        }
+        
+        
     }
 
 }

@@ -368,20 +368,30 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             print(checkInMinutes)
             
             //TODO - Check for empty check out
-            let checkOutTimeValue = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").1
-            print(checkOutTimeValue)
-            cell.checkOutTime.text = "\(checkOutTimeValue)"
+            if let checkForCheckOutTimeValid = dict.value(forKey: "check_out") as? String{
+                if checkForCheckOutTimeValid.isEmpty{
+                    cell.checkOutTime.text = "Pending"
+                    cell.totalTime.text = "--"
+                }
+                else{
+                    let checkOutTimeValue = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").1
+                    print(checkOutTimeValue)
+                    cell.checkOutTime.text = "\(checkOutTimeValue)"
+                    
+                    let checkOutHours = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").2
+                    print(checkOutHours)
+                    
+                    let checkOutMinutes = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").3
+                    print(checkOutMinutes)
+                    
+                    let totalHourValue = Int(checkOutHours)! - Int(checkInHours)!
+                    let totalMinuteValue = Int(checkOutMinutes)! - Int(checkInMinutes)!
+                    
+                    cell.totalTime.text = "\(totalHourValue)h \(totalMinuteValue)min"
+                }
+            }
             
-            let checkOutHours = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").2
-            print(checkOutHours)
-            
-            let checkOutMinutes = ConvertTimeStampToRequiredHours(dateValue: "\(dict.value(forKey: "check_out")!)").3
-            print(checkOutMinutes)
-            
-            let totalHourValue = Int(checkOutHours)! - Int(checkInHours)!
-            let totalMinuteValue = Int(checkOutMinutes)! - Int(checkInMinutes)!
-            
-            cell.totalTime.text = "\(totalHourValue)h \(totalMinuteValue)min"
+           
         }
        
         

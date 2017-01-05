@@ -45,8 +45,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-        emailTextField.text = "staff@maildrop.cc"
-        passwordTextField.text = "staff"
+        emailTextField.text = "komal@tii.co.in"
+        passwordTextField.text = "Pass@123"
         
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)

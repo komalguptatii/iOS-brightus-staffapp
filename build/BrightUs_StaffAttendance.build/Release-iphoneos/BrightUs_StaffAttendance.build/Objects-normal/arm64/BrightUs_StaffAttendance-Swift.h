@@ -117,9 +117,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__has_feature) && __has_feature(modules)
 @import UIKit;
 @import AVFoundation;
+@import CoreLocation;
 @import Foundation;
 @import CoreGraphics;
-@import CoreLocation;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -198,6 +198,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 @end
 
 @class HoshiTextField;
+@class UIActivityIndicatorView;
 @class UIButton;
 @class UIAlertController;
 
@@ -215,6 +216,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
   Confirm New Password TextField
 */
 @property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified confirmNewPasswordTextfield;
+/**
+  Indicator to let user know about data loading
+*/
+@property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 /**
@@ -253,9 +258,11 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
 @end
 
 @class UILabel;
+@class CLLocationManager;
+@class CLLocation;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
-@interface DashboardView : UIViewController
+@interface DashboardView : UIViewController <CLLocationManagerDelegate>
 /**
   Current Date will be displayed on this label
 */
@@ -272,10 +279,25 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
   </ul>
 */
 @property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified userNameLabel;
+/**
+  Label that displays Check-In Time
+*/
 @property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified checkInTimeValueLabel;
+/**
+  Label that displays Check-Out Time
+*/
 @property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified checkOutTimeValueLabel;
+/**
+  Intialized instance of CLLocationManager
+*/
+@property (nonatomic, strong) CLLocationManager * _Nonnull locationManager;
+/**
+  To keep check of access to mark attendance
+*/
+@property (nonatomic) BOOL isAllowedToMarkAttendance;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (void)viewWillAppear:(BOOL)animated;
 /**
   Attendance Detail Button Action
   \param description When user tap this button, app navigates to attendance detail section
@@ -302,6 +324,30 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 
 */
 - (NSString * _Nonnull)ConvertTimeStampToRequiredHoursWithDateValue:(NSString * _Nonnull)dateValue;
+/**
+  View Profile Request
+  \param method GET
+
+  \param return Name, Latitude & Longitude of Branch Location
+
+*/
+- (void)ViewProfile;
+/**
+  Today Attendance Detail Request
+  \param return Check - In/Out Time
+
+*/
+- (void)GetTodayAttendanceDetail;
+/**
+  Authorization Status to use location method
+*/
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+/**
+  Update Location Method
+  \param description Check whether user is in premises or not
+
+*/
+- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -311,6 +357,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 @class UIDatePicker;
 @class NSMutableArray;
 @class UITableViewCell;
+@class UIScrollView;
 
 /**
   Attendance Details
@@ -338,6 +385,18 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 */
 @property (nonatomic, strong) IBOutlet UIDatePicker * _Null_unspecified datePickerView;
 /**
+  View which contains date picker view - as it is not allowed to change the background color of date picker
+*/
+@property (nonatomic, strong) IBOutlet UIView * _Null_unspecified datePickerCustomView;
+/**
+  Done button
+*/
+@property (nonatomic, strong) IBOutlet UIButton * _Null_unspecified doneButton;
+/**
+  Indicator to let user know about data loading
+*/
+@property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
+/**
   Array of values marked as filters
 */
 @property (nonatomic, copy) NSArray<NSString *> * _Nonnull filterValueArray;
@@ -353,6 +412,22 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
   Bool to check that From Date is selected before moving to selection of End date
 */
 @property (nonatomic) BOOL isSelectedFromDate;
+/**
+  Current Page of Detail Request
+*/
+@property (nonatomic) NSInteger currentPage;
+/**
+  Total number of Pages of Detail Request
+*/
+@property (nonatomic) NSInteger totalNoOfPages;
+/**
+  This will contain selected from date
+*/
+@property (nonatomic, copy) NSString * _Nonnull selectedFromDate;
+/**
+  This will contain selected to date
+*/
+@property (nonatomic, copy) NSString * _Nonnull selectedToDate;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 /**
@@ -364,6 +439,21 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
   </ul>
 */
 - (IBAction)BackButtonAction:(UIBarButtonItem * _Nonnull)sender;
+/**
+  Search Button Action
+  <ul>
+    <li>
+      paramater description : Search for the data on the basis of filter and time period selected
+    </li>
+  </ul>
+*/
+- (IBAction)SearchButtonAction:(UIButton * _Nonnull)sender;
+/**
+  Done Button Action
+  \param description It will hide the date picker and filter picker view on the screen
+
+*/
+- (IBAction)DoneButtonAction:(UIButton * _Nonnull)sender;
 /**
   Filter Action
   <ul>
@@ -385,12 +475,6 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 
 */
 - (IBAction)ToDateButtonAction:(UIButton * _Nonnull)sender;
-/**
-  Date Picker Selected Value Method
-  \param description To deal with the selected date, this method is target for date picker view
-
-*/
-- (void)DatePickerValueSelectedWithSender:(UIDatePicker * _Nonnull)sender;
 /**
   Number of Sections in TableView
   \param return number of sections
@@ -422,9 +506,31 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
 - (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
 /**
+  Delegate method of scroll view
+  <ul>
+    <li>
+      - to check whether user is moving onto next page or data and request for data accordingly
+    </li>
+  </ul>
+*/
+- (void)scrollViewDidEndDecelerating:(UIScrollView * _Nonnull)scrollView;
+/**
   Attendance Detail Request
+  \param method GET
+
 */
 - (void)GetAttendanceDetails;
+/**
+  Alert Controller Method
+  <ul>
+    <li>
+      paramter return : Returns UIAlertController
+    </li>
+  </ul>
+  \param description Method to intialize and add actions to alert controller
+
+*/
+- (UIAlertController * _Nonnull)ShowAlert;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -437,6 +543,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
   Email Text field
 */
 @property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified emailTextField;
+/**
+  Indicator to let user know about data loading
+*/
+@property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 /**
@@ -488,45 +598,21 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UIScrollView;
-@class CLLocationManager;
-@class CLLocation;
 
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
-@interface HomeViewController : BaseViewController <UIScrollViewDelegate, CLLocationManagerDelegate>
+@interface HomeViewController : BaseViewController <UIScrollViewDelegate>
+/**
+  ScrollView on which dashboard & camera controller view is added
+*/
 @property (nonatomic, strong) IBOutlet UIScrollView * _Null_unspecified mainScrollView;
-@property (nonatomic, strong) CLLocationManager * _Nonnull locationManager;
-@property (nonatomic) BOOL isAllowedToMarkAttendance;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
-- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
-- (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
-/**
-  Logout Action
-  \param description User can logout from app via tapping on Logout Button
-
-*/
-- (IBAction)LogoutAction:(UIBarButtonItem * _Nonnull)sender;
 /**
   Menu Button Action
   \param description Slider Menu will be shown to user
 
 */
 - (IBAction)MenuButtonPressed:(id _Nonnull)sender;
-/**
-  View Profile Request
-  \param method GET
-
-  \param return Name, Latitude & Longitude of Branch Location
-
-*/
-- (void)ViewProfile;
-/**
-  Today Attendance Detail Request
-  \param return Check - In/Out Time
-
-*/
-- (void)GetTodayAttendanceDetail;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -690,6 +776,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11UserProfile")
   *Role label to Display User Role
 */
 @property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified roleLabel;
+/**
+  Indicator to let user know about data loading
+*/
+@property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 /**
@@ -731,6 +821,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ViewController")
 
   \endcode*/
 @property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified passwordTextField;
+/**
+  Indicator to let user know about data loading
+*/
+@property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 - (void)viewWillAppear:(BOOL)animated;
