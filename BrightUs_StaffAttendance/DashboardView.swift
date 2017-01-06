@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class DashboardView: UIViewController,CLLocationManagerDelegate {
+class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDelegate {
     
     /**
      * Current Date will be displayed on this label
@@ -71,16 +71,16 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
 
         //StartUpdatingLocation()
         
-//        if (CLLocationManager.locationServicesEnabled())
-//        {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            //            locationManager.distanceFilter = 50
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-//        }
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        let controller = self.parent as? HomeViewController
+        let scrollView = controller?.mainScrollView
 
-
+        scrollView?.delegate = self
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,7 +95,18 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
         }
     }
     
-    //MARK: - Button Action 
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        print(scrollView.contentOffset.x)
+        if (scrollView.contentOffset.x >= self.view.frame.width){
+            print("Observer added")
+
+            NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+        }
+
+    }
+    
+    //MARK: - Button Action
     //MARK: -
     /**
      Attendance Detail Button Action
@@ -109,6 +120,8 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
         let vc = storyboard.instantiateViewController(withIdentifier: "AttendanceDetail") as UIViewController
         self.navigationController?.show(vc, sender: nil)
     }
+    
+    //MARK: - ScrollView Delegate
     
        
     //MARK: - Display Methods
@@ -130,7 +143,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
         dateFormatOftodayDate.timeZone = NSTimeZone.local
         
         let returnDate = dateFormatOftodayDate.string(from: todaysDate)
-        print(returnDate)
         return returnDate
     }
     
@@ -186,13 +198,13 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
         formatStyle.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
         formatStyle.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"   //"2016-12-19T07:25:57+0000"  ZZZZZ SSSS
 
-        print(dateValue)
+//        print(dateValue)
         let receivedDateTime = formatStyle.date(from: dateValue)
         
-        print(receivedDateTime!)
+//        print(receivedDateTime!)
         formatStyle.dateFormat = "HH:mm a"
         let timeValue = formatStyle.string(from: receivedDateTime!)
-        print(timeValue)
+//        print(timeValue)
         return timeValue
     }
     
@@ -219,7 +231,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
         let token = defaults.value(forKey: "accessToken") as! String
         
         let header = "Bearer" + " \(token)"
-        print(header)
+//        print(header)
         
         request.setValue(header, forHTTPHeaderField: "Authorization")
         
@@ -228,7 +240,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
             do {
                 if data != nil{
                     if let httpResponseValue = response as? HTTPURLResponse{
-                        print(httpResponseValue.statusCode)
+//                        print(httpResponseValue.statusCode)
                         if httpResponseValue.statusCode == 200{
                             if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                 print(dict)
@@ -308,53 +320,48 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
                                         if let checkInValue = detailDictionary.value(forKey: "check_in") as? String{
                                             if checkInValue.isEmpty{
                                                 isCheckedIn = false
-                                                defaults.setValue("", forKey: "CheckInTime")
+                                                DispatchQueue.main.async {
+                                                    self.checkInTimeValueLabel.text = "Let's go"
+
+                                                }
                                                 
                                             }
                                             else{
                                                 //Here it means check in time is there already
-                                                isCheckedIn = true
-                                                defaults.setValue(checkInValue, forKey: "CheckInTime")
-                                                if let checkOutValue = detailDictionary.value(forKey: "check_out") as? String{
-                                                    if !checkOutValue.isEmpty{
-                                                        defaults.setValue(checkInValue, forKey: "CheckOutTime")
-                                                    }
-                                                    else{
-                                                        defaults.setValue("", forKey: "CheckOutTime")
+                                                DispatchQueue.main.async {
+                                                    isCheckedIn = true
+                                                    let value = self.ConvertTimeStampToRequiredHours(dateValue: checkInValue)
+                                                    self.checkInTimeValueLabel.text = "\(value)"
+                                                    
+                                                    if let checkOutValue = detailDictionary.value(forKey: "check_out") as? String{
+                                                        if !checkOutValue.isEmpty{
+                                                            let value = self.ConvertTimeStampToRequiredHours(dateValue: checkOutValue)
+                                                            self.checkOutTimeValueLabel.text = "\(value)"
+                                                            
+                                                        }
+                                                        else{
+                                                            self.checkOutTimeValueLabel.text = "Pending"
+                                                            
+                                                        }
                                                     }
                                                 }
+                                               
                                             }
                                         }
                                     }
                                     
                                 }
+                                else{
+                                    DispatchQueue.main.async {
+                                        self.checkInTimeValueLabel.text = "Let's go"
+                                        self.checkOutTimeValueLabel.text = "Pending"
+                                        isCheckedIn = false
+                                    }
+                                    
+                                }
                             }
                             
-                            DispatchQueue.main.async {
-                                //Display Check - In/Out time
-                                if let checkInTime = defaults.value(forKey: "CheckInTime") as? String{
-                                    if !checkInTime.isEmpty{
-                                        //Test
-                                        //                    let value = ConvertTimeStampToRequiredHours(dateValue: "2016-12-19T07:25:57+0000")
-                                        print(checkInTime)
-                                        let value = self.ConvertTimeStampToRequiredHours(dateValue: checkInTime)
-                                        self.checkInTimeValueLabel.text = "\(value)"
-                                    }
-                                    else{
-                                        self.checkInTimeValueLabel.text = "Let's go"
-                                    }
-                                }
-                                if let checkOutTime = defaults.value(forKey: "CheckOutTime") as? String{
-                                    if !checkOutTime.isEmpty{
-                                        let value = self.ConvertTimeStampToRequiredHours(dateValue: checkOutTime)
-                                        self.checkOutTimeValueLabel.text = "\(value)"
-                                    }
-                                    else{
-                                        self.checkOutTimeValueLabel.text = "Pending"
-                                    }
-                                }
 
-                            }
                             
                         }
                         else if httpResponseValue.statusCode == 401{
@@ -423,7 +430,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
                 locationUpdateLabel.text = "You are allowed to mark attendance"
                 locationManager.stopUpdatingLocation()
 
-                NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
                 
             }else{
                 print("out of premises")
@@ -437,13 +443,17 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
         }
     }
 
+    
     /**
      Mark Attendance Request
      
      - parameter sent : type i.e. check_in,check_out
      
      */
+
     func MarkAttendanceOnServer(){
+        NotificationCenter.default.removeObserver(self)
+
         let apiString = baseURL + "/api/user/attendance"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
@@ -481,7 +491,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate {
                         if let httpResponseValue = response as? HTTPURLResponse{
                             print(httpResponseValue.statusCode)
                             if httpResponseValue.statusCode == 200 {
-                                NotificationCenter.default.removeObserver(self)
 
                                 if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                     print(dict)

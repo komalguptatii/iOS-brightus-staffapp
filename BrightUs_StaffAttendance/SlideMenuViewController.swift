@@ -200,8 +200,6 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
             defaults.setValue("", forKey: "name")
             defaults.setValue("", forKey: "latitude")
             defaults.setValue("", forKey: "longitude")
-            defaults.setValue("", forKey: "CheckInTime")
-            defaults.setValue("", forKey: "CheckOutTime")
             defaults.setValue("", forKey: "password")
 
             defaults.synchronize()

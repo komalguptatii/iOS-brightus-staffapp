@@ -45,9 +45,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-        emailTextField.text = "komal@tii.co.in"
-        passwordTextField.text = "Pass@123"
+//        emailTextField.text = "komal@tii.co.in"
+//        passwordTextField.text = "Pass@123"
         
+        emailTextField.text = "reception1@maildrop.cc"
+        passwordTextField.text = "12345"
+
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         indicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
@@ -295,6 +298,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                                 print(dict)
                             }
+                            else if httpResponseValue.statusCode == 401{
+                                let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                                print(dict)
+                                
+                                DispatchQueue.main.async {
+                                    let alert = self.ShowAlert()
+                                    
+                                    alert.message = "\(dict.value(forKey: "message")!)"
+                                    alert.title = "Alert"
+                                    _ = self.present(alert, animated: true, completion: nil)
+                                    self.indicator.removeFromSuperview()
+                                    self.view.isUserInteractionEnabled = true
+                                    self.view.window?.isUserInteractionEnabled = true
+                                }
+                                
+                            }
+                            
                         }
                     }
                 }
@@ -400,4 +420,5 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+    
 }

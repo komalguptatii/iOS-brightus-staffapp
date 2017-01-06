@@ -23,7 +23,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     let ref = FIRDatabase.database().reference()
     var snapshotReference = FIRDataSnapshot()
-    
+    var userId = ""
+
     //MARK: - Methods
     //MARK: -
     override func viewDidLoad() {
@@ -43,15 +44,6 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         customImagePreview.image = UIImage(named: "scanArea")
         self.view.addSubview(customImagePreview)
         
-        ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
-            
-            print(Date())
-            
-            if (snapshot.hasChildren() == true){
-                
-                self.snapshotReference = snapshot
-            }
-        })
         
     }
     
@@ -60,6 +52,23 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        //        let branchCode = defaults.value(forKey: "branchCode") as! String
+        
+        let branchCode = "1"
+        
+        ref.child("mainAttendanceApp").child("branches").child(branchCode).child("qrCode").child("users").observe(.value, with: {(snapshot) in
+//            print(Date())
+            
+            if (snapshot.hasChildren() == true){
+                self.snapshotReference = snapshot
+            }
+        })
+        
+    
+
+    }
     
     //MARK: - Camera Methods
     //MARK: -
@@ -127,13 +136,18 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             if objMetadataMachineReadableCodeObject.stringValue != nil {
                 randomQRCode = objMetadataMachineReadableCodeObject.stringValue
                 print(randomQRCode)
+                //4:abcd - 4 is user id, abcd is code
+                //already have array as snapshot
+                //Break code here
+                
+                let mathString: String = randomQRCode
+                let numbers = mathString.components(separatedBy: [":"])
+                print(numbers)
+                userId = numbers[0]
+
                 getQrCodeStatus()
 
                 objCaptureSession?.stopRunning()
-
-//                if let userId = FIRAuth.auth()?.currentUser?.uid {
-//                    getQrCodeStatus(userId)
-//                }
             }
         }
     }
@@ -148,39 +162,25 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     */
 //    func getQrCodeStatus (_ ids : String){
     func getQrCodeStatus (){
-        print(Date())
-////        let ref = FIRDatabase.database().reference()
-//        ref.child("qrCode").observeSingleEvent(of: .value, with: {(snapshot) in
-//
-//            print(Date())
-//
-//            if (snapshot.hasChildren() == true){
-//                
-//                
-//            }else{ // if no data available
-//                
-//                
-//            }
-//            
-//        })
+//        print(Date())
         
-        if let snapValue = snapshotReference.value as? NSMutableDictionary{
-            
+        let dict = snapshotReference.childSnapshot(forPath: userId)
+//        print(dict)
+        if let snapValue = dict.value as? NSMutableDictionary{
+//            print(snapValue)
             let status = snapValue.value(forKey: "status")
             let randomNmbr = snapValue.value(forKey: "code")
             self.attendanceStatus = status as! String
             let nmbr = String(describing: randomNmbr!)
             
-            //Check for location here
-            //                        print("\(randomNmbr!) == \(self.randomQRCode)")
-            
             if (nmbr == self.randomQRCode){
+                print(nmbr)
+                print(self.randomQRCode)
                 if (self.attendanceStatus == "new"){
-                    
-                    self.ref.child("qrCode").updateChildValues(["status" : "old"])
+
+                    self.ref.child("mainAttendanceApp").child("branches").child("1").child("qrCode").child("users").child(userId).updateChildValues(["status" : "old"])
                     
                     DispatchQueue.main.async {
-                        //                self.MarkAttendanceOnServer()
                         self.randomQRCode = ""
                         
                         self.vwQRCode?.frame = CGRect.zero
@@ -188,6 +188,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                         let controller = self.parent as? HomeViewController
                         let scrollView = controller?.mainScrollView
                         scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                        
                         
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
                         
@@ -199,13 +200,12 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 print("different code")
                 
                 DispatchQueue.main.async {
+                    self.randomQRCode = ""
+
                     self.vwQRCode?.frame = CGRect.zero
                     self.objCaptureSession?.startRunning()
                     
                     let controller = self.parent as? HomeViewController
-                    let tag = controller?.mainScrollView.tag
-                    print(tag!)
-                    
                     let scrollView = controller?.mainScrollView
                     scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
                 }
