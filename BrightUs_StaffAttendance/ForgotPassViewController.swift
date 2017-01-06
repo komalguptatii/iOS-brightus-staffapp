@@ -73,12 +73,21 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
     @IBAction func submitButton(_ sender: UIButton) {
         let checkValue = Validation()
         print(checkValue)
-        if (Validation()){      //Only performed successfully if specified email format get matched
-            self.view.addSubview(indicator)
-            self.view.isUserInteractionEnabled = false
-            self.view.window?.isUserInteractionEnabled = false
+        if IsConnectionAvailable(){
+            if (Validation()){      //Only performed successfully if specified email format get matched
+                self.view.addSubview(indicator)
+                self.view.isUserInteractionEnabled = false
+                self.view.window?.isUserInteractionEnabled = false
+                
+                ForgotPasswordActionCall()
+            }
+        }
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection"
+            _ = self.present(alert, animated: true, completion: nil)
 
-            ForgotPasswordActionCall()
         }
     }
     

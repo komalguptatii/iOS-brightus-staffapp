@@ -2,4 +2,70 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BrightUs_StaffAttendance/Camera.swift"
+            timestampString = "505393020.412546"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "getQrCodeStatus()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BrightUs_StaffAttendance/Camera.swift"
+            timestampString = "505393093.107344"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BrightUs_StaffAttendance.Camera.viewWillAppear (Swift.Bool) -&gt; ()"
+                  moduleName = "BrightUs_StaffAttendance"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Mac%202/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift"
+                  timestampString = "505393093.328595"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "176">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BrightUs_StaffAttendance.Camera.(viewWillAppear (Swift.Bool) -&gt; ()).(closure #1)"
+                  moduleName = "BrightUs_StaffAttendance"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Mac%202/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift"
+                  timestampString = "505393093.331241"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

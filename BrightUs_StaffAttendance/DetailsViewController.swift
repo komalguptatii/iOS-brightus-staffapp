@@ -92,6 +92,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      */
     var selectedToDate = ""
     
+    @IBOutlet var noDataImage: UIImageView!
+    
     
     //MARK: - Methods
     //MARK: -
@@ -163,11 +165,22 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func SearchButtonAction(_ sender: UIButton) {
         
-        self.view.addSubview(indicator)
-        self.view.isUserInteractionEnabled = false
-        self.view.window?.isUserInteractionEnabled = false
+        
+        if IsConnectionAvailable(){
+            self.view.addSubview(indicator)
+            self.view.isUserInteractionEnabled = false
+            self.view.window?.isUserInteractionEnabled = false
+            
+            self.GetAttendanceDetails()
 
-        self.GetAttendanceDetails()
+        }
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection"
+            _ = self.present(alert, animated: true, completion: nil)
+            
+        }
     }
     
     /**
@@ -443,11 +456,21 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         if selectedFilter != "custom"{
-            self.view.addSubview(indicator)
-            self.view.isUserInteractionEnabled = false
-            self.view.window?.isUserInteractionEnabled = false
-
-            self.GetAttendanceDetails()
+            if IsConnectionAvailable(){
+                
+                self.view.addSubview(indicator)
+                self.view.isUserInteractionEnabled = false
+                self.view.window?.isUserInteractionEnabled = false
+                
+                self.GetAttendanceDetails()
+            }
+            else{
+                let alert = ShowAlert()
+                alert.title = "Alert"
+                alert.message = "Check Network Connection"
+                _ = self.present(alert, animated: true, completion: nil)
+                
+            }
         }
         
     }
@@ -529,15 +552,25 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 
                                 if let detailArray = dict.value(forKey: "data") as? NSArray{
                                     print(detailArray)
-                                    //                                self.attendanceDetailArray = detailArray.mutableCopy() as! NSArray
-                                    self.attendanceDetailArray.addObjects(from: detailArray.mutableCopy() as! [AnyObject])
-                                    
-                                    DispatchQueue.main.async {
-                                        //Section is 1
-                                        //Pagination Required + Fetch and display details on tableView
+                                    if detailArray.count > 0{
                                         
-                                        self.detailTableView.reloadData()
+                                        self.attendanceDetailArray.addObjects(from: detailArray.mutableCopy() as! [AnyObject])
+                                        
+                                        DispatchQueue.main.async {
+                                            //Section is 1
+                                            //Pagination Required + Fetch and display details on tableView
+                                            self.noDataImage.alpha = 0.0
+
+                                            self.detailTableView.reloadData()
+                                        }
                                     }
+                                    else{
+                                        DispatchQueue.main.async {
+                                            self.noDataImage.alpha = 1.0
+
+                                        }
+                                    }
+                                 
                                     
                                 }
 

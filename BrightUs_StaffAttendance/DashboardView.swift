@@ -52,6 +52,9 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      * Display and give alert to user that whether he is allowed or not to mark attendance
     */
     @IBOutlet var locationUpdateLabel: UILabel!
+    
+    @IBOutlet var timeImage: UIImageView!
+    
     //MARK: - Methods
     //MARK: -
 
@@ -66,8 +69,17 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         currentDateLabel.text = "It's \(self.CurrentDateFormat())"
         self.DisplayGreetings()
         
-        performSelector(inBackground: #selector(DashboardView.ViewProfile), with: nil)
-        performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
+        if IsConnectionAvailable(){
+            performSelector(inBackground: #selector(DashboardView.ViewProfile), with: nil)
+            performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
+        }
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection"
+            _ = self.present(alert, animated: true, completion: nil)
+            
+        }
 
         //StartUpdatingLocation()
         
@@ -95,6 +107,8 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         }
     }
     
+    //MARK: - ScrollView Delegate
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         print(scrollView.contentOffset.x)
@@ -120,8 +134,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         let vc = storyboard.instantiateViewController(withIdentifier: "AttendanceDetail") as UIViewController
         self.navigationController?.show(vc, sender: nil)
     }
-    
-    //MARK: - ScrollView Delegate
     
        
     //MARK: - Display Methods
@@ -161,21 +173,26 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         case 6..<12 :
             greetingLabel.text = "Good Morning!"
 
+            timeImage.image = UIImage(named: "morning-view")
             print(NSLocalizedString("Morning", comment: "Morning"))
         case 12 :
             greetingLabel.text = "Good Afternoon!"
+            timeImage.image = UIImage(named: "noon-view")
 
             print(NSLocalizedString("Noon", comment: "Noon"))
         case 13..<17 :
             greetingLabel.text = "Good Afternoon!"
+            timeImage.image = UIImage(named: "noon-view")
 
             print(NSLocalizedString("Afternoon", comment: "Afternoon"))
         case 17..<22 :
             greetingLabel.text = "Good Evening!"
+            timeImage.image = UIImage(named: "evening-view")
 
             print(NSLocalizedString("Evening", comment: "Evening"))
         default:
             greetingLabel.text = "Good Night!"
+            timeImage.image = UIImage(named: "evening-view")
 
             print(NSLocalizedString("Night", comment: "Night"))
         }
@@ -452,65 +469,103 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      */
 
     func MarkAttendanceOnServer(){
-        NotificationCenter.default.removeObserver(self)
-
-        let apiString = baseURL + "/api/user/attendance"
-        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        let url = URL(string: encodedApiString!)
-        
-        let request = NSMutableURLRequest(url: url!)
-        request.httpMethod = "POST"
-        
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = defaults.value(forKey: "accessToken") as! String
-        
-        let header = "Bearer" + " \(token)"
-        print(header)
-        
-        request.setValue(header, forHTTPHeaderField: "Authorization")
-        
-        let jsonDict = NSMutableDictionary()
-        
-        if isCheckedIn{
-            jsonDict.setValue("check_out", forKey: "type")
-        }
-        else{
-            jsonDict.setValue("check_in", forKey: "type")
-        }
-        
-        var jsonData = Data()
-        
-        do{
-            jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
-            request.httpBody = jsonData
-            print(jsonData)
+        if IsConnectionAvailable(){
+            NotificationCenter.default.removeObserver(self)
             
-            _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-                do {
-                    if data != nil{
-                        if let httpResponseValue = response as? HTTPURLResponse{
-                            print(httpResponseValue.statusCode)
-                            if httpResponseValue.statusCode == 200 {
-
-                                if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
-                                    print(dict)
+            let apiString = baseURL + "/api/user/attendance"
+            let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            let url = URL(string: encodedApiString!)
+            
+            let request = NSMutableURLRequest(url: url!)
+            request.httpMethod = "POST"
+            
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let token = defaults.value(forKey: "accessToken") as! String
+            
+            let header = "Bearer" + " \(token)"
+            print(header)
+            
+            request.setValue(header, forHTTPHeaderField: "Authorization")
+            
+            let jsonDict = NSMutableDictionary()
+            
+            if isCheckedIn{
+                jsonDict.setValue("check_out", forKey: "type")
+            }
+            else{
+                jsonDict.setValue("check_in", forKey: "type")
+            }
+            
+            var jsonData = Data()
+            
+            do{
+                jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+                request.httpBody = jsonData
+                print(jsonData)
+                
+                _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+                    do {
+                        if data != nil{
+                            if let httpResponseValue = response as? HTTPURLResponse{
+                                print(httpResponseValue.statusCode)
+                                if httpResponseValue.statusCode == 200 {
+                                    
+                                    if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                        print(dict)
+                                    }
+                                    self.performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
+                                    
                                 }
-                                self.performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
-
                             }
                         }
                     }
-                }
-                catch{
-                    print(error)
-                }
-                }.resume()
+                    catch{
+                        print(error)
+                    }
+                    }.resume()
+            }
+            catch{
+                print("Error")
+            }
+
         }
-        catch{
-            print("Error")
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection, we are unable to mark your attendance right now"
+            _ = self.present(alert, animated: true, completion: nil)
+            
         }
+
         
         
     }
+
+    //MARK: - Alert Controller
+    //MARK: -
+    /**
+     Alert Controller Method
+     
+     - paramter return : Returns UIAlertController
+     
+     - parameter description : Method to intialize and add actions to alert controller
+     */
+    
+    func ShowAlert() -> UIAlertController{
+        let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: false, completion: nil)
+            print("Cancel")
+        }
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: false, completion: nil)
+            print("OK")
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        //        _ = self.present(alertController, animated: true, completion: nil)
+        return alertController
+    }
+    
 
 }

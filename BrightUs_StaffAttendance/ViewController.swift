@@ -45,11 +45,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-//        emailTextField.text = "komal@tii.co.in"
-//        passwordTextField.text = "Pass@123"
+        emailTextField.text = "komal@tii.co.in"
+        passwordTextField.text = "Pass@123"
         
-        emailTextField.text = "reception1@maildrop.cc"
-        passwordTextField.text = "12345"
+//        emailTextField.text = "reception1@maildrop.cc"
+//        passwordTextField.text = "12345"
 
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -138,13 +138,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func LoginButtonPressed(_ sender: UIButton) {
 //        self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
 
-        if (Validation()){
+        if IsConnectionAvailable(){
+            if (Validation()){
+                
+                self.view.addSubview(indicator)
+                self.view.isUserInteractionEnabled = false
+                self.view.window?.isUserInteractionEnabled = false
+                
+                AuthorizeUser()
+            }
+        }
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection"
+            _ = self.present(alert, animated: true, completion: nil)
             
-            self.view.addSubview(indicator)
-            self.view.isUserInteractionEnabled = false
-            self.view.window?.isUserInteractionEnabled = false
-
-            AuthorizeUser()
         }
     }
 
@@ -389,20 +398,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func FirebaseLogin(token : String) {
         print(token)
-        FIRAuth.auth()?.signIn(withCustomToken: token ) { (user, error) in
-            if let user = FIRAuth.auth()?.currentUser {
-                print(user)
+        if IsConnectionAvailable(){
+            FIRAuth.auth()?.signIn(withCustomToken: token ) { (user, error) in
+                if let user = FIRAuth.auth()?.currentUser {
+                    print(user)
+                }
+                
+                //TODO
+                DispatchQueue.main.async {
+                    self.indicator.removeFromSuperview()
+                    self.view.isUserInteractionEnabled = true
+                    self.view.window?.isUserInteractionEnabled = true
+                    
+                    self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+                }
+                
             }
+
+        }
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection"
+            _ = self.present(alert, animated: true, completion: nil)
             
-            //TODO
-            DispatchQueue.main.async {
-                self.indicator.removeFromSuperview()
-                self.view.isUserInteractionEnabled = true
-                self.view.window?.isUserInteractionEnabled = true
-
-                self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
-            }
-
         }
     }
     

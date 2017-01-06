@@ -76,6 +76,4 @@ func ValidateEmptyContent(textField : UITextField)->Bool{
 var isCheckedIn = false
 
 //TODO
-//Attendance Details Custom Part, Pagination & details (2 hours )
-//Loading Indicator (Need device to see wherever is applicable or not)
-//Test the app at particular location
+//Real time Location testing

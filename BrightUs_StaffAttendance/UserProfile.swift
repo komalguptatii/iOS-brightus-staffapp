@@ -49,7 +49,16 @@ class UserProfile: UIViewController, UITextFieldDelegate {
         self.view.isUserInteractionEnabled = false
         self.view.window?.isUserInteractionEnabled = false
         
-        self.ViewProfile()
+        if IsConnectionAvailable(){
+            self.ViewProfile()
+        }
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection"
+            _ = self.present(alert, animated: true, completion: nil)
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -129,6 +138,33 @@ class UserProfile: UIViewController, UITextFieldDelegate {
             self.view.window?.isUserInteractionEnabled = true
             
         }
+    }
+    //MARK: - Alert Controller
+    //MARK: -
+    
+    
+    /**
+     Alert Controller Method
+     
+     - paramter return : Returns UIAlertController
+     
+     - parameter description : Method to intialize and add actions to alert controller
+     */
+    
+    func ShowAlert() -> UIAlertController{
+        let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: false, completion: nil)
+            print("Cancel")
+        }
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: false, completion: nil)
+            print("OK")
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        //        _ = self.present(alertController, animated: true, completion: nil)
+        return alertController
     }
 
 }

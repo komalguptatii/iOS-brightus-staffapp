@@ -73,13 +73,25 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
  
     */
     @IBAction func SubmitButtonAction(_ sender: UIButton) {
-        if Validation(){
-            self.view.addSubview(indicator)
-            self.view.isUserInteractionEnabled = false
-            self.view.window?.isUserInteractionEnabled = false
-
-            self.ChangePasswordCall()
+        
+        if IsConnectionAvailable(){
+            if Validation(){
+                self.view.addSubview(indicator)
+                self.view.isUserInteractionEnabled = false
+                self.view.window?.isUserInteractionEnabled = false
+                
+                self.ChangePasswordCall()
+            }
         }
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection"
+            _ = self.present(alert, animated: true, completion: nil)
+            
+        }
+        
+       
     }
     
     //MARK: - Validations
