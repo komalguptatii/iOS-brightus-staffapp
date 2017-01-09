@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0522D28272CC1B633A797703 /* Pods_BrightUs_StaffAttendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */; };
 		2917278E1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917278D1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift */; };
+		2961C4351E235F9D002635B8 /* DeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961C4341E235F9D002635B8 /* DeviceExtension.swift */; };
 		2976797B1E10F49F00DFFDDA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297679791E10F49F00DFFDDA /* BaseViewController.swift */; };
 		2976797C1E10F49F00DFFDDA /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976797A1E10F49F00DFFDDA /* SlideMenuViewController.swift */; };
 		2978FCD51E0A58F50038AE06 /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */; };
@@ -55,6 +56,7 @@
 		208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26137209C2F3B185FB897100 /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; sourceTree = "<group>"; };
 		2917278D1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiiAttendanceDetailCell.swift; sourceTree = "<group>"; };
+		2961C4341E235F9D002635B8 /* DeviceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceExtension.swift; sourceTree = "<group>"; };
 		297679791E10F49F00DFFDDA /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2976797A1E10F49F00DFFDDA /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
 		2978FCD21E0A58F50038AE06 /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				91EE38FA1DFEA3B400CD7838 /* Reachability.swift */,
 				2986AAFB1E12339B009D75C6 /* UserProfile.swift */,
 				2986AAFD1E1233FF009D75C6 /* ChangePassword.swift */,
+				2961C4341E235F9D002635B8 /* DeviceExtension.swift */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2961C4351E235F9D002635B8 /* DeviceExtension.swift in Sources */,
 				2976797B1E10F49F00DFFDDA /* BaseViewController.swift in Sources */,
 				2917278E1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift in Sources */,
 				2986AAFC1E12339B009D75C6 /* UserProfile.swift in Sources */,

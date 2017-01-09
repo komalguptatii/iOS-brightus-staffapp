@@ -69,8 +69,13 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         currentDateLabel.text = "It's \(self.CurrentDateFormat())"
         self.DisplayGreetings()
         
+        DispatchQueue.main.async {
+            if let nameOfUser = defaults.value(forKey: "name") as? String{
+                self.userNameLabel.text = "\(nameOfUser)"
+            }
+            
+        }
         if IsConnectionAvailable(){
-            performSelector(inBackground: #selector(DashboardView.ViewProfile), with: nil)
             performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
         }
         else{
@@ -225,74 +230,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         return timeValue
     }
     
-    //MARK: - View Profile Request
-    //MARK: -
-    /**
-     View Profile Request
-     
-     - parameter method : GET
-     
-     - parameter return : Name, Latitude & Longitude of Branch Location
-     
-     */
-    func ViewProfile() {
-        let apiString = baseURL + "/api/user"
-        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        let url = URL(string: encodedApiString!)
-        
-        let request = NSMutableURLRequest(url: url!)
-        request.httpMethod = "GET"
-        
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let token = defaults.value(forKey: "accessToken") as! String
-        
-        let header = "Bearer" + " \(token)"
-//        print(header)
-        
-        request.setValue(header, forHTTPHeaderField: "Authorization")
-        
-        
-        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-            do {
-                if data != nil{
-                    if let httpResponseValue = response as? HTTPURLResponse{
-//                        print(httpResponseValue.statusCode)
-                        if httpResponseValue.statusCode == 200{
-                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
-                                print(dict)
-                                
-                                //Get User name from here
-                                defaults.setValue(dict.value(forKey: "name")!, forKey: "name")
-                                
-                                DispatchQueue.main.async {
-                                    if let nameOfUser = defaults.value(forKey: "name") as? String{
-                                        self.userNameLabel.text = "\(nameOfUser)"
-                                    }
-                                    
-                                }
-                                //Get Latitude & longitude of branch
-                                if let locationValues = dict.value(forKey: "allowed_locations") as? NSArray{
-                                    print(locationValues)
-                                    if let locationDict = locationValues.object(at: 0) as? NSDictionary{
-                                        print(locationDict)
-                                        defaults.setValue(locationDict.value(forKey: "lattitude"), forKey: "latitude")
-                                        defaults.setValue(locationDict.value(forKey: "longitude"), forKey: "longitude")
-                                    }
-                                }
-                                defaults.synchronize()
-                            }                            
-                        }
-                    }
-                }
-            }
-            catch{
-                print("Error")
-            }
-            }.resume()
-        
-    }
-
+   
     
     //MARK: - Today's Attendance detail
     //MARK: -
@@ -420,14 +358,17 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             
             // Techies Office Location = 30.892668,75.8225618
             // Grand Walk Location = 30.8868835,75.7906816
-//            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
-//            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
+            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
+            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
             
-            let destinationLatitude = 30.892668
-            let destinationLongitude = 75.8225618
+//            let destinationLatitude = 30.892668
+//            let destinationLongitude = 75.8225618
+
+            print("destinationLatitude - \(destinationLatitude)")
+            print("destinationLongitude - \(destinationLongitude)")
 
             //TODO - Testing Pending as not receiving lat long yet
-            let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
+            let destination = CLLocation(latitude: destinationLatitude!, longitude: destinationLongitude!)
             
             let distance = location.distance(from: destination)
             print(distance)

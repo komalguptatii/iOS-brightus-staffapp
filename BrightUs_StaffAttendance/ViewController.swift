@@ -10,6 +10,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 /// Login View
 
@@ -45,8 +46,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-        emailTextField.text = "komal@tii.co.in"
-        passwordTextField.text = "Pass@123"
+        emailTextField.text = "staff@maildrop.cc"
+        passwordTextField.text = "staff"
+        
+//        emailTextField.text = "komal@tii.co.in"
+//        passwordTextField.text = "Pass@123"
         
 //        emailTextField.text = "reception1@maildrop.cc"
 //        passwordTextField.text = "12345"
@@ -299,6 +303,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                     defaults.setValue(refreshTokenValue, forKey: "refreshToken")
                                     defaults.synchronize()
                                     
+
                                     self.TokenForFirebase()
                                 }
                                
@@ -403,8 +408,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 if let user = FIRAuth.auth()?.currentUser {
                     print(user)
                 }
-                
-                //TODO
+
+                self.performSelector(inBackground: #selector(ViewController.ViewProfile), with: nil)
+
+                //Perform Segue i.e. Navigate to DashboardView after successful Login process
                 DispatchQueue.main.async {
                     self.indicator.removeFromSuperview()
                     self.view.isUserInteractionEnabled = true
@@ -412,7 +419,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     
                     self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
                 }
-                
+
             }
 
         }
@@ -440,4 +447,130 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    //MARK: - View Profile Request
+    //MARK: -
+    /**
+     View Profile Request
+     
+     - parameter method : GET
+     
+     - parameter return : Name, Latitude & Longitude of Branch Location
+     
+     */
+    func ViewProfile() {
+        let apiString = baseURL + "/api/user"
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "GET"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let token = defaults.value(forKey: "accessToken") as! String
+        
+        let header = "Bearer" + " \(token)"
+        //        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+        
+        
+        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+            do {
+                if data != nil{
+                    if let httpResponseValue = response as? HTTPURLResponse{
+                        //                        print(httpResponseValue.statusCode)
+                        if httpResponseValue.statusCode == 200{
+                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                print(dict)
+                                
+                                //Get User name from here
+                                defaults.setValue(dict.value(forKey: "name")!, forKey: "name")
+                                defaults.setValue(dict.value(forKey: "id"), forKey: "userId")
+                                
+                                //TODO : - Add branch code
+                                
+                                //Get Latitude & longitude of branch
+                                if let locationValues = dict.value(forKey: "branches") as? NSArray{
+                                    print(locationValues)
+                                    if let locationDict = locationValues.object(at: 0) as? NSDictionary{
+                                        print(locationDict)
+                                        defaults.setValue(locationDict.value(forKey: "branch_code"), forKey: "branchCode")
+                                        defaults.setValue(locationDict.value(forKey: "latitude"), forKey: "latitude")
+                                        defaults.setValue(locationDict.value(forKey: "longitude"), forKey: "longitude")
+                                    }
+                                }
+                                defaults.synchronize()
+                                self.performSelector(inBackground: #selector(ViewController.getdeviceInfo), with: nil)
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch{
+                print("Error")
+            }
+            }.resume()
+        
+    }
+
+    //MARK: - Get Device Information
+    //MARK: -
+    /**
+     Get Device Information and save the information into Firebase
+    */
+    func getdeviceInfo(){
+        
+        
+        let model = UIDevice.current.modelName
+        let name = UIDevice.current.name
+        let systemName = UIDevice.current.systemName
+        let systemVersion = UIDevice.current.systemVersion
+        var appVersion = ""
+        var appBuild = ""
+        
+        print("Model - \(model)")
+        print("description - \(UIDevice.current.description)")
+        print("localizedModel - \(UIDevice.current.modelName)")
+        print("name - \(name)")
+        print("systemName - \(systemName)")
+        print("systemVersion - \(systemVersion)")
+        print("batteryLevel - \(UIDevice.current.batteryLevel)")
+        
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            print("App Version - \(version)")
+            appVersion = version
+        }
+        
+        if let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            print("App Build - \(build)")
+            appBuild = build
+            
+        }
+        
+        deviceInfo(appBuild, appVersion: appVersion, deviceModel: model, deviceName: name, systemName: systemName, systemVersion: systemVersion)
+    }
+    
+    func deviceInfo(_ appBuild : String, appVersion : String, deviceModel : String,deviceName : String,systemName : String,systemVersion : String) {
+        let userId = defaults.value(forKey: "userId") as! Int
+        let branchCode = defaults.value(forKey: "branchCode") as! String
+        
+        let ref = FIRDatabase.database().reference()
+//        ref.child("iOSstaffApp").observeSingleEvent(of: .value, with: {(snapshot) in
+        
+            let infoDict = NSMutableDictionary()
+            infoDict.setValue(appBuild, forKey: "appBuild")
+            infoDict.setValue(appVersion, forKey: "appVersion")
+            infoDict.setValue(deviceModel, forKey: "deviceModel")
+            infoDict.setValue(deviceName, forKey: "deviceName")
+            infoDict.setValue(systemName, forKey: "systemName")
+            infoDict.setValue(systemVersion, forKey: "systemVersion")
+            
+//            ref.child("mainAttendanceApp").child("branches").child(branchCode).child("deviceInfo").child("users").child(userId).setValue(infoDict)
+            
+            ref.child("iOSstaffApp").child("branches").child(branchCode).child("deviceInfo").child("users").child("\(userId)").setValue(infoDict)
+
+//        })
+    }
 }
