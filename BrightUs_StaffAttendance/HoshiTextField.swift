@@ -56,13 +56,19 @@ import UIKit
             updatePlaceholder()
         }
     }
-
+    
+    /**
+     *placeholder
+    */
     override open var placeholder: String? {
         didSet {
             updatePlaceholder()
         }
     }
     
+    /**
+     *bounds
+     */
     override open var bounds: CGRect {
         didSet {
             updateBorder()
@@ -70,15 +76,44 @@ import UIKit
         }
     }
     
+    /**
+     *borderThickness
+     */
     private let borderThickness: (active: CGFloat, inactive: CGFloat) = (active: 2, inactive: 0.5)
+    
+    /**
+     *placeholderInsets
+     */
     private let placeholderInsets = CGPoint(x: 0, y: 6)
+    
+    /**
+     *textFieldInsets
+     */
     private let textFieldInsets = CGPoint(x: 0, y: 12)
+    
+    /**
+     *inactiveBorderLayer
+     */
     private let inactiveBorderLayer = CALayer()
-    private let activeBorderLayer = CALayer()    
+    
+    /**
+     *activeBorderLayer
+     */
+    private let activeBorderLayer = CALayer()
+    
+    /**
+     *activePlaceholderPoint
+     */
     private var activePlaceholderPoint: CGPoint = CGPoint.zero
     
     // MARK: - TextFieldsEffects
     
+    /**
+        drawViewsForRect Method
+        
+        - parameter argument : CGRect
+     
+     */
     override open func drawViewsForRect(_ rect: CGRect) {
         let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: rect.size.width, height: rect.size.height))
         
@@ -93,6 +128,9 @@ import UIKit
         addSubview(placeholderLabel)
     }
     
+    /**
+     *animateViewsForTextEntry Method
+     */
     override open func animateViewsForTextEntry() {
         if text!.isEmpty {
             UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1.0, options: .beginFromCurrentState, animations: ({
@@ -113,6 +151,9 @@ import UIKit
         activeBorderLayer.frame = rectForBorder(borderThickness.active, isFilled: true)
     }
     
+    /**
+     *animateViewsForTextDisplay Method
+     */
     override open func animateViewsForTextDisplay() {
         if text!.isEmpty {
             UIView.animate(withDuration: 0.35, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2.0, options: UIViewAnimationOptions.beginFromCurrentState, animations: ({
@@ -128,6 +169,9 @@ import UIKit
     
     // MARK: - Private
     
+    /**
+     *updateBorder Method
+     */
     private func updateBorder() {
         inactiveBorderLayer.frame = rectForBorder(borderThickness.inactive, isFilled: true)
         inactiveBorderLayer.backgroundColor = borderInactiveColor?.cgColor
@@ -136,6 +180,9 @@ import UIKit
         activeBorderLayer.backgroundColor = borderActiveColor?.cgColor
     }
     
+    /**
+     *updatePlaceholder Method
+     */
     private func updatePlaceholder() {
         placeholderLabel.text = placeholder
         placeholderLabel.textColor = placeholderColor
@@ -147,11 +194,27 @@ import UIKit
         }
     }
     
+    /**
+     placeholderFontFromFont Method
+     
+     - parameter argument : UIFont
+     
+     - parameter return : UIFont
+     
+     */
     private func placeholderFontFromFont(_ font: UIFont) -> UIFont! {
         let smallerFont = UIFont(name: font.fontName, size: font.pointSize * placeholderFontScale)
         return smallerFont
     }
     
+    /**
+     rectForBorder Method
+     
+     - parameter argument : thickness, isFilled
+     
+     - parameter return : CGRect
+     
+     */
     private func rectForBorder(_ thickness: CGFloat, isFilled: Bool) -> CGRect {
         if isFilled {
             return CGRect(origin: CGPoint(x: 0, y: frame.height-thickness), size: CGSize(width: frame.width, height: thickness))
@@ -160,6 +223,9 @@ import UIKit
         }
     }
     
+    /**
+     * layoutPlaceholderInTextRect Method
+     */
     private func layoutPlaceholderInTextRect() {        
         let textRect = self.textRect(forBounds: bounds)
         var originX = textRect.origin.x
@@ -179,10 +245,27 @@ import UIKit
     
     // MARK: - Overrides
     
+    /**
+     editingRect Method
+     
+     - parameter argument : bounds (CGRect)
+     
+     - parameter return : CGRect
+     
+    */
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.offsetBy(dx: textFieldInsets.x, dy: textFieldInsets.y)
     }
     
+    /**
+     textRect Method
+     
+     - parameter argument : bounds (CGRect)
+     
+     - parameter return : CGRect
+     
+     */
+
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.offsetBy(dx: textFieldInsets.x, dy: textFieldInsets.y)
     }

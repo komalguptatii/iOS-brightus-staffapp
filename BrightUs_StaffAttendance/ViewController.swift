@@ -35,6 +35,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     */
     var indicator = UIActivityIndicatorView()
     
+    /**
+     * viewDidLoad Method
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -85,13 +88,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     }
 
-    
+    /**
+     * didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
+    /**
+     * viewWillAppear Method
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if let tokenValue = defaults.value(forKey: "accessToken"){
@@ -108,6 +115,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.navigationBar.isHidden = true
     }
     
+    /**
+     * viewWillDisappear Method
+     */
     override func viewWillDisappear(_ animated: Bool) {
 //        self.viewWillDisappear(true)
         self.navigationController?.navigationBar.isHidden = false
@@ -518,7 +528,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Get Device Information
     //MARK: -
     /**
-     Get Device Information and save the information into Firebase
+     *Save the information into Firebase
     */
     func getdeviceInfo(){
         
@@ -552,6 +562,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         deviceInfo(appBuild, appVersion: appVersion, deviceModel: model, deviceName: name, systemName: systemName, systemVersion: systemVersion)
     }
     
+    /**
+     Get the device Information
+        
+        - parameter argument : appBuild, appVersion, deviceModel, deviceName
+     */
     func deviceInfo(_ appBuild : String, appVersion : String, deviceModel : String,deviceName : String,systemName : String,systemVersion : String) {
         let userId = defaults.value(forKey: "userId") as! Int
         let branchCode = defaults.value(forKey: "branchCode") as! String

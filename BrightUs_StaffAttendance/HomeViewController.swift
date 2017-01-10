@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+/// Home View Controller - On this view Dashboard & Camera view are added
+
 class HomeViewController: BaseViewController, UIScrollViewDelegate {
     
     /**
@@ -16,8 +18,12 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
     */
     @IBOutlet var mainScrollView: UIScrollView!
     
-      //MARK: - Methods
+    //MARK: - Methods
     //MARK: -
+    
+    /**
+     * viewDidLoad Method
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -55,6 +61,9 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
 
     }
     
+    /**
+     * didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

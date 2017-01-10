@@ -9,23 +9,33 @@
 import Foundation
 import UIKit
 
+/// BaseViewController
 class BaseViewController: UIViewController, SlideMenuDelegate {
     
     private static var __once: () = { () -> Void in
         
     }()
     
+    /**
+     * viewDidLoad Method
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
 //        addSlideMenuButton()
         // Do any additional setup after loading the view.
     }
     
+    /**
+     * didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    /**
+     * slideMenuItemSelectedAtIndex Method
+     */
     func slideMenuItemSelectedAtIndex(_ index: Int32) {
         switch(index){
         case 0:
@@ -39,6 +49,9 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         }
     }
     
+    /**
+     * addSlideMenuButton Method
+    */
     func addSlideMenuButton(){
 //        let btn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)))
         let btnShowMenu = UIButton(type: UIButtonType.system)
@@ -50,6 +63,13 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
 
         self.navigationItem.leftBarButtonItem = customBarItem
     }
+
+    /**
+     defaultMenuImage Method
+     
+        - parameter return : UIImage
+     
+     */
 
     func defaultMenuImage() -> UIImage {
         var defaultMenuImage = UIImage()
@@ -72,6 +92,13 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         
         return defaultMenuImage;
     }
+
+    /**
+     onSlideMenuButtonPressed Method
+     
+     - parameter argument : UIBarButtonItem
+     
+     */
 
     func onSlideMenuButtonPressed(_ sender : UIBarButtonItem){
         if (sender.tag == 10)

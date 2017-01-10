@@ -127,14 +127,38 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class UIWindow;
 @class UIApplication;
 
+/**
+  App Delegate
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11AppDelegate")
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+/**
+  UIWindow Initializer
+*/
 @property (nonatomic, strong) UIWindow * _Nullable window;
+/**
+  Method for setting Launch Options
+*/
 - (BOOL)application:(UIApplication * _Nonnull)application didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)launchOptions;
+/**
+  Sent when the application is about to move from active to inactive state.
+*/
 - (void)applicationWillResignActive:(UIApplication * _Nonnull)application;
+/**
+  Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+*/
 - (void)applicationDidEnterBackground:(UIApplication * _Nonnull)application;
+/**
+  Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+*/
 - (void)applicationWillEnterForeground:(UIApplication * _Nonnull)application;
+/**
+  Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+*/
 - (void)applicationDidBecomeActive:(UIApplication * _Nonnull)application;
+/**
+  Called when the application is about to terminate.
+*/
 - (void)applicationWillTerminate:(UIApplication * _Nonnull)application;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -144,13 +168,38 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11AppDelegate")
 @class NSBundle;
 @class NSCoder;
 
+/**
+  BaseViewController
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18BaseViewController")
 @interface BaseViewController : UIViewController
+/**
+  viewDidLoad Method
+*/
 - (void)viewDidLoad;
+/**
+  didReceiveMemoryWarning Method
+*/
 - (void)didReceiveMemoryWarning;
+/**
+  slideMenuItemSelectedAtIndex Method
+*/
 - (void)slideMenuItemSelectedAtIndex:(int32_t)index;
+/**
+  addSlideMenuButton Method
+*/
 - (void)addSlideMenuButton;
+/**
+  defaultMenuImage Method
+  \param return UIImage
+
+*/
 - (UIImage * _Nonnull)defaultMenuImage;
+/**
+  onSlideMenuButtonPressed Method
+  \param argument UIBarButtonItem
+
+*/
 - (void)onSlideMenuButtonPressed:(UIBarButtonItem * _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -159,28 +208,94 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18BaseViewController")
 @class AVCaptureSession;
 @class AVCaptureVideoPreviewLayer;
 @class UIView;
+@class FIRDatabaseReference;
+@class FIRDataSnapshot;
 @class AVCaptureOutput;
 @class AVCaptureConnection;
+@class UIAlertController;
 
+/**
+  Camera Controller - To scan QR code
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 @interface Camera : UIViewController <AVCaptureMetadataOutputObjectsDelegate>
-@property (nonatomic, strong) AVCaptureSession * _Nullable objCaptureSession;
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer * _Nullable objCaptureVideoPreviewLayer;
-@property (nonatomic, strong) UIView * _Nullable vwQRCode;
-@property (nonatomic, copy) NSString * _Nonnull attendanceStatus;
-@property (nonatomic, copy) NSString * _Nonnull randomQRCode;
-- (void)viewDidLoad;
-- (void)didReceiveMemoryWarning;
-- (void)configureVideoCapture;
-- (void)addVideoPreviewLayer;
-- (void)initializeQRView SWIFT_METHOD_FAMILY(none);
-- (void)captureOutput:(AVCaptureOutput * _Null_unspecified)captureOutput didOutputMetadataObjects:(NSArray * _Null_unspecified)metadataObjects fromConnection:(AVCaptureConnection * _Null_unspecified)connection;
 /**
-  Get QR Code Status
-  \param check Firebase checks are implementedn i.e. new or old
+  <ul>
+    <li>
+      objCaptureSession is the initialized variable of AVCaptureSession
+    </li>
+  </ul>
+*/
+@property (nonatomic, strong) AVCaptureSession * _Nullable objCaptureSession;
+/**
+  objCaptureVideoPreviewLayer is the initialized variable of AVCaptureVideoPreviewLayer
+*/
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer * _Nullable objCaptureVideoPreviewLayer;
+/**
+  vwQRCode - View of QR code (frame)
+*/
+@property (nonatomic, strong) UIView * _Nullable vwQRCode;
+/**
+  attendanceStatus - save status of attendance fetched from Firebase
+*/
+@property (nonatomic, copy) NSString * _Nonnull attendanceStatus;
+/**
+  randomQRCode - code scanned by the camera
+*/
+@property (nonatomic, copy) NSString * _Nonnull randomQRCode;
+/**
+  ref - Reference to Firebase Database
+*/
+@property (nonatomic, readonly, strong) FIRDatabaseReference * _Nonnull ref;
+/**
+  snapshotReference - To fetch and save reference of FIRDataSnapshot
+*/
+@property (nonatomic, strong) FIRDataSnapshot * _Nonnull snapshotReference;
+/**
+  userId - Id seperated from scanned QR code
+*/
+@property (nonatomic, copy) NSString * _Nonnull userId;
+/**
+  viewDidLoad Method
+*/
+- (void)viewDidLoad;
+/**
+  didReceiveMemoryWarning Method
+*/
+- (void)didReceiveMemoryWarning;
+/**
+  viewWillAppear Method
+  \param argument - animated (Bool)
 
 */
-- (void)getQrCodeStatus:(NSString * _Nonnull)uid;
+- (void)viewWillAppear:(BOOL)animated;
+/**
+  Method - configureVideoCapture
+  \param description It configures the AVCaptureDevice
+
+*/
+- (void)configureVideoCapture;
+/**
+  Method - addVideoPreviewLayer
+  \param description It configures the AVCaptureVideoPreviewLayer
+
+*/
+- (void)addVideoPreviewLayer;
+/**
+  Method - initializeQRView
+  \param description It initialized the frame of QR code
+
+*/
+- (void)initializeQRView SWIFT_METHOD_FAMILY(none);
+/**
+  Method - captureOutput
+  \param description To record output
+
+  \param argument - AVCaptureOutput, metadataObjects as Any, AVCaptureConnection
+
+*/
+- (void)captureOutput:(AVCaptureOutput * _Null_unspecified)captureOutput didOutputMetadataObjects:(NSArray * _Null_unspecified)metadataObjects fromConnection:(AVCaptureConnection * _Null_unspecified)connection;
+- (void)getQrCodeStatus;
 /**
   Change Status of QR code
   \param description If QR code scanned successfully then change status to “old” & MArk Attendance on Server
@@ -188,11 +303,16 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 */
 - (void)changeStatus;
 /**
-  Mark Attendance Request
-  \param sent type i.e. check_in,check_out
+  Alert Controller Method
+  <ul>
+    <li>
+      paramter return : Returns UIAlertController
+    </li>
+  </ul>
+  \param description Method to intialize and add actions to alert controller
 
 */
-- (void)MarkAttendanceOnServer;
+- (UIAlertController * _Nonnull)ShowAlert;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -200,8 +320,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 @class HoshiTextField;
 @class UIActivityIndicatorView;
 @class UIButton;
-@class UIAlertController;
 
+/**
+  Change Password
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
 @interface ChangePassword : UIViewController <UITextFieldDelegate>
 /**
@@ -259,10 +381,15 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
 
 @class UILabel;
 @class CLLocationManager;
+@class UIImageView;
+@class UIScrollView;
 @class CLLocation;
 
+/**
+  Dashboard View - Display time, greet user , check - in/out timings, Mark Attendance
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
-@interface DashboardView : UIViewController <CLLocationManagerDelegate>
+@interface DashboardView : UIViewController <CLLocationManagerDelegate, UIScrollViewDelegate>
 /**
   Current Date will be displayed on this label
 */
@@ -272,11 +399,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 */
 @property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified greetingLabel;
 /**
-  <ul>
-    <li>
-      Display User Name
-    </li>
-  </ul>
+  Display User Name
 */
 @property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified userNameLabel;
 /**
@@ -295,9 +418,33 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
   To keep check of access to mark attendance
 */
 @property (nonatomic) BOOL isAllowedToMarkAttendance;
+/**
+  Display and give alert to user that whether he is allowed or not to mark attendance
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified locationUpdateLabel;
+@property (nonatomic, strong) IBOutlet UIImageView * _Null_unspecified timeImage;
+/**
+  <ul>
+    <li>
+      viewDidLoad Method
+    </li>
+  </ul>
+*/
 - (void)viewDidLoad;
+/**
+  didReceiveMemoryWarning Method
+*/
 - (void)didReceiveMemoryWarning;
+/**
+  viewWillAppear Method
+*/
 - (void)viewWillAppear:(BOOL)animated;
+/**
+  scrollViewDidEndDecelerating Method
+  \param argument UIScrollView
+
+*/
+- (void)scrollViewDidEndDecelerating:(UIScrollView * _Nonnull)scrollView;
 /**
   Attendance Detail Button Action
   \param description When user tap this button, app navigates to attendance detail section
@@ -325,14 +472,6 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 */
 - (NSString * _Nonnull)ConvertTimeStampToRequiredHoursWithDateValue:(NSString * _Nonnull)dateValue;
 /**
-  View Profile Request
-  \param method GET
-
-  \param return Name, Latitude & Longitude of Branch Location
-
-*/
-- (void)ViewProfile;
-/**
   Today Attendance Detail Request
   \param return Check - In/Out Time
 
@@ -348,6 +487,23 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 
 */
 - (void)locationManager:(CLLocationManager * _Nonnull)manager didUpdateLocations:(NSArray<CLLocation *> * _Nonnull)locations;
+/**
+  Mark Attendance Request
+  \param sent type i.e. check_in,check_out
+
+*/
+- (void)MarkAttendanceOnServer;
+/**
+  Alert Controller Method
+  <ul>
+    <li>
+      paramter return : Returns UIAlertController
+    </li>
+  </ul>
+  \param description Method to intialize and add actions to alert controller
+
+*/
+- (UIAlertController * _Nonnull)ShowAlert;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -357,10 +513,9 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 @class UIDatePicker;
 @class NSMutableArray;
 @class UITableViewCell;
-@class UIScrollView;
 
 /**
-  Attendance Details
+  Attendance Details - Shows the history, user can apply filters and choose time period
 */
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 @interface DetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource>
@@ -392,6 +547,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
   Done button
 */
 @property (nonatomic, strong) IBOutlet UIButton * _Null_unspecified doneButton;
+/**
+  No Data Image
+*/
+@property (nonatomic, strong) IBOutlet UIImageView * _Null_unspecified noDataImage;
 /**
   Indicator to let user know about data loading
 */
@@ -428,7 +587,13 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
   This will contain selected to date
 */
 @property (nonatomic, copy) NSString * _Nonnull selectedToDate;
+/**
+  viewDidLoad Method
+*/
 - (void)viewDidLoad;
+/**
+  didReceiveMemoryWarning Method
+*/
 - (void)didReceiveMemoryWarning;
 /**
   Back Button Action
@@ -537,6 +702,9 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 
 @class UITextField;
 
+/**
+  Forgot Password - To recover password in case forgot
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
 @interface ForgotPassViewController : UIViewController <UITextFieldDelegate>
 /**
@@ -599,13 +767,22 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
 @end
 
 
+/**
+  Home View Controller - On this view Dashboard & Camera view are added
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
 @interface HomeViewController : BaseViewController <UIScrollViewDelegate>
 /**
   ScrollView on which dashboard & camera controller view is added
 */
 @property (nonatomic, strong) IBOutlet UIScrollView * _Null_unspecified mainScrollView;
+/**
+  viewDidLoad Method
+*/
 - (void)viewDidLoad;
+/**
+  didReceiveMemoryWarning Method
+*/
 - (void)didReceiveMemoryWarning;
 /**
   Menu Button Action
@@ -686,18 +863,52 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14HoshiTextField")
   This property determines the size of the placeholder label relative to the font size of the text field.
 */
 @property (nonatomic) CGFloat placeholderFontScale;
+/**
+  *placeholder
+*/
 @property (nonatomic, copy) NSString * _Nullable placeholder;
+/**
+  *bounds
+*/
 @property (nonatomic) CGRect bounds;
+/**
+  drawViewsForRect Method
+  \param argument CGRect
+
+*/
 - (void)drawViewsForRect:(CGRect)rect;
+/**
+  *animateViewsForTextEntry Method
+*/
 - (void)animateViewsForTextEntry;
+/**
+  *animateViewsForTextDisplay Method
+*/
 - (void)animateViewsForTextDisplay;
+/**
+  editingRect Method
+  \param argument bounds (CGRect)
+
+  \param return CGRect
+
+*/
 - (CGRect)editingRectForBounds:(CGRect)bounds;
+/**
+  textRect Method
+  \param argument bounds (CGRect)
+
+  \param return CGRect
+
+*/
 - (CGRect)textRectForBounds:(CGRect)bounds;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  SlideMenuViewController
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23SlideMenuViewController")
 @interface SlideMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 /**
@@ -713,18 +924,65 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23SlideMenuViewController")
 */
 @property (nonatomic, copy) NSArray<NSDictionary<NSString *, NSString *> *> * _Nonnull arrayMenuOptions;
 @property (nonatomic, strong) UIBarButtonItem * _Null_unspecified btnMenu;
+/**
+  *viewDidLoad Method
+*/
 - (void)viewDidLoad;
+/**
+  *didReceiveMemoryWarning Method
+*/
 - (void)didReceiveMemoryWarning;
-- (void)viewDidDisappear:(BOOL)animated;
+/**
+  viewWillAppear Method
+*/
 - (void)viewWillAppear:(BOOL)animated;
+/**
+  updateArrayMenuOptions - Add Options to Menu
+*/
 - (void)updateArrayMenuOptions;
+/**
+  onCloseMenuClick Method
+  \param argument UIBarButtonItem
+
+*/
 - (IBAction)onCloseMenuClick:(UIBarButtonItem * _Null_unspecified)button;
+/**
+  numberOfSections Method
+  \param argument UITableView
+
+  \param return Int
+
+*/
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView;
+/**
+  TableView - heightForRowAt Method
+  \param return CGFloat
+
+*/
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+/**
+  TableView - numberOfRowsInSection Method
+  \param return Int
+
+*/
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
+/**
+  TableView - cellForRowAt Method
+  \param return UITableViewCell
+
+*/
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+/**
+  *TableView - didSelectRowAt Method
+*/
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+/**
+  NavigateToProfile Method
+*/
 - (void)NavigateToProfile;
+/**
+  LogoutCall Method
+*/
 - (void)LogoutCall;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -733,7 +991,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23SlideMenuViewController")
 
 
 /**
-  Attendance Detail Cell
+  Attendance Detail Cell - Custom Cell for detail
 */
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23TiiAttendanceDetailCell")
 @interface TiiAttendanceDetailCell : UITableViewCell
@@ -762,6 +1020,14 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23TiiAttendanceDetailCell")
 @end
 
 
+@interface UIDevice (SWIFT_EXTENSION(BrightUs_StaffAttendance))
+@property (nonatomic, readonly, copy) NSString * _Nonnull modelName;
+@end
+
+
+/**
+  User Profile - View User Information
+*/
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11UserProfile")
 @interface UserProfile : UIViewController <UITextFieldDelegate>
 /**
@@ -799,6 +1065,17 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11UserProfile")
 
 */
 - (void)ViewProfile;
+/**
+  Alert Controller Method
+  <ul>
+    <li>
+      paramter return : Returns UIAlertController
+    </li>
+  </ul>
+  \param description Method to intialize and add actions to alert controller
+
+*/
+- (UIAlertController * _Nonnull)ShowAlert;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -825,9 +1102,21 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ViewController")
   Indicator to let user know about data loading
 */
 @property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
+/**
+  viewDidLoad Method
+*/
 - (void)viewDidLoad;
+/**
+  didReceiveMemoryWarning Method
+*/
 - (void)didReceiveMemoryWarning;
+/**
+  viewWillAppear Method
+*/
 - (void)viewWillAppear:(BOOL)animated;
+/**
+  viewWillDisappear Method
+*/
 - (void)viewWillDisappear:(BOOL)animated;
 /**
   Show Password in Text Format Action
@@ -884,6 +1173,24 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ViewController")
   TextField Return Delegate
 */
 - (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField;
+/**
+  View Profile Request
+  \param method GET
+
+  \param return Name, Latitude & Longitude of Branch Location
+
+*/
+- (void)ViewProfile;
+/**
+  *Save the information into Firebase
+*/
+- (void)getdeviceInfo;
+/**
+  Get the device Information
+  \param argument appBuild, appVersion, deviceModel, deviceName
+
+*/
+- (void)deviceInfo:(NSString * _Nonnull)appBuild appVersion:(NSString * _Nonnull)appVersion deviceModel:(NSString * _Nonnull)deviceModel deviceName:(NSString * _Nonnull)deviceName systemName:(NSString * _Nonnull)systemName systemVersion:(NSString * _Nonnull)systemVersion;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end

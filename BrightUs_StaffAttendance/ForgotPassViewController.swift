@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+/// Forgot Password - To recover password in case forgot
+
 class ForgotPassViewController: UIViewController, UITextFieldDelegate {
     
     

@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 
-/// Attendance Details 
+/// Attendance Details - Shows the history, user can apply filters and choose time period
+
 class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     /**
@@ -48,33 +49,38 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var doneButton: UIButton!
     
     /**
+     * No Data Image
+    */
+    @IBOutlet var noDataImage: UIImageView!
+    
+    /**
      * Indicator to let user know about data loading
      */
     var indicator = UIActivityIndicatorView()
-
+    
     /**
      * Array of values marked as filters
-    */
+     */
     var filterValueArray = ["today","yesterday", "this week", "last week", "this month", "last month", "custom"]
     
     /**
      * Array that hold the detail fetched temporarily to be displayed
-    */
+     */
     var attendanceDetailArray = NSMutableArray()
     
     /**
      * Selected Filer Value, default is "Today"
-    */
+     */
     var selectedFilter = "today"
     
     /**
      * Bool to check that From Date is selected before moving to selection of End date
-    */
+     */
     var isSelectedFromDate = false
     
     /**
      * Current Page of Detail Request
-    */
+     */
     var currentPage = 1
     
     /**
@@ -91,12 +97,13 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      * This will contain selected to date
      */
     var selectedToDate = ""
-    
-    @IBOutlet var noDataImage: UIImageView!
-    
-    
+
     //MARK: - Methods
     //MARK: -
+    
+    /**
+     * viewDidLoad Method
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -135,6 +142,9 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    /**
+     * didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -161,7 +171,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      - paramater description : Search for the data on the basis of filter and time period selected
      
      */
-
     
     @IBAction func SearchButtonAction(_ sender: UIButton) {
         

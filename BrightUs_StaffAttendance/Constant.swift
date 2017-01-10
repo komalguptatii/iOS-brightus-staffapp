@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+///Constant file - Contains global variables & methods
+
 /**
  * Reachability Check Function
  */

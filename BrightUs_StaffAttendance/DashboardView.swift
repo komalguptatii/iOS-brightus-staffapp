@@ -10,26 +10,28 @@ import Foundation
 import UIKit
 import MapKit
 
+/// Dashboard View - Display time, greet user , check - in/out timings, Mark Attendance
+
 class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDelegate {
     
     /**
      * Current Date will be displayed on this label
-    */
+     */
     @IBOutlet var currentDateLabel: UILabel!
     
     /**
      * Greet user
-    */
+     */
     @IBOutlet var greetingLabel: UILabel!
     
     /**
-    *   Display User Name
-    */
+     *   Display User Name
+     */
     @IBOutlet var userNameLabel: UILabel!
     
     /**
      * Label that displays Check-In Time
-    */
+     */
     @IBOutlet var checkInTimeValueLabel: UILabel!
     
     /**
@@ -47,17 +49,20 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      * To keep check of access to mark attendance
      */
     var isAllowedToMarkAttendance = false
-
+    
     /**
      * Display and give alert to user that whether he is allowed or not to mark attendance
-    */
+     */
     @IBOutlet var locationUpdateLabel: UILabel!
     
     @IBOutlet var timeImage: UIImageView!
     
     //MARK: - Methods
     //MARK: -
-
+    
+    /**
+    * viewDidLoad Method
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -85,7 +90,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             _ = self.present(alert, animated: true, completion: nil)
             
         }
-
+        
         //StartUpdatingLocation()
         
         locationManager.delegate = self
@@ -95,16 +100,22 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         
         let controller = self.parent as? HomeViewController
         let scrollView = controller?.mainScrollView
-
+        
         scrollView?.delegate = self
         
     }
     
+    /**
+     * didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * viewWillAppear Method
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if let nameOfUser = defaults.value(forKey: "name") as? String{
@@ -113,16 +124,21 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     }
     
     //MARK: - ScrollView Delegate
-
+    //MARK: - 
+    /**
+     scrollViewDidEndDecelerating Method
+     
+        - parameter argument : UIScrollView
+     */
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         print(scrollView.contentOffset.x)
         if (scrollView.contentOffset.x >= self.view.frame.width){
             print("Observer added")
-
+            
             NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
         }
-
+        
     }
     
     //MARK: - Button Action
@@ -132,7 +148,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      
      - parameter description : When user tap this button, app navigates to attendance detail section
      
-    */
+     */
     @IBAction func AttendanceDetailButtonAction(_ sender: UIButton) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -140,16 +156,16 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         self.navigationController?.show(vc, sender: nil)
     }
     
-       
+    
     //MARK: - Display Methods
-    //MARK: - 
+    //MARK: -
     
     /**
      Specify date format Methods
      
      - parameter return : Returns String Value in format of Day, Date Month
- 
-    */
+     
+     */
     func CurrentDateFormat() -> String{
         let todaysDate = Date()
         
@@ -169,43 +185,43 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      
      - parameter description : Method check the current time range and display morning, afternoon, night etc according to that.
      
-    */
+     */
     func DisplayGreetings(){       //To Display Morning, Afternoon, Evening
-
+        
         let hour = NSCalendar.current.component(.hour, from: Date())
         
         switch hour {
         case 6..<12 :
             greetingLabel.text = "Good Morning!"
-
+            
             timeImage.image = UIImage(named: "morning-view")
             print(NSLocalizedString("Morning", comment: "Morning"))
         case 12 :
             greetingLabel.text = "Good Afternoon!"
             timeImage.image = UIImage(named: "noon-view")
-
+            
             print(NSLocalizedString("Noon", comment: "Noon"))
         case 13..<17 :
             greetingLabel.text = "Good Afternoon!"
             timeImage.image = UIImage(named: "noon-view")
-
+            
             print(NSLocalizedString("Afternoon", comment: "Afternoon"))
         case 17..<22 :
             greetingLabel.text = "Good Evening!"
             timeImage.image = UIImage(named: "evening-view")
-
+            
             print(NSLocalizedString("Evening", comment: "Evening"))
         default:
             greetingLabel.text = "Good Night!"
             timeImage.image = UIImage(named: "evening-view")
-
+            
             print(NSLocalizedString("Night", comment: "Night"))
         }
     }
     
     //MARK: - TimeStamp Conversion
     //MARK: -
-
+    
     /**
      Conversion of TimeStamp (ISO 8601) to required value
      
@@ -213,24 +229,24 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      
      - parameter return : Date in required format (String)
      
-    */
+     */
     func ConvertTimeStampToRequiredHours(dateValue : String)-> String{
         let formatStyle = DateFormatter()
         formatStyle.timeZone = TimeZone.current
         formatStyle.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
         formatStyle.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"   //"2016-12-19T07:25:57+0000"  ZZZZZ SSSS
-
-//        print(dateValue)
+        
+        //        print(dateValue)
         let receivedDateTime = formatStyle.date(from: dateValue)
         
-//        print(receivedDateTime!)
-        formatStyle.dateFormat = "HH:mm a"
+        //        print(receivedDateTime!)
+        formatStyle.dateFormat = "hh:mm a"
         let timeValue = formatStyle.string(from: receivedDateTime!)
-//        print(timeValue)
+        //        print(timeValue)
         return timeValue
     }
     
-   
+    
     
     //MARK: - Today's Attendance detail
     //MARK: -
@@ -277,7 +293,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                                 isCheckedIn = false
                                                 DispatchQueue.main.async {
                                                     self.checkInTimeValueLabel.text = "Let's go"
-
+                                                    
                                                 }
                                                 
                                             }
@@ -300,7 +316,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                                         }
                                                     }
                                                 }
-                                               
+                                                
                                             }
                                         }
                                     }
@@ -316,7 +332,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                 }
                             }
                             
-
+                            
                             
                         }
                         else if httpResponseValue.statusCode == 401{
@@ -332,7 +348,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             }
             }.resume()
     }
-
+    
     //MARK: - Location Methods
     //MARK: -
     
@@ -356,51 +372,58 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         if let location = locations.first {
             print(location)
             
+            locationUpdateLabel.text = "You are allowed to mark attendance"
+            locationManager.stopUpdatingLocation()
             // Techies Office Location = 30.892668,75.8225618
             // Grand Walk Location = 30.8868835,75.7906816
-            let destinationLatitude = defaults.value(forKey: "latitude") as? Double
-            let destinationLongitude = defaults.value(forKey: "longitude") as? Double
+//            if let destinationLatitude = defaults.value(forKey: "latitude") as? Double{
+//                
+//                if let destinationLongitude = defaults.value(forKey: "longitude") as? Double{
+//                    print("destinationLatitude - \(destinationLatitude)")
+//                    print("destinationLongitude - \(destinationLongitude)")
+//                    
+//                    //TODO - Testing Pending as not receiving lat long yet
+//                    let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
+//                    
+//                    let distance = location.distance(from: destination)
+//                    print(distance)
+//                    
+//                    let distanceDouble = Double(distance)
+//                    print(distanceDouble)
+//                    let controller = self.parent as? HomeViewController
+//                    let scrollView = controller?.mainScrollView
+//                    
+//                    if (distanceDouble <= 300.00){
+//                        //                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
+//                        
+//                        print("in premises")
+//                        //Checkin
+//                        isAllowedToMarkAttendance = true
+//                        scrollView?.isScrollEnabled = true
+//                        locationUpdateLabel.text = "You are allowed to mark attendance"
+//                        locationManager.stopUpdatingLocation()
+//                        
+//                        
+//                    }else{
+//                        print("out of premises")
+//                        locationUpdateLabel.text = "You are not allowed to mark attendance"
+//                        
+//                        //Cant check in
+//                        isAllowedToMarkAttendance = false
+//                        scrollView?.isScrollEnabled = false
+//                        
+//                    }
+//                    
+//                }
+//                
+//            }
             
-//            let destinationLatitude = 30.892668
-//            let destinationLongitude = 75.8225618
-
-            print("destinationLatitude - \(destinationLatitude)")
-            print("destinationLongitude - \(destinationLongitude)")
-
-            //TODO - Testing Pending as not receiving lat long yet
-            let destination = CLLocation(latitude: destinationLatitude!, longitude: destinationLongitude!)
+            //            let destinationLatitude = 30.892668
+            //            let destinationLongitude = 75.8225618
             
-            let distance = location.distance(from: destination)
-            print(distance)
-            
-            let distanceDouble = Double(distance)
-            print(distanceDouble)
-            let controller = self.parent as? HomeViewController
-            let scrollView = controller?.mainScrollView
-
-            if (distanceDouble <= 300.00){
-//                if (location.verticalAccuracy * 0.5 <= destination.verticalAccuracy * 0.5){
-                
-                    print("in premises")
-                    //Checkin
-                    isAllowedToMarkAttendance = true
-                scrollView?.isScrollEnabled = true
-                locationUpdateLabel.text = "You are allowed to mark attendance"
-                locationManager.stopUpdatingLocation()
-
-                
-            }else{
-                print("out of premises")
-                locationUpdateLabel.text = "You are not allowed to mark attendance"
-
-                //Cant check in
-                isAllowedToMarkAttendance = false
-                scrollView?.isScrollEnabled = false
-                
-            }
         }
     }
-
+    
     
     /**
      Mark Attendance Request
@@ -408,7 +431,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      - parameter sent : type i.e. check_in,check_out
      
      */
-
+    
     func MarkAttendanceOnServer(){
         if IsConnectionAvailable(){
             NotificationCenter.default.removeObserver(self)
@@ -468,7 +491,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             catch{
                 print("Error")
             }
-
+            
         }
         else{
             let alert = ShowAlert()
@@ -477,11 +500,11 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             _ = self.present(alert, animated: true, completion: nil)
             
         }
-
+        
         
         
     }
-
+    
     //MARK: - Alert Controller
     //MARK: -
     /**
@@ -508,5 +531,5 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         return alertController
     }
     
-
+    
 }

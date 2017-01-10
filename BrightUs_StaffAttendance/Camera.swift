@@ -13,20 +13,55 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+/// Camera Controller - To scan QR code
 class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    /**
+    * objCaptureSession is the initialized variable of AVCaptureSession
+    */
     var objCaptureSession:AVCaptureSession?
+    
+    /**
+     * objCaptureVideoPreviewLayer is the initialized variable of AVCaptureVideoPreviewLayer
+     */
     var objCaptureVideoPreviewLayer:AVCaptureVideoPreviewLayer?
+    
+    /**
+     * vwQRCode - View of QR code (frame)
+    */
     var vwQRCode:UIView?
+    
+    /**
+     * attendanceStatus - save status of attendance fetched from Firebase
+     */
     var attendanceStatus = String()
+    
+    /**
+     * randomQRCode - code scanned by the camera
+     */
     var randomQRCode = String()
     
+    /**
+     * ref - Reference to Firebase Database
+    */
     let ref = FIRDatabase.database().reference()
+    
+    /**
+     * snapshotReference - To fetch and save reference of FIRDataSnapshot
+    */
     var snapshotReference = FIRDataSnapshot()
+    
+    /**
+     * userId - Id seperated from scanned QR code
+    */
     var userId = ""
     
     //MARK: - Methods
     //MARK: -
+    
+    /**
+     * viewDidLoad Method
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -47,16 +82,24 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
     }
     
+    /**
+     * didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+        viewWillAppear Method
+     
+        - parameter argument - animated (Bool)
+     
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         if IsConnectionAvailable(){
-            //            let branchCode = "1"
             
             if let branchCode = defaults.value(forKey: "branchCode") as? String{
                 ref.child("mainAttendanceApp").child("branches").child(branchCode).child("qrCode").child("users").observe(.value, with: {(snapshot) in
@@ -83,6 +126,12 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     //MARK: - Camera Methods
     //MARK: -
     
+    /**
+     Method - configureVideoCapture
+     
+     - parameter description : It configures the AVCaptureDevice
+     
+    */
     func configureVideoCapture() {
         let objCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         var error:NSError?
@@ -114,6 +163,12 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         objCaptureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
     }
     
+    /**
+     Method - addVideoPreviewLayer
+     
+     - parameter description : It configures the AVCaptureVideoPreviewLayer
+     
+     */
     func addVideoPreviewLayer()
     {
         objCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: objCaptureSession)
@@ -124,6 +179,12 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         //        self.view.bringSubview(toFront: qrResultLabel)
     }
     
+    /**
+     Method - initializeQRView
+     
+     - parameter description : It initialized the frame of QR code
+     
+     */
     func initializeQRView() {
         vwQRCode = UIView()
         //        vwQRCode?.layer.borderColor = UIColor.red.cgColor
@@ -132,7 +193,14 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         self.view.bringSubview(toFront: vwQRCode!)
     }
     
-    
+    /**
+     Method - captureOutput
+     
+     - parameter description : To record output
+     
+     - parameter argument - AVCaptureOutput, metadataObjects as Any, AVCaptureConnection
+     
+     */
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         if metadataObjects == nil || metadataObjects.count == 0 {
             vwQRCode?.frame = CGRect.zero

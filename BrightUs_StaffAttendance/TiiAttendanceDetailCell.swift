@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-/// Attendance Detail Cell
+/// Attendance Detail Cell - Custom Cell for detail
 
 class TiiAttendanceDetailCell: UITableViewCell {
     

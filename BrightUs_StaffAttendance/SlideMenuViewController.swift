@@ -11,9 +11,14 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+/**
+* SlideMenuDelegate
+*/
 protocol SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(_ index : Int32)
 }
+
+/// SlideMenuViewController
 
 class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -43,6 +48,9 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
      */
     var delegate : SlideMenuDelegate?
 
+    /**
+     *viewDidLoad Method
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.isUserInteractionEnabled = true
@@ -61,15 +69,28 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
     }
 
+    /**
+     *didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        self.navigationController?.isNavigationBarHidden = true
-    }
+//    /**
+//     viewDidDisappear Method
+//     
+//     - parameter argument : Bool
+//     
+//     */
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+////        self.navigationController?.isNavigationBarHidden = true
+//    }
+    
+    /**
+     * viewWillAppear Method
+    */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.isUserInteractionEnabled = true
@@ -77,6 +98,9 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         updateArrayMenuOptions()
     }
     
+    /**
+     * updateArrayMenuOptions - Add Options to Menu
+     */
     func updateArrayMenuOptions(){
         arrayMenuOptions.append(["title":"Profile", "icon":""])
         arrayMenuOptions.append(["title":"Logout", "icon":""])
@@ -84,6 +108,12 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         tblMenuOptions.reloadData()
     }
 
+    /**
+     onCloseMenuClick Method
+     
+     - parameter argument : UIBarButtonItem
+     
+    */
     @IBAction func onCloseMenuClick(_ button:UIBarButtonItem!){     //Changed UIButton to UIBarButtonItem
         btnMenu.tag = 0
         
@@ -105,10 +135,24 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         })
     }
     
+    /**
+     numberOfSections Method
+     
+        - parameter argument : UITableView 
+     
+        - parameter return : Int
+     
+    */
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
+    /**
+     TableView - heightForRowAt Method
+     
+     - parameter return : CGFloat
+     
+     */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var rowHeight : CGFloat! = 0
         if ((indexPath as NSIndexPath).section == 0) {
@@ -120,6 +164,13 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         }
         return rowHeight
     }
+    
+    /**
+     TableView - numberOfRowsInSection Method
+     
+     - parameter return : Int
+     
+     */
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
@@ -135,6 +186,12 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         return countValue
     }
     
+    /**
+     TableView - cellForRowAt Method
+     
+     - parameter return : UITableViewCell
+     
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellMenu")!
         
@@ -157,6 +214,10 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
+    /**
+     *TableView - didSelectRowAt Method
+     */
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if ((indexPath as NSIndexPath).section == 0) {
@@ -179,14 +240,19 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
 
-    //TODO 
-    
+    /**
+     * NavigateToProfile Method
+    */
     func NavigateToProfile(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "UserProfile") as UIViewController
         self.navigationController?.show(vc, sender: nil)
     }
     
+    /**
+     * LogoutCall Method
+     */
+
     func LogoutCall(){
         //Delete Token from server & local end
         //Firebase Logout

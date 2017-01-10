@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+/// User Profile - View User Information
+
 class UserProfile: UIViewController, UITextFieldDelegate {
     
     /**
