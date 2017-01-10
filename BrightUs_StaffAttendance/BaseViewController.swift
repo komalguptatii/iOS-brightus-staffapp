@@ -12,6 +12,9 @@ import UIKit
 /// BaseViewController
 class BaseViewController: UIViewController, SlideMenuDelegate {
     
+    /**
+     * Once Completion Handler
+    */
     private static var __once: () = { () -> Void in
         
     }()

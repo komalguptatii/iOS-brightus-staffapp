@@ -19,7 +19,6 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
     @IBOutlet var mainScrollView: UIScrollView!
     
     //MARK: - Methods
-    //MARK: -
     
     /**
      * viewDidLoad Method
@@ -71,7 +70,6 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
 
       
     //MARK: - Button Action
-    //MARK: -
     /**
      Menu Button Action 
      

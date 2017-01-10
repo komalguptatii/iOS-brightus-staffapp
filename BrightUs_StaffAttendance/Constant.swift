@@ -73,7 +73,7 @@ func ValidateEmptyContent(textField : UITextField)->Bool{
 }
 
 /**
- * Bool to describe that user check in/out, Set value of this bool from "Attendance Detail API & Use it in Marking Attendance"
+ * Bool to describe that user check in/out, Set value of this bool from Attendance Detail API & Use it in Marking Attendance
  */
 var isCheckedIn = false
 

@@ -49,14 +49,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-        emailTextField.text = "staff@maildrop.cc"
-        passwordTextField.text = "staff"
-        
-//        emailTextField.text = "komal@tii.co.in"
-//        passwordTextField.text = "Pass@123"
-        
-//        emailTextField.text = "reception1@maildrop.cc"
-//        passwordTextField.text = "12345"
+//        emailTextField.text = "staff@maildrop.cc"
+//        passwordTextField.text = "staff"
 
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -141,7 +135,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Button Actions
-    //MARK: -
     /**
      Login Button Action
      
@@ -173,7 +166,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     
     //MARK: - Validation Method
-    //MARK: -
     
     /**
      Validation Method
@@ -214,7 +206,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Prepare Segue
-    //MARK: -
     
     /**
      Preparing Segue here
@@ -229,7 +220,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Show Alert Method
-    //MARK: - 
     
     /**
      ShowAlert - Common method to declare controller properties and actions
@@ -255,7 +245,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - API Requests
-    //MARK: -
 
     /**
      Authorize User - Method for User to login into App along with authorization
@@ -443,7 +432,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - TextField Delegate
-    //MARK: -
+
     /**
      TextField Return Delegate
     */
@@ -458,7 +447,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - View Profile Request
-    //MARK: -
+
     /**
      View Profile Request
      
@@ -526,7 +515,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     //MARK: - Get Device Information
-    //MARK: -
+
     /**
      *Save the information into Firebase
     */

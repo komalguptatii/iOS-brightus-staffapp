@@ -9,9 +9,14 @@
 import Foundation
 import UIKit
 
-/// Device Extension - to get exact model name of iOS Device
-
+/**
+ *Device Extension - to get exact model name of iOS Device
+ */
 public extension UIDevice {
+    
+    /**
+     * model Name extracted
+    */
     var modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)

@@ -34,7 +34,6 @@ class UserProfile: UIViewController, UITextFieldDelegate {
     var indicator = UIActivityIndicatorView()
     
     //MARK: - Methods
-    //MARK: -
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +67,6 @@ class UserProfile: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Button Action
-    //MARK: -
 
     /**
      Back Button Action
@@ -81,7 +79,6 @@ class UserProfile: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - API Request
-    //MARK: - 
     /**
      View Profile Request
  
@@ -142,7 +139,6 @@ class UserProfile: UIViewController, UITextFieldDelegate {
         }
     }
     //MARK: - Alert Controller
-    //MARK: -
     
     
     /**

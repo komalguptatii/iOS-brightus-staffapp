@@ -57,7 +57,6 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var userId = ""
     
     //MARK: - Methods
-    //MARK: -
     
     /**
      * viewDidLoad Method
@@ -124,7 +123,6 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     //MARK: - Camera Methods
-    //MARK: -
     
     /**
      Method - configureVideoCapture
@@ -231,14 +229,12 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     //MARK: - Get & Set QR Code Status
-    //MARK: -
     /**
      Get QR Code Status
      
      - parameter check : Firebase checks are implementedn i.e. new or old
      
      */
-    //    func getQrCodeStatus (_ ids : String){
     func getQrCodeStatus (){
         
         if IsConnectionAvailable(){
@@ -367,9 +363,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    //MARK: - Alert Controller
-    //MARK: -
-    
+    //MARK: - Alert Controller    
     
     /**
      Alert Controller Method

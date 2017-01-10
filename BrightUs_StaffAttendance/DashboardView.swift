@@ -55,10 +55,12 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      */
     @IBOutlet var locationUpdateLabel: UILabel!
     
+    /**
+     * Time Image - Display morning, afternoon, evening images
+    */
     @IBOutlet var timeImage: UIImageView!
     
     //MARK: - Methods
-    //MARK: -
     
     /**
     * viewDidLoad Method
@@ -124,7 +126,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     }
     
     //MARK: - ScrollView Delegate
-    //MARK: - 
     /**
      scrollViewDidEndDecelerating Method
      
@@ -142,7 +143,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     }
     
     //MARK: - Button Action
-    //MARK: -
     /**
      Attendance Detail Button Action
      
@@ -158,8 +158,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     
     
     //MARK: - Display Methods
-    //MARK: -
-    
     /**
      Specify date format Methods
      
@@ -220,7 +218,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     }
     
     //MARK: - TimeStamp Conversion
-    //MARK: -
     
     /**
      Conversion of TimeStamp (ISO 8601) to required value
@@ -249,7 +246,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     
     
     //MARK: - Today's Attendance detail
-    //MARK: -
     /**
      Today Attendance Detail Request
      
@@ -350,7 +346,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     }
     
     //MARK: - Location Methods
-    //MARK: -
     
     /**
      Authorization Status to use location method
@@ -506,7 +501,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     }
     
     //MARK: - Alert Controller
-    //MARK: -
     /**
      Alert Controller Method
      

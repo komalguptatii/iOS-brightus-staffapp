@@ -12,9 +12,15 @@ import Firebase
 import FirebaseAuth
 
 /**
-* SlideMenuDelegate
-*/
+ * SlideMenuDelegate
+ */
 protocol SlideMenuDelegate {
+    
+    /**
+     * slideMenuItemSelectedAtIndex Method
+     
+        - parameter argument : index (Int32)
+    */
     func slideMenuItemSelectedAtIndex(_ index : Int32)
 }
 

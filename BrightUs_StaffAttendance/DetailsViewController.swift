@@ -99,7 +99,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var selectedToDate = ""
 
     //MARK: - Methods
-    //MARK: -
     
     /**
      * viewDidLoad Method
@@ -151,7 +150,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     //MARK: - Button Actions
-    //MARK: -
 
     /**
      Back Button Action
@@ -331,7 +329,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     //MARK: - TableView Delegate & Datasource
-    //MARK: - 
     
     /**
      Number of Sections in TableView
@@ -356,6 +353,14 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         return attendanceDetailArray.count
         
     }
+    
+    /**
+     Height of Row
+     
+     - parameter return : CGFLoat (height)
+     
+     */
+
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120.0
@@ -429,18 +434,40 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      - parameter methodsInAction : numberOfComponents, numberOfRowsInComponent, titleForRow, didSelectRow
      
     */
+    
+    /**
+     numberOfComponents in PickerView
+     
+     - parameter return : Int(Number of components)
+     
+    */
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
+    /**
+     numberOfRowsInComponent in PickerView
+     
+     - parameter return : Int(Number of rows)
+
+     */
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return filterValueArray.count
     }
     
+    /**
+     titleForRow in PickerView
+     
+     - parameter return : String
+
+     */
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return filterValueArray[row]
     }
     
+    /**
+     *didSelectRow in PickerView
+     */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.attendanceDetailArray.removeAllObjects()
         
@@ -485,7 +512,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     //MARK: - ScrollView Delegate
-    //MARK: -
 
     /**
      Delegate method of scroll view 
@@ -511,7 +537,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     //MARK: - API Request
-    //MARK: -
 
     /**
      Attendance Detail Request
@@ -635,7 +660,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     //MARK: - TimeStamp Conversion Method
-    //MARK: -
 
     /**
      Conversion of TimeStamp (ISO 8601) to required value

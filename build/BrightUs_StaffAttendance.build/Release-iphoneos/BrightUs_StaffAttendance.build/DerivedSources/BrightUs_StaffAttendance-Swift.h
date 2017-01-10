@@ -295,6 +295,11 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 
 */
 - (void)captureOutput:(AVCaptureOutput * _Null_unspecified)captureOutput didOutputMetadataObjects:(NSArray * _Null_unspecified)metadataObjects fromConnection:(AVCaptureConnection * _Null_unspecified)connection;
+/**
+  Get QR Code Status
+  \param check Firebase checks are implementedn i.e. new or old
+
+*/
 - (void)getQrCodeStatus;
 /**
   Change Status of QR code
@@ -342,7 +347,13 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
   Indicator to let user know about data loading
 */
 @property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
+/**
+  viewDidLoad Method
+*/
 - (void)viewDidLoad;
+/**
+  didReceiveMemoryWarning Method
+*/
 - (void)didReceiveMemoryWarning;
 /**
   Back Button Action
@@ -363,6 +374,15 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
   Validation Method to validate content on the screen
 */
 - (BOOL)Validation;
+/**
+  API Call to change Password
+  \param method POST
+
+  \param parameter Email
+
+  \param status 204, 401, 422
+
+*/
 - (void)ChangePasswordCall;
 /**
   Alert Controller Method
@@ -422,6 +442,9 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
   Display and give alert to user that whether he is allowed or not to mark attendance
 */
 @property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified locationUpdateLabel;
+/**
+  Time Image - Display morning, afternoon, evening images
+*/
 @property (nonatomic, strong) IBOutlet UIImageView * _Null_unspecified timeImage;
 /**
   <ul>
@@ -652,6 +675,11 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 
 */
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
+/**
+  Height of Row
+  \param return CGFLoat (height)
+
+*/
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 /**
   Definition of Cell
@@ -661,14 +689,22 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 
 */
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView * _Nonnull)pickerView;
 /**
-  Picker View Delegate & Datasources
-  \param methodsInAction numberOfComponents, numberOfRowsInComponent, titleForRow, didSelectRow
+  numberOfRowsInComponent in PickerView
+  \param return Int(Number of rows)
 
 */
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView * _Nonnull)pickerView;
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component;
+/**
+  titleForRow in PickerView
+  \param return String
+
+*/
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
+/**
+  *didSelectRow in PickerView
+*/
 - (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
 /**
   Delegate method of scroll view
@@ -715,7 +751,13 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
   Indicator to let user know about data loading
 */
 @property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
+/**
+  viewDidLoad Method
+*/
 - (void)viewDidLoad;
+/**
+  didReceiveMemoryWarning Method
+*/
 - (void)didReceiveMemoryWarning;
 /**
   Back Button Action
@@ -1021,6 +1063,9 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23TiiAttendanceDetailCell")
 
 
 @interface UIDevice (SWIFT_EXTENSION(BrightUs_StaffAttendance))
+/**
+  model Name extracted
+*/
 @property (nonatomic, readonly, copy) NSString * _Nonnull modelName;
 @end
 

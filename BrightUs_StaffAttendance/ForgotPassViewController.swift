@@ -26,14 +26,16 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
     var indicator = UIActivityIndicatorView()
     
     //MARK: - Methods
-    //MARK: -
 
+    /**
+     * viewDidLoad Method
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         emailTextField.delegate = self
-        emailTextField.text = "staff@maildrop.cc"
+//        emailTextField.text = "staff@maildrop.cc"
 
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -45,13 +47,15 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
 
     }
     
+    /**
+     * didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     //MARK: - Button Actions
-    //MARK: -
 
     /**
      Back Button Action 
@@ -94,7 +98,6 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Validation Method
-    //MARK: -
 
     /**
      Validation Method
@@ -248,8 +251,6 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Alert Controller
-    //MARK: -
-
     
     /**
      Alert Controller Method

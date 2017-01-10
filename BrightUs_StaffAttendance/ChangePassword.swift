@@ -33,6 +33,10 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
     var indicator = UIActivityIndicatorView()
     
     //MARK: - Methods (ViewDidLoad, DidReceiveMemoryWarning)
+    
+    /**
+     * viewDidLoad Method
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,12 +54,14 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
         
     }
     
+    /**
+     * didReceiveMemoryWarning Method
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     //MARK: - Button Actions
-    //MARK: -
     /**
      Back Button Action
      
@@ -96,7 +102,6 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Validations
-    //MARK: -
     /**
      Validation Method to validate content on the screen
     */
@@ -147,8 +152,16 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Change Password API Request
-    //MARK: - 
-    
+    /**
+     API Call to change Password
+     
+        - parameter method : POST
+     
+        - parameter parameter : Email
+     
+        - parameter status : 204, 401, 422
+     
+    */
     func ChangePasswordCall(){
         let apiString = baseURL + "/api/user"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
@@ -255,7 +268,6 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Alert Controller
-    //MARK: - 
     /**
      Alert Controller Method
      
