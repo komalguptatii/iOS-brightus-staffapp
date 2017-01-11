@@ -14,7 +14,7 @@
     <a title="DashboardView Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (36% documented)</p>
+        <p><a href="../index.html"> Docs</a> (93% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -34,7 +34,13 @@
                 <a href="../Classes/AppDelegate.html">AppDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/BaseViewController.html">BaseViewController</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Camera.html">Camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChangePassword.html">ChangePassword</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/DashboardView.html">DashboardView</a>
@@ -55,6 +61,9 @@
                 <a href="../Classes/Reachability.html">Reachability</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/SlideMenuViewController.html">SlideMenuViewController</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/TextFieldEffects.html">TextFieldEffects</a>
               </li>
               <li class="nav-group-task">
@@ -62,6 +71,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TiiAttendanceDetailCell.html">TiiAttendanceDetailCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserProfile.html">UserProfile</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ViewController.html">ViewController</a>
@@ -78,7 +90,10 @@
                 <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance8defaultsCSo12UserDefaults">defaults</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance14delegateObjectCS_11AppDelegate">delegateObject</a>
+                <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance11isCheckedInSb">isCheckedIn</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance12screenheightV12CoreGraphics7CGFloat">screenheight</a>
               </li>
             </ul>
           </li>
@@ -88,6 +103,9 @@
               <li class="nav-group-task">
                 <a href="../Extensions/String.html">String</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIDevice.html">UIDevice</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -95,6 +113,20 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:F24BrightUs_StaffAttendance21IsConnectionAvailableFT_Sb">IsConnectionAvailable()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F24BrightUs_StaffAttendance13ValidateEmailFT4textSS_Sb">ValidateEmail(text:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F24BrightUs_StaffAttendance20ValidateEmptyContentFT9textFieldCSo11UITextField_Sb">ValidateEmptyContent(textField:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/SlideMenuDelegate.html">SlideMenuDelegate</a>
               </li>
             </ul>
           </li>
@@ -104,11 +136,271 @@
         <section>
           <section class="section">
             <h1>DashboardView</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">DashboardView</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span><span class="kt">CLLocationManagerDelegate</span><span class="p">,</span> <span class="kt">UIScrollViewDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>Dashboard View - Display time, greet user , check - in/out timings, Mark Attendance</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView16currentDateLabelGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/currentDateLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView16currentDateLabelGSQCSo7UILabel_">currentDateLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current Date will be displayed on this label</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">currentDateLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView13greetingLabelGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/greetingLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView13greetingLabelGSQCSo7UILabel_">greetingLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Greet user</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">greetingLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView13userNameLabelGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/userNameLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView13userNameLabelGSQCSo7UILabel_">userNameLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Display User Name</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">userNameLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView21checkInTimeValueLabelGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/checkInTimeValueLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView21checkInTimeValueLabelGSQCSo7UILabel_">checkInTimeValueLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Label that displays Check-In Time</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">checkInTimeValueLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView22checkOutTimeValueLabelGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/checkOutTimeValueLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView22checkOutTimeValueLabelGSQCSo7UILabel_">checkOutTimeValueLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Label that displays Check-Out Time</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">checkOutTimeValueLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView15locationManagerCSo17CLLocationManager"></a>
+                    <a name="//apple_ref/swift/Property/locationManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView15locationManagerCSo17CLLocationManager">locationManager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Intialized instance of CLLocationManager</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">locationManager</span> <span class="o">=</span> <span class="kt">CLLocationManager</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView25isAllowedToMarkAttendanceSb"></a>
+                    <a name="//apple_ref/swift/Property/isAllowedToMarkAttendance" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView25isAllowedToMarkAttendanceSb">isAllowedToMarkAttendance</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>To keep check of access to mark attendance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">isAllowedToMarkAttendance</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView19locationUpdateLabelGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/locationUpdateLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView19locationUpdateLabelGSQCSo7UILabel_">locationUpdateLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Display and give alert to user that whether he is allowed or not to mark attendance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">locationUpdateLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance13DashboardView9timeImageGSQCSo11UIImageView_"></a>
+                    <a name="//apple_ref/swift/Property/timeImage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance13DashboardView9timeImageGSQCSo11UIImageView_">timeImage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Time Image - Display morning, afternoon, evening images</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">timeImage</span><span class="p">:</span> <span class="kt">UIImageView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Methods"></a>
+                <a name="//apple_ref/swift/Section/Methods" class="dashAnchor"></a>
+                <a href="#/Methods">
+                  <h3 class="section-name">Methods</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -123,8 +415,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>viewDidLoad Method</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -142,8 +442,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>didReceiveMemoryWarning Method</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">didReceiveMemoryWarning</span><span class="p">()</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -151,9 +459,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView29AttendanceDetailButtonPressedFCSo8UIButtonT_"></a>
-                    <a name="//apple_ref/swift/Method/AttendanceDetailButtonPressed(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView29AttendanceDetailButtonPressedFCSo8UIButtonT_">AttendanceDetailButtonPressed(_:)</a>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView14viewWillAppearFSbT_"></a>
+                    <a name="//apple_ref/swift/Method/viewWillAppear(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView14viewWillAppearFSbT_">viewWillAppear(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -161,8 +469,190 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>viewWillAppear Method</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewWillAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/ScrollView%20Delegate"></a>
+                <a name="//apple_ref/swift/Section/ScrollView Delegate" class="dashAnchor"></a>
+                <a href="#/ScrollView%20Delegate">
+                  <h3 class="section-name">ScrollView Delegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView28scrollViewDidEndDeceleratingFCSo12UIScrollViewT_"></a>
+                    <a name="//apple_ref/swift/Method/scrollViewDidEndDecelerating(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView28scrollViewDidEndDeceleratingFCSo12UIScrollViewT_">scrollViewDidEndDecelerating(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>scrollViewDidEndDecelerating Method</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">scrollViewDidEndDecelerating</span><span class="p">(</span><span class="n">_</span> <span class="nv">scrollView</span><span class="p">:</span> <span class="kt">UIScrollView</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>argument</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UIScrollView</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Button%20Action"></a>
+                <a name="//apple_ref/swift/Section/Button Action" class="dashAnchor"></a>
+                <a href="#/Button%20Action">
+                  <h3 class="section-name">Button Action</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView28AttendanceDetailButtonActionFCSo8UIButtonT_"></a>
+                    <a name="//apple_ref/swift/Method/AttendanceDetailButtonAction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView28AttendanceDetailButtonActionFCSo8UIButtonT_">AttendanceDetailButtonAction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Attendance Detail Button Action</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="kt">AttendanceDetailButtonAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>When user tap this button, app navigates to attendance detail section</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Display%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Display Methods" class="dashAnchor"></a>
+                <a href="#/Display%20Methods">
+                  <h3 class="section-name">Display Methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView17CurrentDateFormatFT_SS"></a>
+                    <a name="//apple_ref/swift/Method/CurrentDateFormat()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView17CurrentDateFormatFT_SS">CurrentDateFormat()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Specify date format Methods</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">CurrentDateFormat</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Returns String Value in format of Day, Date Month</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -170,9 +660,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView11ViewProfileFCSo8UIButtonT_"></a>
-                    <a name="//apple_ref/swift/Method/ViewProfile(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView11ViewProfileFCSo8UIButtonT_">ViewProfile(_:)</a>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView16DisplayGreetingsFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/DisplayGreetings()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView16DisplayGreetingsFT_T_">DisplayGreetings()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -180,8 +670,203 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Greet User Methods</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">DisplayGreetings</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Method check the current time range and display morning, afternoon, night etc according to that.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/TimeStamp%20Conversion"></a>
+                <a name="//apple_ref/swift/Section/TimeStamp Conversion" class="dashAnchor"></a>
+                <a href="#/TimeStamp%20Conversion">
+                  <h3 class="section-name">TimeStamp Conversion</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView31ConvertTimeStampToRequiredHoursFT9dateValueSS_SS"></a>
+                    <a name="//apple_ref/swift/Method/ConvertTimeStampToRequiredHours(dateValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView31ConvertTimeStampToRequiredHoursFT9dateValueSS_SS">ConvertTimeStampToRequiredHours(dateValue:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Conversion of TimeStamp (ISO 8601) to required value</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ConvertTimeStampToRequiredHours</span><span class="p">(</span><span class="nv">dateValue</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span><span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>argument</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Date (String)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Date in required format (String)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Today&#39;s%20Attendance%20detail"></a>
+                <a name="//apple_ref/swift/Section/Today&#39;s Attendance detail" class="dashAnchor"></a>
+                <a href="#/Today&#39;s%20Attendance%20detail">
+                  <h3 class="section-name">Today&#39;s Attendance detail</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView24GetTodayAttendanceDetailFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/GetTodayAttendanceDetail()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView24GetTodayAttendanceDetailFT_T_">GetTodayAttendanceDetail()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Today Attendance Detail Request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">GetTodayAttendanceDetail</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Check - In/Out Time</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Location%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Location Methods" class="dashAnchor"></a>
+                <a href="#/Location%20Methods">
+                  <h3 class="section-name">Location Methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView15locationManagerFTCSo17CLLocationManager22didChangeAuthorizationOSC21CLAuthorizationStatus_T_"></a>
+                    <a name="//apple_ref/swift/Method/locationManager(_:didChangeAuthorization:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView15locationManagerFTCSo17CLLocationManager22didChangeAuthorizationOSC21CLAuthorizationStatus_T_">locationManager(_:didChangeAuthorization:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Authorization Status to use location method</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">locationManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">manager</span><span class="p">:</span> <span class="kt">CLLocationManager</span><span class="p">,</span> <span class="n">didChangeAuthorization</span> <span class="nv">status</span><span class="p">:</span> <span class="kt">CLAuthorizationStatus</span><span class="p">)</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -189,9 +874,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView13CheckTimeSpanFT_T_"></a>
-                    <a name="//apple_ref/swift/Method/CheckTimeSpan()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView13CheckTimeSpanFT_T_">CheckTimeSpan()</a>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView15locationManagerFTCSo17CLLocationManager18didUpdateLocationsGSaCSo10CLLocation__T_"></a>
+                    <a name="//apple_ref/swift/Method/locationManager(_:didUpdateLocations:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView15locationManagerFTCSo17CLLocationManager18didUpdateLocationsGSaCSo10CLLocation__T_">locationManager(_:didUpdateLocations:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -199,8 +884,145 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Update Location Method</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">locationManager</span><span class="p">(</span><span class="n">_</span> <span class="nv">manager</span><span class="p">:</span> <span class="kt">CLLocationManager</span><span class="p">,</span> <span class="n">didUpdateLocations</span> <span class="nv">locations</span><span class="p">:</span> <span class="p">[</span><span class="kt">CLLocation</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Check whether user is in premises or not</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView22MarkAttendanceOnServerFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/MarkAttendanceOnServer()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView22MarkAttendanceOnServerFT_T_">MarkAttendanceOnServer()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Mark Attendance Request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">MarkAttendanceOnServer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>type i.e. check_in,check_out</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Alert%20Controller"></a>
+                <a name="//apple_ref/swift/Section/Alert Controller" class="dashAnchor"></a>
+                <a href="#/Alert%20Controller">
+                  <h3 class="section-name">Alert Controller</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance13DashboardView9ShowAlertFT_CSo17UIAlertController"></a>
+                    <a name="//apple_ref/swift/Method/ShowAlert()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance13DashboardView9ShowAlertFT_CSo17UIAlertController">ShowAlert()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Alert Controller Method</p>
+
+<ul>
+<li><p>paramter return : Returns UIAlertController</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ShowAlert</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIAlertController</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Method to intialize and add actions to alert controller</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -210,7 +1032,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-21)</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2017-01-10)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

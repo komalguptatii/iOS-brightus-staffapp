@@ -64,7 +64,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let showPasswordButton = UIButton()
         
         if screenheight <= 568{
-            showPasswordButton.frame = CGRect(x: 236.0, y: 318.0, width: 35.0, height: 35.0)
+            showPasswordButton.frame = CGRect(x: 236.0, y: 315.0, width: 35.0, height: 35.0)
 
         }
         else if screenheight <= 667{

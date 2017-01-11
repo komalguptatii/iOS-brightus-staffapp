@@ -14,7 +14,7 @@
     <a title="DetailsViewController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (36% documented)</p>
+        <p><a href="../index.html"> Docs</a> (93% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -34,7 +34,13 @@
                 <a href="../Classes/AppDelegate.html">AppDelegate</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/BaseViewController.html">BaseViewController</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/Camera.html">Camera</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChangePassword.html">ChangePassword</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/DashboardView.html">DashboardView</a>
@@ -55,6 +61,9 @@
                 <a href="../Classes/Reachability.html">Reachability</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/SlideMenuViewController.html">SlideMenuViewController</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/TextFieldEffects.html">TextFieldEffects</a>
               </li>
               <li class="nav-group-task">
@@ -62,6 +71,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TiiAttendanceDetailCell.html">TiiAttendanceDetailCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserProfile.html">UserProfile</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ViewController.html">ViewController</a>
@@ -78,7 +90,10 @@
                 <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance8defaultsCSo12UserDefaults">defaults</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance14delegateObjectCS_11AppDelegate">delegateObject</a>
+                <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance11isCheckedInSb">isCheckedIn</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v24BrightUs_StaffAttendance12screenheightV12CoreGraphics7CGFloat">screenheight</a>
               </li>
             </ul>
           </li>
@@ -88,6 +103,9 @@
               <li class="nav-group-task">
                 <a href="../Extensions/String.html">String</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIDevice.html">UIDevice</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -95,6 +113,20 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:F24BrightUs_StaffAttendance21IsConnectionAvailableFT_Sb">IsConnectionAvailable()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F24BrightUs_StaffAttendance13ValidateEmailFT4textSS_Sb">ValidateEmail(text:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F24BrightUs_StaffAttendance20ValidateEmptyContentFT9textFieldCSo11UITextField_Sb">ValidateEmptyContent(textField:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/SlideMenuDelegate.html">SlideMenuDelegate</a>
               </li>
             </ul>
           </li>
@@ -106,15 +138,485 @@
             <h1>DetailsViewController</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">DetailsViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">DetailsViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UITableViewDelegate</span><span class="p">,</span> <span class="kt">UITableViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span></code></pre>
 
                 </div>
               </div>
-            <p>Attendance Details</p>
+            <p>Attendance Details - Shows the history, user can apply filters and choose time period</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController15detailTableViewGSQCSo11UITableView_"></a>
+                    <a name="//apple_ref/swift/Property/detailTableView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController15detailTableViewGSQCSo11UITableView_">detailTableView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Table View to display attendance details</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">detailTableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController16filterPickerViewGSQCSo12UIPickerView_"></a>
+                    <a name="//apple_ref/swift/Property/filterPickerView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController16filterPickerViewGSQCSo12UIPickerView_">filterPickerView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Picker View to select filters</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">filterPickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController14fromDateButtonGSQCSo8UIButton_"></a>
+                    <a name="//apple_ref/swift/Property/fromDateButton" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController14fromDateButtonGSQCSo8UIButton_">fromDateButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>From Date Button i.e. start date from which user want to see the details</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">fromDateButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController12toDateButtonGSQCSo8UIButton_"></a>
+                    <a name="//apple_ref/swift/Property/toDateButton" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController12toDateButtonGSQCSo8UIButton_">toDateButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>From Date Button i.e. end date upto which user want to see the details</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">toDateButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController14datePickerViewGSQCSo12UIDatePicker_"></a>
+                    <a name="//apple_ref/swift/Property/datePickerView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController14datePickerViewGSQCSo12UIDatePicker_">datePickerView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Date Picker View Outler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">datePickerView</span><span class="p">:</span> <span class="kt">UIDatePicker</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController20datePickerCustomViewGSQCSo6UIView_"></a>
+                    <a name="//apple_ref/swift/Property/datePickerCustomView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController20datePickerCustomViewGSQCSo6UIView_">datePickerCustomView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>View which contains date picker view - as it is not allowed to change the background color of date picker</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">datePickerCustomView</span><span class="p">:</span> <span class="kt">UIView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController10doneButtonGSQCSo8UIButton_"></a>
+                    <a name="//apple_ref/swift/Property/doneButton" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController10doneButtonGSQCSo8UIButton_">doneButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Done button</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">doneButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController11noDataImageGSQCSo11UIImageView_"></a>
+                    <a name="//apple_ref/swift/Property/noDataImage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController11noDataImageGSQCSo11UIImageView_">noDataImage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>No Data Image</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">noDataImage</span><span class="p">:</span> <span class="kt">UIImageView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController9indicatorCSo23UIActivityIndicatorView"></a>
+                    <a name="//apple_ref/swift/Property/indicator" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController9indicatorCSo23UIActivityIndicatorView">indicator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicator to let user know about data loading</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">indicator</span> <span class="o">=</span> <span class="kt">UIActivityIndicatorView</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController16filterValueArrayGSaSS_"></a>
+                    <a name="//apple_ref/swift/Property/filterValueArray" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController16filterValueArrayGSaSS_">filterValueArray</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Array of values marked as filters</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">filterValueArray</span> <span class="o">=</span> <span class="p">[</span><span class="s">"today"</span><span class="p">,</span><span class="s">"yesterday"</span><span class="p">,</span> <span class="s">"this week"</span><span class="p">,</span> <span class="s">"last week"</span><span class="p">,</span> <span class="s">"this month"</span><span class="p">,</span> <span class="s">"last month"</span><span class="p">,</span> <span class="s">"custom"</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController21attendanceDetailArrayCSo14NSMutableArray"></a>
+                    <a name="//apple_ref/swift/Property/attendanceDetailArray" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController21attendanceDetailArrayCSo14NSMutableArray">attendanceDetailArray</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Array that hold the detail fetched temporarily to be displayed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">attendanceDetailArray</span> <span class="o">=</span> <span class="kt">NSMutableArray</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController14selectedFilterSS"></a>
+                    <a name="//apple_ref/swift/Property/selectedFilter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController14selectedFilterSS">selectedFilter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Selected Filer Value, default is <q>Today</q></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">selectedFilter</span> <span class="o">=</span> <span class="s">"today"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController18isSelectedFromDateSb"></a>
+                    <a name="//apple_ref/swift/Property/isSelectedFromDate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController18isSelectedFromDateSb">isSelectedFromDate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Bool to check that From Date is selected before moving to selection of End date</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">isSelectedFromDate</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController11currentPageSi"></a>
+                    <a name="//apple_ref/swift/Property/currentPage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController11currentPageSi">currentPage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current Page of Detail Request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">currentPage</span> <span class="o">=</span> <span class="mi">1</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController14totalNoOfPagesSi"></a>
+                    <a name="//apple_ref/swift/Property/totalNoOfPages" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController14totalNoOfPagesSi">totalNoOfPages</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Total number of Pages of Detail Request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">totalNoOfPages</span> <span class="o">=</span> <span class="mi">0</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController16selectedFromDateSS"></a>
+                    <a name="//apple_ref/swift/Property/selectedFromDate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController16selectedFromDateSS">selectedFromDate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will contain selected from date</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">selectedFromDate</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance21DetailsViewController14selectedToDateSS"></a>
+                    <a name="//apple_ref/swift/Property/selectedToDate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance21DetailsViewController14selectedToDateSS">selectedToDate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will contain selected to date</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">selectedToDate</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Methods"></a>
+                <a name="//apple_ref/swift/Section/Methods" class="dashAnchor"></a>
+                <a href="#/Methods">
+                  <h3 class="section-name">Methods</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -129,14 +631,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>viewDidLoad Method</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">DetailsViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -156,6 +658,501 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
+                        <p>didReceiveMemoryWarning Method</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">didReceiveMemoryWarning</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Button%20Actions"></a>
+                <a name="//apple_ref/swift/Section/Button Actions" class="dashAnchor"></a>
+                <a href="#/Button%20Actions">
+                  <h3 class="section-name">Button Actions</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController16BackButtonActionFCSo15UIBarButtonItemT_"></a>
+                    <a name="//apple_ref/swift/Method/BackButtonAction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController16BackButtonActionFCSo15UIBarButtonItemT_">BackButtonAction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Back Button Action</p>
+
+<ul>
+<li>paramater description : Pop Controller to Previous View</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="kt">BackButtonAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIBarButtonItem</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController18SearchButtonActionFCSo8UIButtonT_"></a>
+                    <a name="//apple_ref/swift/Method/SearchButtonAction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController18SearchButtonActionFCSo8UIButtonT_">SearchButtonAction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Search Button Action</p>
+
+<ul>
+<li>paramater description : Search for the data on the basis of filter and time period selected</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="kt">SearchButtonAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController16DoneButtonActionFCSo8UIButtonT_"></a>
+                    <a name="//apple_ref/swift/Method/DoneButtonAction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController16DoneButtonActionFCSo8UIButtonT_">DoneButtonAction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Done Button Action</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="kt">DoneButtonAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>It will hide the date picker and filter picker view on the screen</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController12FilterActionFCSo15UIBarButtonItemT_"></a>
+                    <a name="//apple_ref/swift/Method/FilterAction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController12FilterActionFCSo15UIBarButtonItemT_">FilterAction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Filter Action</p>
+
+<ul>
+<li>paramater description : Display picker view to select filter</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="kt">FilterAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIBarButtonItem</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController20FromDateButtonActionFCSo8UIButtonT_"></a>
+                    <a name="//apple_ref/swift/Method/FromDateButtonAction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController20FromDateButtonActionFCSo8UIButtonT_">FromDateButtonAction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>From Date Button Action</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="kt">FromDateButtonAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Display date picker view to select date as “From Date”</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController18ToDateButtonActionFCSo8UIButtonT_"></a>
+                    <a name="//apple_ref/swift/Method/ToDateButtonAction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController18ToDateButtonActionFCSo8UIButtonT_">ToDateButtonAction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>To Date Button Action</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="kt">ToDateButtonAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Display date picker view to select date as “To Date”</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/TableView%20Delegate%20&amp;%20Datasource"></a>
+                <a name="//apple_ref/swift/Section/TableView Delegate &amp; Datasource" class="dashAnchor"></a>
+                <a href="#/TableView%20Delegate%20&amp;%20Datasource">
+                  <h3 class="section-name">TableView Delegate &amp; Datasource</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController16numberOfSectionsFT2inCSo11UITableView_Si"></a>
+                    <a name="//apple_ref/swift/Method/numberOfSections(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController16numberOfSectionsFT2inCSo11UITableView_Si">numberOfSections(in:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Number of Sections in TableView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">numberOfSections</span><span class="p">(</span><span class="k">in</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>number of sections</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController9tableViewFTCSo11UITableView21numberOfRowsInSectionSi_Si"></a>
+                    <a name="//apple_ref/swift/Method/tableView(_:numberOfRowsInSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController9tableViewFTCSo11UITableView21numberOfRowsInSectionSi_Si">tableView(_:numberOfRowsInSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Number of Rows in Section </p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="n">_</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="n">numberOfRowsInSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>number of rows in one section</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController9tableViewFTCSo11UITableView14heightForRowAtV10Foundation9IndexPath_V12CoreGraphics7CGFloat"></a>
+                    <a name="//apple_ref/swift/Method/tableView(_:heightForRowAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController9tableViewFTCSo11UITableView14heightForRowAtV10Foundation9IndexPath_V12CoreGraphics7CGFloat">tableView(_:heightForRowAt:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Height of Row</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="n">_</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="n">heightForRowAt</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGFloat</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>CGFLoat (height)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController9tableViewFTCSo11UITableView12cellForRowAtV10Foundation9IndexPath_CSo15UITableViewCell"></a>
+                    <a name="//apple_ref/swift/Method/tableView(_:cellForRowAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController9tableViewFTCSo11UITableView12cellForRowAtV10Foundation9IndexPath_CSo15UITableViewCell">tableView(_:cellForRowAt:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Definition of Cell</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">tableView</span><span class="p">(</span><span class="n">_</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="n">cellForRowAt</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UITableViewCell</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>TiiAttendanceDetailCell</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>defined</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>_Terms : particularDate, checkinTime, checkOutTime, totalTime</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Picker%20View%20Delegate%20&amp;%20datasources"></a>
+                <a name="//apple_ref/swift/Section/Picker View Delegate &amp; datasources" class="dashAnchor"></a>
+                <a href="#/Picker%20View%20Delegate%20&amp;%20datasources">
+                  <h3 class="section-name">Picker View Delegate &amp; datasources</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController18numberOfComponentsFT2inCSo12UIPickerView_Si"></a>
+                    <a name="//apple_ref/swift/Method/numberOfComponents(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController18numberOfComponentsFT2inCSo12UIPickerView_Si">numberOfComponents(in:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
                         <p>Undocumented</p>
 
                       </div>
@@ -163,9 +1160,359 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">DetailsViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kt">DetailsViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UITableViewDelegate</span><span class="p">,</span> <span class="kt">UITableViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController10pickerViewFTCSo12UIPickerView23numberOfRowsInComponentSi_Si"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:numberOfRowsInComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController10pickerViewFTCSo12UIPickerView23numberOfRowsInComponentSi_Si">pickerView(_:numberOfRowsInComponent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>numberOfRowsInComponent in PickerView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="n">_</span> <span class="nv">pickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">numberOfRowsInComponent</span> <span class="nv">component</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Int(Number of rows)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController10pickerViewFTCSo12UIPickerView11titleForRowSi12forComponentSi_GSqSS_"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:titleForRow:forComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController10pickerViewFTCSo12UIPickerView11titleForRowSi12forComponentSi_GSqSS_">pickerView(_:titleForRow:forComponent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>titleForRow in PickerView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="n">_</span> <span class="nv">pickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">titleForRow</span> <span class="nv">row</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">forComponent</span> <span class="nv">component</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController10pickerViewFTCSo12UIPickerView12didSelectRowSi11inComponentSi_T_"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:didSelectRow:inComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController10pickerViewFTCSo12UIPickerView12didSelectRowSi11inComponentSi_T_">pickerView(_:didSelectRow:inComponent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>didSelectRow in PickerView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="n">_</span> <span class="nv">pickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">didSelectRow</span> <span class="nv">row</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">inComponent</span> <span class="nv">component</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/ScrollView%20Delegate"></a>
+                <a name="//apple_ref/swift/Section/ScrollView Delegate" class="dashAnchor"></a>
+                <a href="#/ScrollView%20Delegate">
+                  <h3 class="section-name">ScrollView Delegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController28scrollViewDidEndDeceleratingFCSo12UIScrollViewT_"></a>
+                    <a name="//apple_ref/swift/Method/scrollViewDidEndDecelerating(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController28scrollViewDidEndDeceleratingFCSo12UIScrollViewT_">scrollViewDidEndDecelerating(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method of scroll view </p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">scrollViewDidEndDecelerating</span><span class="p">(</span><span class="n">_</span> <span class="nv">scrollView</span><span class="p">:</span> <span class="kt">UIScrollView</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/API%20Request"></a>
+                <a name="//apple_ref/swift/Section/API Request" class="dashAnchor"></a>
+                <a href="#/API%20Request">
+                  <h3 class="section-name">API Request</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController20GetAttendanceDetailsFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/GetAttendanceDetails()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController20GetAttendanceDetailsFT_T_">GetAttendanceDetails()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Attendance Detail Request</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">GetAttendanceDetails</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>method</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>GET</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/TimeStamp%20Conversion%20Method"></a>
+                <a name="//apple_ref/swift/Section/TimeStamp Conversion Method" class="dashAnchor"></a>
+                <a href="#/TimeStamp%20Conversion%20Method">
+                  <h3 class="section-name">TimeStamp Conversion Method</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController31ConvertTimeStampToRequiredHoursFT9dateValueSS_TSSSSSSSS_"></a>
+                    <a name="//apple_ref/swift/Method/ConvertTimeStampToRequiredHours(dateValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController31ConvertTimeStampToRequiredHoursFT9dateValueSS_TSSSSSSSS_">ConvertTimeStampToRequiredHours(dateValue:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Conversion of TimeStamp (ISO 8601) to required value</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ConvertTimeStampToRequiredHours</span><span class="p">(</span><span class="nv">dateValue</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span><span class="o">-&gt;</span> <span class="p">(</span><span class="kt">String</span><span class="p">,</span><span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>argument</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Date (String)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>return</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Date, Time, Hours, Minutes in required format (String)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Alert%20Controller"></a>
+                <a name="//apple_ref/swift/Section/Alert Controller" class="dashAnchor"></a>
+                <a href="#/Alert%20Controller">
+                  <h3 class="section-name">Alert Controller</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC24BrightUs_StaffAttendance21DetailsViewController9ShowAlertFT_CSo17UIAlertController"></a>
+                    <a name="//apple_ref/swift/Method/ShowAlert()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC24BrightUs_StaffAttendance21DetailsViewController9ShowAlertFT_CSo17UIAlertController">ShowAlert()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Alert Controller Method</p>
+
+<ul>
+<li><p>paramter return : Returns UIAlertController</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="kt">ShowAlert</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIAlertController</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>description</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Method to intialize and add actions to alert controller</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -175,7 +1522,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2016-12-21)</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2017-01-10)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

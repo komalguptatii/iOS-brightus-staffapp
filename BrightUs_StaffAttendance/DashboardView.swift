@@ -60,6 +60,11 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     */
     @IBOutlet var timeImage: UIImageView!
     
+    /**
+     * Attendance Detail Button
+    */
+    @IBOutlet var attendanceDetailButton: UIButton!
+    
     //MARK: - Methods
     
     /**
@@ -105,6 +110,11 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         
         scrollView?.delegate = self
         
+        print(attendanceDetailButton.frame)
+        
+        if screenheight <= 568{
+            attendanceDetailButton.frame = CGRect(x: 0, y: 439, width: 320, height: 65)
+        }
     }
     
     /**

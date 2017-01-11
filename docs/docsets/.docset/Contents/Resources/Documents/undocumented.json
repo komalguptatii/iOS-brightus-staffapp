@@ -1,41 +1,6 @@
 {
   "warnings": [
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/BaseViewController.swift",
-      "line": 15,
-      "symbol": "BaseViewController.__once",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Camera.swift",
-      "line": 242,
-      "symbol": "Camera.getQrCodeStatus()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ChangePassword.swift",
-      "line": 36,
-      "symbol": "ChangePassword.viewDidLoad()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ChangePassword.swift",
-      "line": 53,
-      "symbol": "ChangePassword.didReceiveMemoryWarning()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ChangePassword.swift",
-      "line": 152,
-      "symbol": "ChangePassword.ChangePasswordCall()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Constant.swift",
       "line": 33,
       "symbol": "baseURL",
@@ -43,58 +8,9 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DashboardView.swift",
-      "line": 58,
-      "symbol": "DashboardView.timeImage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
-      "line": 360,
-      "symbol": "DetailsViewController.tableView(_:heightForRowAt:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
-      "line": 436,
-      "symbol": "DetailsViewController.pickerView(_:numberOfRowsInComponent:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
-      "line": 440,
-      "symbol": "DetailsViewController.pickerView(_:titleForRow:forComponent:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift",
       "line": 444,
-      "symbol": "DetailsViewController.pickerView(_:didSelectRow:inComponent:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DeviceExtension.swift",
-      "line": 15,
-      "symbol": "UIDevice.modelName",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
-      "line": 31,
-      "symbol": "ForgotPassViewController.viewDidLoad()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift",
-      "line": 48,
-      "symbol": "ForgotPassViewController.didReceiveMemoryWarning()",
+      "symbol": "DetailsViewController.numberOfComponents(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -107,14 +23,7 @@
     },
     {
       "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/SlideMenuViewController.swift",
-      "line": 18,
-      "symbol": "SlideMenuDelegate.slideMenuItemSelectedAtIndex(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/SlideMenuViewController.swift",
-      "line": 44,
+      "line": 50,
       "symbol": "SlideMenuViewController.btnMenu",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -177,14 +86,14 @@
     },
     {
       "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/UserProfile.swift",
-      "line": 39,
+      "line": 38,
       "symbol": "UserProfile.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/UserProfile.swift",
-      "line": 66,
+      "line": 65,
       "symbol": "UserProfile.didReceiveMemoryWarning()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
