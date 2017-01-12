@@ -98,6 +98,11 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      */
     var selectedToDate = ""
 
+    /**
+    * No Record Found Label
+    */
+    @IBOutlet var noRecordFound: UILabel!
+    
     //MARK: - Methods
     
     /**
@@ -113,8 +118,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         indicator.center = self.view.center
         indicator.backgroundColor = UIColor.clear
         indicator.color = UIColor.black
-        indicator.startAnimating()
-
+        
+        
         detailTableView.delegate = self
         detailTableView.dataSource = self
         detailTableView.separatorStyle = UITableViewCellSeparatorStyle.none
@@ -138,7 +143,24 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         fromDateButton.isUserInteractionEnabled = false
         toDateButton.isUserInteractionEnabled = false
         
-        
+        if IsConnectionAvailable(){
+            self.view.addSubview(indicator)
+            self.indicator.startAnimating()
+            self.view.bringSubview(toFront: indicator)
+            
+            self.view.isUserInteractionEnabled = false
+            self.view.window?.isUserInteractionEnabled = false
+            
+            self.performSelector(inBackground: #selector(DetailsViewController.GetAttendanceDetails), with: nil)
+            
+        }
+        else{
+            let alert = ShowAlert()
+            alert.title = "Alert"
+            alert.message = "Check Network Connection"
+            _ = self.present(alert, animated: true, completion: nil)
+            
+        }
     }
     
     /**
@@ -172,13 +194,18 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func SearchButtonAction(_ sender: UIButton) {
         
+        self.attendanceDetailArray.removeAllObjects()
+        self.detailTableView.reloadData()
         
         if IsConnectionAvailable(){
             self.view.addSubview(indicator)
+            self.indicator.startAnimating()
+            self.view.bringSubview(toFront: indicator)
+
             self.view.isUserInteractionEnabled = false
             self.view.window?.isUserInteractionEnabled = false
             
-            self.GetAttendanceDetails()
+            self.performSelector(inBackground: #selector(DetailsViewController.GetAttendanceDetails), with: nil)
 
         }
         else{
@@ -198,9 +225,13 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     @IBAction func DoneButtonAction(_ sender: UIButton) {
         
-        
+
         if sender.tag == 0{
             
+            self.attendanceDetailArray.removeAllObjects()
+            self.detailTableView.reloadData()
+
+
             doneButton.isHidden = true
             doneButton.isUserInteractionEnabled = false
             
@@ -421,6 +452,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
            
         }
        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         return cell
     }
@@ -470,7 +502,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.attendanceDetailArray.removeAllObjects()
-        
+        self.detailTableView.reloadData()
+
         selectedFilter = filterValueArray[row]
         print(selectedFilter)
         if selectedFilter == "custom"{
@@ -495,10 +528,13 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             if IsConnectionAvailable(){
                 
                 self.view.addSubview(indicator)
+                self.indicator.startAnimating()
+                self.view.bringSubview(toFront: indicator)
+
                 self.view.isUserInteractionEnabled = false
                 self.view.window?.isUserInteractionEnabled = false
+                self.performSelector(inBackground: #selector(DetailsViewController.GetAttendanceDetails), with: nil)
                 
-                self.GetAttendanceDetails()
             }
             else{
                 let alert = ShowAlert()
@@ -528,10 +564,13 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             if currentPage < totalNoOfPages{
                 currentPage = currentPage + 1
                 self.view.addSubview(indicator)
+                self.indicator.startAnimating()
+                self.view.bringSubview(toFront: indicator)
+
                 self.view.isUserInteractionEnabled = false
                 self.view.window?.isUserInteractionEnabled = false
 
-                self.GetAttendanceDetails()
+                self.performSelector(inBackground: #selector(DetailsViewController.GetAttendanceDetails), with: nil)
             }
         }
     }
@@ -593,6 +632,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                                         DispatchQueue.main.async {
                                             //Section is 1
                                             //Pagination Required + Fetch and display details on tableView
+                                            self.noRecordFound.alpha = 0.0
                                             self.noDataImage.alpha = 0.0
 
                                             self.detailTableView.reloadData()
@@ -600,6 +640,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                                     }
                                     else{
                                         DispatchQueue.main.async {
+                                            self.noRecordFound.alpha = 1.0
+
                                             self.noDataImage.alpha = 1.0
 
                                         }
@@ -653,6 +695,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         DispatchQueue.main.async {
             self.indicator.removeFromSuperview()
+            self.indicator.stopAnimating()
+
             self.view.isUserInteractionEnabled = true
             self.view.window?.isUserInteractionEnabled = true
 
@@ -711,9 +755,9 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.dismiss(animated: false, completion: nil)
             print("Cancel")
         }
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+        let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
-            print("OK")
+            print("Okay")
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)

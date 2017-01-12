@@ -64,20 +64,11 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        
-        configureVideoCapture()
-        addVideoPreviewLayer()
-        initializeQRView()
-        
-        //Added Custom Image on Camera Preview
-        let customImagePreview = UIImageView()
-        customImagePreview.frame = CGRect(x: 0.0, y: 0.0, width: 254.0, height: 254.0)
-        customImagePreview.center = self.view.center
-        
-        customImagePreview.image = UIImage(named: "scanArea")
-        self.view.addSubview(customImagePreview)
-        
+    
+        self.configureVideoCapture()
+        self.addVideoPreviewLayer()
+        self.initializeQRView()
+
         
     }
     
@@ -96,8 +87,33 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
      
      */
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
+
         
+        self.performSelector(inBackground: #selector(Camera.GetSnapshotFromFirebase), with: nil)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.async {
+            if ((self.objCaptureSession?.startRunning()) != nil){
+                self.objCaptureSession?.stopRunning()
+                self.vwQRCode?.frame = CGRect.zero
+
+                self.objCaptureSession?.startRunning()
+            }
+            else{
+                self.vwQRCode?.frame = CGRect.zero
+                self.objCaptureSession?.startRunning()
+            }
+        }
+    }
+    
+    /**
+     * GetSnapshotFromFirebase - Provide Reference structure to firebase at particular branch code & users and get snapshot reference
+    */
+    func GetSnapshotFromFirebase(){
         if IsConnectionAvailable(){
             
             if let branchCode = defaults.value(forKey: "branchCode") as? String{
@@ -119,7 +135,6 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             _ = self.present(alert, animated: true, completion: nil)
             
         }
-        
     }
     
     //MARK: - Camera Methods
@@ -146,8 +161,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 print("Cancel")
             }
             // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
+            let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("Okay")
             }
             alertController.addAction(cancelAction)
             alertController.addAction(okAction)
@@ -185,10 +200,19 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
      */
     func initializeQRView() {
         vwQRCode = UIView()
-        //        vwQRCode?.layer.borderColor = UIColor.red.cgColor
-        //        vwQRCode?.layer.borderWidth = 5
+//        //        vwQRCode?.layer.borderColor = UIColor.red.cgColor
+//        //        vwQRCode?.layer.borderWidth = 5
         self.view.addSubview(vwQRCode!)
         self.view.bringSubview(toFront: vwQRCode!)
+        
+        //Added Custom Image on Camera Preview
+        let customImagePreview = UIImageView()
+        customImagePreview.frame = CGRect(x: 0.0, y: 0.0, width: 254.0, height: 254.0)
+        customImagePreview.center = self.view.center
+        
+        customImagePreview.image = UIImage(named: "scanArea")
+        self.view.addSubview(customImagePreview)
+        self.view.bringSubview(toFront: customImagePreview)
     }
     
     /**
@@ -215,7 +239,9 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 //4:abcd - 4 is user id, abcd is code
                 //already have array as snapshot
                 //Break code here
-                
+                //"9:4RatPeKzgYT11ke7zPlpYtLNUw9212UMLnIchav0" - LDH1 (Testing)
+                //"9:5SF2imzKrrOpcCYC6b8pZQmjSIIDGsWQzDnuKpJM" - LDH2 (Testing)
+//                randomQRCode = ""
                 let mathString: String = randomQRCode
                 let numbers = mathString.components(separatedBy: [":"])
                 print(numbers)
@@ -318,12 +344,19 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 }
                 else{
                     print("Null Snapshot")
+                    
+                    
                     DispatchQueue.main.async {
                         self.objCaptureSession?.stopRunning()
                         self.randomQRCode = ""
                         
                         self.vwQRCode?.frame = CGRect.zero
                         self.objCaptureSession?.startRunning()
+
+                        let alert = self.ShowAlert()
+                        alert.title = "Alert"
+                        alert.message = "Invalid Code"
+                        _ = self.present(alert, animated: true, completion: nil)
 
                     }
                 }
@@ -379,9 +412,9 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             self.dismiss(animated: false, completion: nil)
             print("Cancel")
         }
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+        let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
-            print("OK")
+            print("Okay")
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)

@@ -56,6 +56,10 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     @IBOutlet var locationUpdateLabel: UILabel!
     
     /**
+     * Swipe Image Indicator
+    */
+    @IBOutlet var swipeImage: UIImageView!
+    /**
      * Time Image - Display morning, afternoon, evening images
     */
     @IBOutlet var timeImage: UIImageView!
@@ -130,6 +134,10 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        let controller = self.parent as? HomeViewController
+        controller?.title = "Dashboard"
+
+
         if let nameOfUser = defaults.value(forKey: "name") as? String{
             userNameLabel.text = "\(nameOfUser)"
         }
@@ -147,7 +155,16 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         if (scrollView.contentOffset.x >= self.view.frame.width){
             print("Observer added")
             
+            let controller = self.parent as? HomeViewController
+            controller?.title = "Camera"
+            controller?.navigationItem.leftBarButtonItem?.isEnabled = false
+
             NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+        }
+        else{
+            let controller = self.parent as? HomeViewController
+            controller?.title = "Dashboard"
+            controller?.navigationItem.leftBarButtonItem?.isEnabled = true
         }
         
     }
@@ -289,6 +306,9 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
                             
+                            let controller = self.parent as? HomeViewController
+                            let scrollView = controller?.mainScrollView
+
                             if let detailArray = dict.value(forKey: "data") as? NSArray{
                                 print(detailArray)
                                 if detailArray.count > 0{
@@ -299,7 +319,9 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                                 isCheckedIn = false
                                                 DispatchQueue.main.async {
                                                     self.checkInTimeValueLabel.text = "Let's go"
-                                                    
+                                                    scrollView?.isScrollEnabled = true
+                                                    self.swipeImage.alpha = 1.0
+                                                    self.locationUpdateLabel.alpha = 1.0
                                                 }
                                                 
                                             }
@@ -314,10 +336,17 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                                         if !checkOutValue.isEmpty{
                                                             let value = self.ConvertTimeStampToRequiredHours(dateValue: checkOutValue)
                                                             self.checkOutTimeValueLabel.text = "\(value)"
-                                                            
+                                                            scrollView?.isScrollEnabled = false
+                                                            self.swipeImage.alpha = 0.0
+                                                            self.locationUpdateLabel.alpha = 0.0
+
                                                         }
                                                         else{
                                                             self.checkOutTimeValueLabel.text = "Pending"
+                                                            scrollView?.isScrollEnabled = true
+                                                            self.swipeImage.alpha = 1.0
+                                                            self.locationUpdateLabel.alpha = 1.0
+
                                                             
                                                         }
                                                     }
@@ -377,7 +406,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         if let location = locations.first {
             print(location)
             
-            locationUpdateLabel.text = "You are allowed to mark attendance"
+//            locationUpdateLabel.text = "You are allowed to mark attendance"
             locationManager.stopUpdatingLocation()
             // Techies Office Location = 30.892668,75.8225618
             // Grand Walk Location = 30.8868835,75.7906816
@@ -438,6 +467,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      */
     
     func MarkAttendanceOnServer(){
+        
         if IsConnectionAvailable(){
             NotificationCenter.default.removeObserver(self)
             
@@ -521,15 +551,15 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     
     func ShowAlert() -> UIAlertController{
         let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+//        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+//            self.dismiss(animated: false, completion: nil)
+//            print("Cancel")
+//        }
+        let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
-            print("Cancel")
+            print("Okay")
         }
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-            self.dismiss(animated: false, completion: nil)
-            print("OK")
-        }
-        alertController.addAction(cancelAction)
+//        alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         //        _ = self.present(alertController, animated: true, completion: nil)
         return alertController

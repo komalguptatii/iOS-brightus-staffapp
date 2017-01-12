@@ -49,8 +49,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-//        emailTextField.text = "staff@maildrop.cc"
-//        passwordTextField.text = "staff"
+        emailTextField.text = "trainer1@maildrop.cc"
+        passwordTextField.text = "123456"
 
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -230,15 +230,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func ShowAlert() -> UIAlertController{
         let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+//        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+//            self.dismiss(animated: false, completion: nil)
+//            print("Cancel")
+//        }
+        let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
-            print("Cancel")
+            print("Okay")
         }
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-            self.dismiss(animated: false, completion: nil)
-            print("OK")
-        }
-        alertController.addAction(cancelAction)
+//        alertController.addAction(cancelAction)
         alertController.addAction(okAction)
 //        _ = self.present(alertController, animated: true, completion: nil)
         return alertController
@@ -410,14 +410,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
                 self.performSelector(inBackground: #selector(ViewController.ViewProfile), with: nil)
 
-                //Perform Segue i.e. Navigate to DashboardView after successful Login process
-                DispatchQueue.main.async {
-                    self.indicator.removeFromSuperview()
-                    self.view.isUserInteractionEnabled = true
-                    self.view.window?.isUserInteractionEnabled = true
-                    
-                    self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
-                }
 
             }
 
@@ -483,6 +475,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                 print(dict)
                                 
+                                let userType = dict.value(forKey: "user_type") as! String
+                                
                                 //Get User name from here
                                 defaults.setValue(dict.value(forKey: "name")!, forKey: "name")
                                 defaults.setValue(dict.value(forKey: "id"), forKey: "userId")
@@ -500,7 +494,43 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                     }
                                 }
                                 defaults.synchronize()
-                                self.performSelector(inBackground: #selector(ViewController.getdeviceInfo), with: nil)
+                                if userType == "staff"{
+                                    self.performSelector(inBackground: #selector(ViewController.getdeviceInfo), with: nil)
+                                    
+                                    //Perform Segue i.e. Navigate to DashboardView after successful Login process
+                                    DispatchQueue.main.async {
+                                        
+                                        self.indicator.removeFromSuperview()
+                                        self.view.isUserInteractionEnabled = true
+                                        self.view.window?.isUserInteractionEnabled = true
+                                        
+                                        self.performSegue(withIdentifier: "showHomeViewController", sender: self.storyboard)
+                                    }
+                                }
+                                else{
+                                    DispatchQueue.main.async {
+                                        let alert = self.ShowAlert()
+                                        
+                                        alert.message = "Only Staff member can login here"
+                                        alert.title = "Alert"
+                                        
+                                        defaults.setValue("", forKey: "tokenType")
+                                        defaults.setValue("", forKey: "accessToken")
+                                        defaults.setValue("", forKey: "refreshToken")
+                                        defaults.setValue("", forKey: "name")
+                                        defaults.setValue("", forKey: "latitude")
+                                        defaults.setValue("", forKey: "longitude")
+                                        defaults.setValue("", forKey: "password")
+                                        
+                                        defaults.synchronize()
+
+                                        _ = self.present(alert, animated: true, completion: nil)
+                                        self.indicator.removeFromSuperview()
+                                        self.view.isUserInteractionEnabled = true
+                                        self.view.window?.isUserInteractionEnabled = true
+
+                                    }
+                                }
 
                             }
                         }
@@ -549,6 +579,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         
         deviceInfo(appBuild, appVersion: appVersion, deviceModel: model, deviceName: name, systemName: systemName, systemVersion: systemVersion)
+        
     }
     
     /**

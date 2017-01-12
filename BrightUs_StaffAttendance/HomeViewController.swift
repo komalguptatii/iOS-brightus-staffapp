@@ -80,6 +80,15 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         self.onSlideMenuButtonPressed(sender as! UIBarButtonItem)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Hello a")
+
+    }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("Hello")
+    }
  
 }

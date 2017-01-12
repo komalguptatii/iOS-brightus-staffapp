@@ -266,9 +266,9 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
             self.dismiss(animated: false, completion: nil)
             print("Cancel")
         }
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+        let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
-            print("OK")
+            print("Okay")
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
