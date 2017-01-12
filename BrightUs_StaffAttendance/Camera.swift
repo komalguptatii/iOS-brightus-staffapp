@@ -69,7 +69,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         self.addVideoPreviewLayer()
         self.initializeQRView()
 
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(Camera.StartObjectCatureAgain), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     /**
@@ -88,26 +88,24 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        
         self.performSelector(inBackground: #selector(Camera.GetSnapshotFromFirebase), with: nil)
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func StartObjectCatureAgain(){
         DispatchQueue.main.async {
             if ((self.objCaptureSession?.startRunning()) != nil){
                 self.objCaptureSession?.stopRunning()
                 self.vwQRCode?.frame = CGRect.zero
-
+                
                 self.objCaptureSession?.startRunning()
             }
             else{
                 self.vwQRCode?.frame = CGRect.zero
                 self.objCaptureSession?.startRunning()
             }
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         }
+    
     }
     
     /**
@@ -408,15 +406,15 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     func ShowAlert() -> UIAlertController{
         let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
-            self.dismiss(animated: false, completion: nil)
-            print("Cancel")
-        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+//            self.dismiss(animated: false, completion: nil)
+//            print("Cancel")
+//        }
         let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
             print("Okay")
         }
-        alertController.addAction(cancelAction)
+//        alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         //        _ = self.present(alertController, animated: true, completion: nil)
         return alertController

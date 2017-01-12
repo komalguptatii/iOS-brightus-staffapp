@@ -54,6 +54,11 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var noDataImage: UIImageView!
     
     /**
+ 
+    */
+    @IBOutlet var searchButton: UIButton!
+    
+    /**
      * Indicator to let user know about data loading
      */
     var indicator = UIActivityIndicatorView()
@@ -143,6 +148,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         fromDateButton.isUserInteractionEnabled = false
         toDateButton.isUserInteractionEnabled = false
         
+        self.searchButton.isEnabled = false
+
         if IsConnectionAvailable(){
             self.view.addSubview(indicator)
             self.indicator.startAnimating()
@@ -196,19 +203,22 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.attendanceDetailArray.removeAllObjects()
         self.detailTableView.reloadData()
-        
+        self.searchButton.isEnabled = false
         if IsConnectionAvailable(){
             self.view.addSubview(indicator)
             self.indicator.startAnimating()
             self.view.bringSubview(toFront: indicator)
-
+            
             self.view.isUserInteractionEnabled = false
             self.view.window?.isUserInteractionEnabled = false
             
             self.performSelector(inBackground: #selector(DetailsViewController.GetAttendanceDetails), with: nil)
+            
 
         }
         else{
+            self.searchButton.isEnabled = true
+
             let alert = ShowAlert()
             alert.title = "Alert"
             alert.message = "Check Network Connection"
@@ -247,6 +257,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             let selectedDateFormatter = DateFormatter()
             selectedDateFormatter.dateFormat = "dd-MM-yyyy"
             
+            self.searchButton.isEnabled = true
+
             
             if datePickerView.tag == 1{
                 isSelectedFromDate = true
@@ -527,6 +539,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         if selectedFilter != "custom"{
             if IsConnectionAvailable(){
                 
+                self.searchButton.isEnabled = true
+
                 self.view.addSubview(indicator)
                 self.indicator.startAnimating()
                 self.view.bringSubview(toFront: indicator)
@@ -537,6 +551,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
             }
             else{
+                self.searchButton.isEnabled = true
+
                 let alert = ShowAlert()
                 alert.title = "Alert"
                 alert.message = "Check Network Connection"
@@ -544,6 +560,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
             }
         }
+        
         
     }
     
@@ -636,6 +653,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                                             self.noDataImage.alpha = 0.0
 
                                             self.detailTableView.reloadData()
+                                            self.searchButton.isEnabled = true
+
                                         }
                                     }
                                     else{
@@ -658,6 +677,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 print(dict)
                                 
                                 DispatchQueue.main.async {
+                                    self.searchButton.isEnabled = true
+
                                     let alert = self.ShowAlert()
                                     
                                     alert.message = "\(dict.value(forKey: "message"))"
@@ -674,6 +695,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 print(dict)
                                 
                                 DispatchQueue.main.async {
+                                    self.searchButton.isEnabled = true
+
                                     let alert = self.ShowAlert()
                                     
                                     alert.message = "\(dict.value(forKey: "message"))"

@@ -29,6 +29,10 @@ class UserProfile: UIViewController, UITextFieldDelegate {
     @IBOutlet var roleLabel: HoshiTextField!
     
     /**
+     * Every individual has its unique pin
+    */
+    @IBOutlet var pinCode: HoshiTextField!
+    /**
      * Indicator to let user know about data loading
      */
     var indicator = UIActivityIndicatorView()
@@ -119,6 +123,7 @@ class UserProfile: UIViewController, UITextFieldDelegate {
                                     self.nameLabel.text = dict.value(forKey: "name") as? String
                                     self.emailLabel.text = dict.value(forKey: "email") as? String
                                     self.roleLabel.text = dict.value(forKey: "role") as? String
+                                    self.pinCode.text = dict.value(forKey: "pin") as? String
                                     
                                 }
                             }
@@ -138,8 +143,8 @@ class UserProfile: UIViewController, UITextFieldDelegate {
             
         }
     }
-    //MARK: - Alert Controller
     
+    //MARK: - Alert Controller
     
     /**
      Alert Controller Method

@@ -117,6 +117,8 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         print(attendanceDetailButton.frame)
         
         if screenheight <= 568{
+            swipeImage.frame = CGRect(x: 37.0, y: 422.0, width: 9.0, height: 10.0)
+            locationUpdateLabel.frame = CGRect(x: 58.0, y: 415.0, width: 220.0, height: 21.0)
             attendanceDetailButton.frame = CGRect(x: 0, y: 439, width: 320, height: 65)
         }
     }
@@ -156,12 +158,12 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             print("Observer added")
             
             let controller = self.parent as? HomeViewController
-            controller?.title = "Camera"
+            controller?.title = "Mark Attendance"
             controller?.navigationItem.leftBarButtonItem?.isEnabled = false
 
             NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
         }
-        else{
+        else if (scrollView.contentOffset.x <= self.view.frame.width){
             let controller = self.parent as? HomeViewController
             controller?.title = "Dashboard"
             controller?.navigationItem.leftBarButtonItem?.isEnabled = true
