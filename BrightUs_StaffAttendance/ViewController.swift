@@ -494,8 +494,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                     }
                                 }
                                 defaults.synchronize()
+                                
                                 if userType == "staff"{
-                                    self.performSelector(inBackground: #selector(ViewController.getdeviceInfo), with: nil)
+                                    self.perform(#selector(ViewController.getdeviceInfo))
+//                                    self.performSelector(inBackground: #selector(ViewController.getdeviceInfo), with: nil)
                                     
                                     //Perform Segue i.e. Navigate to DashboardView after successful Login process
                                     DispatchQueue.main.async {
@@ -511,7 +513,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                     DispatchQueue.main.async {
                                         let alert = self.ShowAlert()
                                         
-                                        alert.message = "Only Staff member can login here"
+                                        alert.message = "Only Staff member can use this app"
                                         alert.title = "Alert"
                                         
                                         defaults.setValue("", forKey: "tokenType")

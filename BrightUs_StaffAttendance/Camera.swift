@@ -56,6 +56,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     */
     var userId = ""
     
+    var isAlertAvailable = false
     //MARK: - Methods
     
     /**
@@ -65,6 +66,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     
+        
         self.configureVideoCapture()
         self.addVideoPreviewLayer()
         self.initializeQRView()
@@ -127,10 +129,14 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             
         }
         else{
-            let alert = ShowAlert()
-            alert.title = "Alert"
-            alert.message = "Check Network Connection"
-            _ = self.present(alert, animated: true, completion: nil)
+            if !self.isAlertAvailable{
+                self.isAlertAvailable = true
+                
+                let alert = ShowAlert()
+                alert.title = "Alert"
+                alert.message = "Check Network Connection"
+                _ = self.present(alert, animated: true, completion: nil)
+            }
             
         }
     }
@@ -264,7 +270,10 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         if IsConnectionAvailable(){
             print(snapshotReference)
             print(userId)
-            if let dict = snapshotReference.childSnapshot(forPath: userId) as? FIRDataSnapshot{
+            if userId.isEmpty{
+               return
+            }
+            if let dict : FIRDataSnapshot = snapshotReference.childSnapshot(forPath: userId){
                 print(dict)
                 if dict.childrenCount != 0{
                     print(dict.childrenCount)
@@ -351,10 +360,14 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                         self.vwQRCode?.frame = CGRect.zero
                         self.objCaptureSession?.startRunning()
 
-                        let alert = self.ShowAlert()
-                        alert.title = "Alert"
-                        alert.message = "Invalid Code"
-                        _ = self.present(alert, animated: true, completion: nil)
+                        if !self.isAlertAvailable{
+                            self.isAlertAvailable = true
+                            let alert = self.ShowAlert()
+                            alert.title = "Alert"
+                            alert.message = "Invalid Code"
+                            _ = self.present(alert, animated: true, completion: nil)
+                        }
+                        
 
                     }
                 }
@@ -363,10 +376,24 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             
         }
         else{
-            let alert = ShowAlert()
-            alert.title = "Alert"
-            alert.message = "Check Network Connection"
-            _ = self.present(alert, animated: true, completion: nil)
+            
+            DispatchQueue.main.async {
+                self.objCaptureSession?.stopRunning()
+                self.randomQRCode = ""
+                
+                self.vwQRCode?.frame = CGRect.zero
+                self.objCaptureSession?.startRunning()
+                
+                if !self.isAlertAvailable{
+                    self.isAlertAvailable = true
+                    
+                    let alert = self.ShowAlert()
+                    alert.title = "Alert"
+                    alert.message = "Check Network Connection"
+                    _ = self.present(alert, animated: true, completion: nil)
+                }
+                
+            }
             
         }
 
@@ -412,6 +439,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 //        }
         let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
+            self.isAlertAvailable = false
             print("Okay")
         }
 //        alertController.addAction(cancelAction)

@@ -136,7 +136,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         filterPickerView.isUserInteractionEnabled = false
         
         doneButton.isHidden = true
-        doneButton.isUserInteractionEnabled = false
+        doneButton.isEnabled = false
+        
         datePickerCustomView.isHidden = true
         datePickerView.isHidden = true
         datePickerView.isUserInteractionEnabled = false
@@ -242,8 +243,51 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.detailTableView.reloadData()
 
 
+            if selectedFilter == "custom"{
+                fromDateButton.isUserInteractionEnabled = true
+                toDateButton.isUserInteractionEnabled = true
+            }
+            else if selectedFilter == "this week"{
+                selectedFilter = "this_week"
+            }
+            else if selectedFilter == "last week"{
+                selectedFilter = "last_week"
+                
+            }
+            else if selectedFilter == "this month"{
+                selectedFilter = "this_month"
+            }
+            else if selectedFilter == "last month"{
+                selectedFilter = "last_month"
+            }
+            
+            if selectedFilter != "custom"{
+                if IsConnectionAvailable(){
+                    
+                    self.searchButton.isEnabled = true
+                    
+                    self.view.addSubview(indicator)
+                    self.indicator.startAnimating()
+                    self.view.bringSubview(toFront: indicator)
+                    
+                    self.view.isUserInteractionEnabled = false
+                    self.view.window?.isUserInteractionEnabled = false
+                    self.performSelector(inBackground: #selector(DetailsViewController.GetAttendanceDetails), with: nil)
+                    
+                }
+                else{
+                    self.searchButton.isEnabled = true
+                    
+                    let alert = ShowAlert()
+                    alert.title = "Alert"
+                    alert.message = "Check Network Connection"
+                    _ = self.present(alert, animated: true, completion: nil)
+                    
+                }
+            }
+
             doneButton.isHidden = true
-            doneButton.isUserInteractionEnabled = false
+            doneButton.isEnabled = false
             
             filterPickerView.isHidden = true
             filterPickerView.isUserInteractionEnabled = false
@@ -271,7 +315,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
             doneButton.isHidden = true
-            doneButton.isUserInteractionEnabled = false
+            doneButton.isEnabled = false
 
             datePickerCustomView.isHidden = true
             datePickerView.isHidden = true
@@ -308,7 +352,6 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         toDateButton.isUserInteractionEnabled = false
 
         doneButton.isHidden = false
-        doneButton.isUserInteractionEnabled = true
         doneButton.tag = 0
         
         filterPickerView.isHidden = false
@@ -327,7 +370,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     @IBAction func FromDateButtonAction(_ sender: UIButton) {
         doneButton.isHidden = false
-        doneButton.isUserInteractionEnabled = true
+        doneButton.isEnabled = true
         
         datePickerCustomView.isHidden = false
 
@@ -352,7 +395,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         if isSelectedFromDate{
             
             doneButton.isHidden = false
-            doneButton.isUserInteractionEnabled = true
+            doneButton.isEnabled = true
             doneButton.tag = 1
 
             datePickerCustomView.isHidden = false
@@ -513,54 +556,13 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
      *didSelectRow in PickerView
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.attendanceDetailArray.removeAllObjects()
-        self.detailTableView.reloadData()
+//        self.attendanceDetailArray.removeAllObjects()
+//        self.detailTableView.reloadData()
 
         selectedFilter = filterValueArray[row]
         print(selectedFilter)
-        if selectedFilter == "custom"{
-            fromDateButton.isUserInteractionEnabled = true
-            toDateButton.isUserInteractionEnabled = true
-        }
-        else if selectedFilter == "this week"{
-            selectedFilter = "this_week"
-        }
-        else if selectedFilter == "last week"{
-            selectedFilter = "last_week"
+        doneButton.isEnabled = true
 
-        }
-        else if selectedFilter == "this month"{
-            selectedFilter = "this_month"
-        }
-        else if selectedFilter == "last month"{
-            selectedFilter = "last_month"
-        }
-        
-        if selectedFilter != "custom"{
-            if IsConnectionAvailable(){
-                
-                self.searchButton.isEnabled = true
-
-                self.view.addSubview(indicator)
-                self.indicator.startAnimating()
-                self.view.bringSubview(toFront: indicator)
-
-                self.view.isUserInteractionEnabled = false
-                self.view.window?.isUserInteractionEnabled = false
-                self.performSelector(inBackground: #selector(DetailsViewController.GetAttendanceDetails), with: nil)
-                
-            }
-            else{
-                self.searchButton.isEnabled = true
-
-                let alert = ShowAlert()
-                alert.title = "Alert"
-                alert.message = "Check Network Connection"
-                _ = self.present(alert, animated: true, completion: nil)
-                
-            }
-        }
-        
         
     }
     

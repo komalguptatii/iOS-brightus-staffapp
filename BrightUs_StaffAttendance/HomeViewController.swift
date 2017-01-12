@@ -30,21 +30,23 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         //Added Dashboard Controller and Camera as child to HomeView
         
         let dashboardController = self.storyboard?.instantiateViewController(withIdentifier: "DashboardView") as! DashboardView
-        let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "Camera") as! Camera
         
         
         self.addChildViewController(dashboardController)
         self.mainScrollView.addSubview(dashboardController.view)
         dashboardController.didMove(toParentViewController: self)
+       
+//        let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "Camera") as! Camera
+//        
+//        self.addChildViewController(cameraController)
+//        self.mainScrollView.addSubview(cameraController.view)
+//        cameraController.didMove(toParentViewController: self)
         
-        self.addChildViewController(cameraController)
-        self.mainScrollView.addSubview(cameraController.view)
-        cameraController.didMove(toParentViewController: self)
         
-        
-        var cameraFrame : CGRect = cameraController.view.frame
-        cameraFrame.origin.x = self.view.frame.width
-        cameraController.view.frame = cameraFrame
+//        var cameraFrame : CGRect = cameraController.view.frame
+//        cameraFrame.origin.x = self.view.frame.width
+//        cameraController.view.frame = cameraFrame
+
         
         //Changed Content Size of Scroll View
         mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
@@ -80,15 +82,4 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         self.onSlideMenuButtonPressed(sender as! UIBarButtonItem)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("Hello a")
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("Hello")
-    }
- 
 }

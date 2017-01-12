@@ -360,13 +360,11 @@
 					};
 					91EC4A6F1DFE6A24008F874D = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = C4UY7M99L8;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 91EC4A5B1DFE6A22008F874D;
 					};
 					91EC4A7A1DFE6A24008F874D = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = C4UY7M99L8;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 91EC4A5B1DFE6A22008F874D;
 					};
@@ -777,11 +775,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = C4UY7M99L8;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BrightUs_StaffAttendanceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrightUs_StaffAttendance.app/BrightUs_StaffAttendance";
 			};
@@ -793,11 +793,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = C4UY7M99L8;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BrightUs_StaffAttendanceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrightUs_StaffAttendance.app/BrightUs_StaffAttendance";
 			};
@@ -808,11 +810,13 @@
 			baseConfigurationReference = A8B03A1A8015DBDFF2A3E964 /* Pods-BrightUs_StaffAttendanceUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = C4UY7M99L8;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BrightUs_StaffAttendanceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BrightUs_StaffAttendance;
 			};
@@ -823,11 +827,13 @@
 			baseConfigurationReference = 5DDBEE74833556A2E56361A8 /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = C4UY7M99L8;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BrightUs_StaffAttendanceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BrightUs_StaffAttendance;
 			};

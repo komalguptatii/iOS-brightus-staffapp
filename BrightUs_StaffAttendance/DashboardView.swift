@@ -69,6 +69,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     */
     @IBOutlet var attendanceDetailButton: UIButton!
     
+    let cameraController = Camera()
     //MARK: - Methods
     
     /**
@@ -161,15 +162,49 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             controller?.title = "Mark Attendance"
             controller?.navigationItem.leftBarButtonItem?.isEnabled = false
 
+            
+            controller?.addChildViewController(cameraController)
+            controller?.mainScrollView.addSubview(cameraController.view)
+            cameraController.didMove(toParentViewController: self)
+           
+            cameraController.vwQRCode?.frame = CGRect.zero
+            
+            cameraController.objCaptureSession?.startRunning()
+
+            
+            var cameraFrame : CGRect = cameraController.view.frame
+            cameraFrame.origin.x = self.view.frame.width
+            cameraController.view.frame = cameraFrame
+            
             NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.RemoveController), name: NSNotification.Name(rawValue: "remove"), object: nil)
+
         }
         else if (scrollView.contentOffset.x <= self.view.frame.width){
+           
             let controller = self.parent as? HomeViewController
             controller?.title = "Dashboard"
             controller?.navigationItem.leftBarButtonItem?.isEnabled = true
+
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
+            
+
         }
         
     }
+    
+    func RemoveController(){
+        cameraController.vwQRCode?.frame = CGRect.zero
+        
+        cameraController.objCaptureSession?.stopRunning()
+        cameraController.didMove(toParentViewController: nil)
+        cameraController.view.removeFromSuperview()
+        cameraController.removeFromParentViewController()
+        //
+        //            print("I am done")
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "remove"), object: nil)
+    }
+
     
     //MARK: - Button Action
     /**
@@ -470,6 +505,8 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     
     func MarkAttendanceOnServer(){
         
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
+        
         if IsConnectionAvailable(){
             NotificationCenter.default.removeObserver(self)
             
@@ -511,6 +548,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                 print(httpResponseValue.statusCode)
                                 if httpResponseValue.statusCode == 200 {
                                     
+
                                     if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                         print(dict)
                                     }
