@@ -93,7 +93,7 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
         else{
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
         }
@@ -117,7 +117,7 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
         if !emptyCurrentPassword{
             
             
-            alert.message = "Current Password can't be empty"
+            alert.message = "Current Password is required"
             _ = self.present(alert, animated: true, completion: nil)
             
             return false
@@ -131,13 +131,13 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
         }
         else if !emptyNewPassword{
             
-            alert.message = "New Password can't be empty"
+            alert.message = "New Password is required"
             _ = self.present(alert, animated: true, completion: nil)
             
             return false
         }
         else if !emptyConfirmPassword{
-            alert.message = "Confirm Password can't be empty"
+            alert.message = "Confirm Password is required"
             _ = self.present(alert, animated: true, completion: nil)
 
             return false
@@ -200,6 +200,7 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
                                 
                                 DispatchQueue.main.async {
                                     let alert = self.ShowAlert()
+                                    alert.title = "Done"
                                     alert.message = "Password is successfully changed"
                                     _ = self.present(alert, animated: true, completion: nil)
                                     _ = self.navigationController?.popViewController(animated: true)
@@ -248,6 +249,12 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
                             
                         }
                     }
+                    else if let error = error{
+                        let alert = self.ShowAlert()
+                        alert.title = "Alert"
+                        alert.message = error.localizedDescription
+                        _ = self.present(alert, animated: true, completion: nil)
+                    }
                 }
                 catch{
                     print(error)
@@ -278,15 +285,15 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
     
     func ShowAlert() -> UIAlertController{
         let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
-            self.dismiss(animated: false, completion: nil)
-            print("Cancel")
-        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+//            self.dismiss(animated: false, completion: nil)
+//            print("Cancel")
+//        }
         let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
             print("Okay")
         }
-        alertController.addAction(cancelAction)
+//        alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         //        _ = self.present(alertController, animated: true, completion: nil)
         return alertController

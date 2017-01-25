@@ -109,6 +109,8 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
      */
     func updateArrayMenuOptions(){
         arrayMenuOptions.append(["title":"Profile", "icon":""])
+        arrayMenuOptions.append(["title":"Attendance details", "icon":""])
+
         arrayMenuOptions.append(["title":"Logout", "icon":""])
 
         tblMenuOptions.reloadData()
@@ -235,6 +237,9 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
                 self.NavigateToProfile()
             }
             else if indexPath.row == 1{
+                self.NavigateToAttendanceDetail()
+            }
+            else if indexPath.row == 2{
                 self.LogoutCall()
             }
             
@@ -253,6 +258,16 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "UserProfile") as UIViewController
         self.navigationController?.show(vc, sender: nil)
+    }
+    
+    /**
+     * NavigateToAttendanceDetail Method
+    */
+    func NavigateToAttendanceDetail(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "AttendanceDetail") as UIViewController
+        self.navigationController?.show(vc, sender: nil)
+        
     }
     
     /**

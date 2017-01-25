@@ -60,7 +60,7 @@ class UserProfile: UIViewController, UITextFieldDelegate {
         else{
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
         }
@@ -129,6 +129,12 @@ class UserProfile: UIViewController, UITextFieldDelegate {
                             }
                         }
                     }
+                }
+                else if let error = error{
+                    let alert = self.ShowAlert()
+                    alert.title = "Alert"
+                    alert.message = error.localizedDescription
+                    _ = self.present(alert, animated: true, completion: nil)
                 }
             }
             catch{

@@ -16,6 +16,8 @@
 		2978FCD61E0A58F50038AE06 /* TextFieldsEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */; };
 		2986AAFC1E12339B009D75C6 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2986AAFB1E12339B009D75C6 /* UserProfile.swift */; };
 		2986AAFE1E1233FF009D75C6 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2986AAFD1E1233FF009D75C6 /* ChangePassword.swift */; };
+		29A37A5A1E388AC70001384D /* TiiGreetingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A37A591E388AC70001384D /* TiiGreetingCell.swift */; };
+		29A37A5C1E388ADD0001384D /* TiiCheckInOutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A37A5B1E388ADD0001384D /* TiiCheckInOutCell.swift */; };
 		29DEFC461E03D1F500098D75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */; };
 		522276C7223AC4C9CAE7E364 /* Pods_BrightUs_StaffAttendanceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */; };
 		91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EC4A5F1DFE6A24008F874D /* AppDelegate.swift */; };
@@ -64,6 +66,8 @@
 		2978FCD41E0A58F50038AE06 /* TextFieldsEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldsEffects.swift; sourceTree = "<group>"; };
 		2986AAFB1E12339B009D75C6 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		2986AAFD1E1233FF009D75C6 /* ChangePassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
+		29A37A591E388AC70001384D /* TiiGreetingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiiGreetingCell.swift; sourceTree = "<group>"; };
+		29A37A5B1E388ADD0001384D /* TiiCheckInOutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiiCheckInOutCell.swift; sourceTree = "<group>"; };
 		29DEFC451E03D1F500098D75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DDBEE74833556A2E56361A8 /* Pods-BrightUs_StaffAttendanceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceUITests/Pods-BrightUs_StaffAttendanceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 				91EC4A611DFE6A24008F874D /* ViewController.swift */,
 				91EC4A901DFE6F1F008F874D /* HomeViewController.swift */,
 				91EC4A9A1DFE823D008F874D /* DashboardView.swift */,
+				29A37A591E388AC70001384D /* TiiGreetingCell.swift */,
+				29A37A5B1E388ADD0001384D /* TiiCheckInOutCell.swift */,
 			);
 			name = HomeControllers;
 			sourceTree = "<group>";
@@ -572,6 +578,8 @@
 				91EC4A601DFE6A24008F874D /* AppDelegate.swift in Sources */,
 				2986AAFE1E1233FF009D75C6 /* ChangePassword.swift in Sources */,
 				2978FCD61E0A58F50038AE06 /* TextFieldsEffects.swift in Sources */,
+				29A37A5C1E388ADD0001384D /* TiiCheckInOutCell.swift in Sources */,
+				29A37A5A1E388AC70001384D /* TiiGreetingCell.swift in Sources */,
 				91EE38FB1DFEA3B400CD7838 /* Reachability.swift in Sources */,
 				91EE38F61DFE900A00CD7838 /* DetailsViewController.swift in Sources */,
 				91EC4A8E1DFE6C93008F874D /* ForgotPassViewController.swift in Sources */,
@@ -736,15 +744,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Komal Gupta (Q37L3L3LZB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Komal Gupta (Q37L3L3LZB)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Techies India Inc. (C4UY7M99L8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Techies India Inc. (C4UY7M99L8)";
 				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.brightus.techies.StaffApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1c12437d-a6bc-4dc0-b83d-b55fbf9153da";
-				PROVISIONING_PROFILE_SPECIFIER = staffAppDev;
+				PROVISIONING_PROFILE = "7869b2fe-5722-4fdc-a1c3-400982d72b06";
+				PROVISIONING_PROFILE_SPECIFIER = StaffAppDis;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -756,15 +764,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Komal Gupta (Q37L3L3LZB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Komal Gupta (Q37L3L3LZB)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Techies India Inc. (C4UY7M99L8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Techies India Inc. (C4UY7M99L8)";
 				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.brightus.techies.StaffApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1c12437d-a6bc-4dc0-b83d-b55fbf9153da";
-				PROVISIONING_PROFILE_SPECIFIER = staffAppDev;
+				PROVISIONING_PROFILE = "7869b2fe-5722-4fdc-a1c3-400982d72b06";
+				PROVISIONING_PROFILE_SPECIFIER = StaffAppDis;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

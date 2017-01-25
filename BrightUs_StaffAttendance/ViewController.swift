@@ -158,7 +158,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         else{
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
         }
@@ -185,20 +185,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
         if !emptyEmail{
             
-            alert.message = "Email cannot be empty."
+            alert.message = "Email is required"
             _ = self.present(alert, animated: true, completion: nil)
             return false
         }
         else if !emailCheck {
             
-            alert.message = "Invailid email address"
+            alert.message = "Please enter the vailid email address"
             _ = self.present(alert, animated: true, completion: nil)
 
             return false
         }
         else if !emptyPassword {
             
-            alert.message = "Password cannot be empty."
+            alert.message = "Password is required"
             _ = self.present(alert, animated: true, completion: nil)
             return false
         }
@@ -330,6 +330,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             
                         }
                     }
+                    else if let error = error{
+                        let alert = self.ShowAlert()
+                        alert.title = "Alert"
+                        alert.message = error.localizedDescription
+                        _ = self.present(alert, animated: true, completion: nil)
+                    }
                 }
                 catch{
                     print("Error")
@@ -386,6 +392,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         }
                     }
                 }
+                else if let error = error{
+                    let alert = self.ShowAlert()
+                    alert.title = "Alert"
+                    alert.message = error.localizedDescription
+                    _ = self.present(alert, animated: true, completion: nil)
+                }
             }
             catch{
                print("Error")
@@ -417,7 +429,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         else{
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
         }
@@ -538,6 +550,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         }
                     }
                 }
+                else if let error = error{
+                    let alert = self.ShowAlert()
+                    alert.title = "Alert"
+                    alert.message = error.localizedDescription
+                    _ = self.present(alert, animated: true, completion: nil)
+                }
             }
             catch{
                 print("Error")
@@ -594,7 +612,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let branchCode = defaults.value(forKey: "branchCode") as! String
         
         let ref = FIRDatabase.database().reference()
-//        ref.child("iOSstaffApp").observeSingleEvent(of: .value, with: {(snapshot) in
         
             let infoDict = NSMutableDictionary()
             infoDict.setValue(appBuild, forKey: "appBuild")
@@ -603,11 +620,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             infoDict.setValue(deviceName, forKey: "deviceName")
             infoDict.setValue(systemName, forKey: "systemName")
             infoDict.setValue(systemVersion, forKey: "systemVersion")
-            
-//            ref.child("mainAttendanceApp").child("branches").child(branchCode).child("deviceInfo").child("users").child(userId).setValue(infoDict)
-            
-            ref.child("iOSstaffApp").child("branches").child(branchCode).child("deviceInfo").child("users").child("\(userId)").setValue(infoDict)
+        
+        ref.child("iOSstaffApp").child("branches").child(branchCode).child("deviceInfo").child("users").child("\(userId)").setValue(infoDict)
 
-//        })
     }
 }

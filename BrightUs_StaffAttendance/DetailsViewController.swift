@@ -74,9 +74,9 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var attendanceDetailArray = NSMutableArray()
     
     /**
-     * Selected Filer Value, default is "Today"
+     * Selected Filer Value, default is "this_week"
      */
-    var selectedFilter = "today"
+    var selectedFilter = "this_week"
     
     /**
      * Bool to check that From Date is selected before moving to selection of End date
@@ -165,7 +165,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         else{
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
         }
@@ -222,7 +222,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
         }
@@ -280,7 +280,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                     let alert = ShowAlert()
                     alert.title = "Alert"
-                    alert.message = "Check Network Connection"
+                    alert.message = "Check the internet connection on your device"
                     _ = self.present(alert, animated: true, completion: nil)
                     
                 }
@@ -341,7 +341,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         datePickerView.isHidden = true
         datePickerView.isUserInteractionEnabled = false
         
-        selectedFilter = "today"
+        selectedFilter = "this_week"
         selectedFromDate = "From Date"
         selectedToDate = "To Date"
         fromDateButton.setTitle(selectedFromDate, for: UIControlState.normal)
@@ -711,6 +711,12 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
                         }
                     }
+                }
+                else if let error = error{
+                    let alert = self.ShowAlert()
+                    alert.title = "Alert"
+                    alert.message = error.localizedDescription
+                    _ = self.present(alert, animated: true, completion: nil)
                 }
             }
             catch{

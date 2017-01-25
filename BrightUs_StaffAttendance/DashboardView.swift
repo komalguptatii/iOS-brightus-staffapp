@@ -12,7 +12,7 @@ import MapKit
 
 /// Dashboard View - Display time, greet user , check - in/out timings, Mark Attendance
 
-class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDelegate {
+class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     /**
      * Current Date will be displayed on this label
@@ -64,10 +64,14 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     */
     @IBOutlet var timeImage: UIImageView!
     
+    @IBOutlet var dashboardTableView: UITableView!
+    
+    @IBOutlet var markAttendanceButton: UIButton!
+    
     /**
      * Attendance Detail Button
     */
-    @IBOutlet var attendanceDetailButton: UIButton!
+//    @IBOutlet var attendanceDetailButton: UIButton!
     
     let cameraController = Camera()
     //MARK: - Methods
@@ -79,6 +83,11 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        dashboardTableView.delegate = self
+        dashboardTableView.dataSource = self
+        dashboardTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        dashboardTableView.backgroundColor = UIColor.lightGray
+
         //Change Navigation Bar tint color according to theme
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 222.0/255.0, green: 60.0/255.0, blue: 77.0/255.0, alpha: 1.0)
         
@@ -98,7 +107,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         else{
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
         }
@@ -115,12 +124,12 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         
         scrollView?.delegate = self
         
-        print(attendanceDetailButton.frame)
+//        print(attendanceDetailButton.frame)
         
         if screenheight <= 568{
             swipeImage.frame = CGRect(x: 37.0, y: 422.0, width: 9.0, height: 10.0)
             locationUpdateLabel.frame = CGRect(x: 58.0, y: 415.0, width: 220.0, height: 21.0)
-            attendanceDetailButton.frame = CGRect(x: 0, y: 439, width: 320, height: 65)
+//            attendanceDetailButton.frame = CGRect(x: 0, y: 439, width: 320, height: 65)
         }
     }
     
@@ -146,6 +155,64 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         }
     }
     
+    
+    //MARK: - TableView Delegate & Datasource
+    
+    /**
+     Number of Sections in TableView
+     
+     - parameter return : number of sections
+     
+     */
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    /**
+     Number of Rows in Section
+     
+     - parameter return : number of rows in one section
+     
+     */
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0{
+            return 1
+        }
+        return 2
+    }
+
+    /**
+     Height of Row
+     
+     - parameter return : CGFLoat (height)
+     
+     */
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0{
+            return 200.0
+        }
+        else{
+            return 120.0
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0{
+            let greetingCell = tableView.dequeueReusableCell(withIdentifier: "GreetCell", for: indexPath) as! TiiGreetingCell
+
+            return greetingCell
+        }
+        else{
+            let checkInOutCell = tableView.dequeueReusableCell(withIdentifier: "CheckCell", for: indexPath) as! TiiCheckInOutCell
+            
+            return checkInOutCell
+        }
+        
+    }
+    
     //MARK: - ScrollView Delegate
     /**
      scrollViewDidEndDecelerating Method
@@ -158,26 +225,26 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         if (scrollView.contentOffset.x >= self.view.frame.width){
             print("Observer added")
             
-            let controller = self.parent as? HomeViewController
-            controller?.title = "Mark Attendance"
-            controller?.navigationItem.leftBarButtonItem?.isEnabled = false
-
-            
-            controller?.addChildViewController(cameraController)
-            controller?.mainScrollView.addSubview(cameraController.view)
-            cameraController.didMove(toParentViewController: self)
-           
-            cameraController.vwQRCode?.frame = CGRect.zero
-            
-            cameraController.objCaptureSession?.startRunning()
-
-            
-            var cameraFrame : CGRect = cameraController.view.frame
-            cameraFrame.origin.x = self.view.frame.width
-            cameraController.view.frame = cameraFrame
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.RemoveController), name: NSNotification.Name(rawValue: "remove"), object: nil)
+//            let controller = self.parent as? HomeViewController
+//            controller?.title = "Mark Attendance"
+//            controller?.navigationItem.leftBarButtonItem?.isEnabled = false
+//
+//            
+//            controller?.addChildViewController(cameraController)
+//            controller?.mainScrollView.addSubview(cameraController.view)
+//            cameraController.didMove(toParentViewController: self)
+//           
+//            cameraController.vwQRCode?.frame = CGRect.zero
+//            
+//            cameraController.objCaptureSession?.startRunning()
+//
+//            
+//            var cameraFrame : CGRect = cameraController.view.frame
+//            cameraFrame.origin.x = self.view.frame.width
+//            cameraController.view.frame = cameraFrame
+//            
+//            NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+//            NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.RemoveController), name: NSNotification.Name(rawValue: "remove"), object: nil)
 
         }
         else if (scrollView.contentOffset.x <= self.view.frame.width){
@@ -186,6 +253,10 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             controller?.title = "Dashboard"
             controller?.navigationItem.leftBarButtonItem?.isEnabled = true
 
+            //
+            controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height - 64))
+            //
+            
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
             
 
@@ -213,12 +284,42 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      - parameter description : When user tap this button, app navigates to attendance detail section
      
      */
-    @IBAction func AttendanceDetailButtonAction(_ sender: UIButton) {
+    
+    @IBAction func TaptoMarkAttendance(_ sender: UIButton) {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "AttendanceDetail") as UIViewController
-        self.navigationController?.show(vc, sender: nil)
+        let controller = self.parent as? HomeViewController
+        controller?.title = "Mark Attendance"
+        controller?.navigationItem.leftBarButtonItem?.isEnabled = false
+        
+        
+        controller?.addChildViewController(cameraController)
+        controller?.mainScrollView.addSubview(cameraController.view)
+        cameraController.didMove(toParentViewController: self)
+        
+        //
+        controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
+        //
+        
+        cameraController.vwQRCode?.frame = CGRect.zero
+        
+        cameraController.objCaptureSession?.startRunning()
+        
+        
+        var cameraFrame : CGRect = cameraController.view.frame
+        cameraFrame.origin.x = self.view.frame.width
+        cameraController.view.frame = cameraFrame
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.RemoveController), name: NSNotification.Name(rawValue: "remove"), object: nil)
+        
     }
+    
+//    @IBAction func AttendanceDetailButtonAction(_ sender: UIButton) {
+//        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "AttendanceDetail") as UIViewController
+//        self.navigationController?.show(vc, sender: nil)
+//    }
     
     
     //MARK: - Display Methods
@@ -414,6 +515,12 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                         }
                     }
                 }
+                else if let error = error{
+                    let alert = self.ShowAlert()
+                    alert.title = "Alert"
+                    alert.message = error.localizedDescription
+                    _ = self.present(alert, animated: true, completion: nil)
+                }
             }
             catch{
                 print(error)
@@ -505,6 +612,10 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     
     func MarkAttendanceOnServer(){
         
+        let controller = self.parent as? HomeViewController
+        controller?.title = "Dashboard"
+        controller?.navigationItem.leftBarButtonItem?.isEnabled = true
+
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
         
         if IsConnectionAvailable(){
@@ -557,6 +668,12 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                 }
                             }
                         }
+                        else if let error = error{
+                            let alert = self.ShowAlert()
+                            alert.title = "Alert"
+                            alert.message = error.localizedDescription
+                            _ = self.present(alert, animated: true, completion: nil)
+                        }
                     }
                     catch{
                         print(error)
@@ -571,7 +688,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         else{
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection, we are unable to mark your attendance right now"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
         }
@@ -591,17 +708,11 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     
     func ShowAlert() -> UIAlertController{
         let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
-//        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
-//            self.dismiss(animated: false, completion: nil)
-//            print("Cancel")
-//        }
         let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
             print("Okay")
         }
-//        alertController.addAction(cancelAction)
         alertController.addAction(okAction)
-        //        _ = self.present(alertController, animated: true, completion: nil)
         return alertController
     }
     

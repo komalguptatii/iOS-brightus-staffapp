@@ -134,7 +134,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 
                 let alert = ShowAlert()
                 alert.title = "Alert"
-                alert.message = "Check Network Connection"
+                alert.message = "Check the internet connection on your device"
                 _ = self.present(alert, animated: true, completion: nil)
             }
             
@@ -345,8 +345,6 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                             
                         }
                         
-                        
-                        
                     }
                 }
                 else{
@@ -389,7 +387,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                     
                     let alert = self.ShowAlert()
                     alert.title = "Alert"
-                    alert.message = "Check Network Connection"
+                    alert.message = "Check the internet connection on your device"
                     _ = self.present(alert, animated: true, completion: nil)
                 }
                 

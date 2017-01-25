@@ -91,7 +91,7 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         else{
             let alert = ShowAlert()
             alert.title = "Alert"
-            alert.message = "Check Network Connection"
+            alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
 
         }
@@ -116,13 +116,13 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         
         if !emptyEmail {
             
-            alert.message = "Email cannot be empty."
+            alert.message = "Email is required"
             _ = self.present(alert, animated: true, completion: nil)
             return false
         }
         else if !emailCheck {
             
-            alert.message = "Invalid Email Address"
+            alert.message = "Please enter the valid Email Address"
             _ = self.present(alert, animated: true, completion: nil)
 
             return false
@@ -172,6 +172,7 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
                             if httpResponseValue.statusCode == 204 {
                                 DispatchQueue.main.async {
                                     let alert = self.ShowAlert()
+                                    alert.title = "Done"
                                     alert.message = "Please check your email and recover the password"
                                     _ = self.present(alert, animated: true, completion: nil)
                                     _ = self.navigationController?.popViewController(animated: true)
@@ -215,6 +216,12 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
                                 
                             }
                         }
+                    }
+                    else if let error = error{
+                        let alert = self.ShowAlert()
+                        alert.title = "Alert"
+                        alert.message = error.localizedDescription
+                        _ = self.present(alert, animated: true, completion: nil)
                     }
                     
                 }

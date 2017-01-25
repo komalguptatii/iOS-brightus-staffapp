@@ -49,7 +49,9 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
 
         
         //Changed Content Size of Scroll View
-        mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
+        mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height - 64))
+
+//        mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
         mainScrollView.tag = 200
         print(mainScrollView.bounds.size.width)
         print(mainScrollView.contentSize.width)
