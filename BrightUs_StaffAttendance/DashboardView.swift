@@ -122,11 +122,12 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         }
         
         if IsConnectionAvailable(){
+           
             performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
         }
         else{
             let alert = ShowAlert()
-            alert.title = "Alert"
+            alert.title = "BrightUs"
             alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
@@ -440,6 +441,15 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
      
      */
     func GetTodayAttendanceDetail(){
+       
+        DispatchQueue.main.async {
+            self.indicator.startAnimating()
+            self.view.isUserInteractionEnabled = false
+            self.view.addSubview(self.indicator)
+            self.view.bringSubview(toFront: self.indicator)
+            
+        }
+        
         let apiString = baseURL + "/api/user/attendance?filter=today"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
@@ -459,6 +469,11 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         
         _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
             do {
+                DispatchQueue.main.async {
+                    self.indicator.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                    self.view.addSubview(self.indicator)
+                }
                 if data != nil{
                     if let httpResponseValue = response as? HTTPURLResponse{
                         print(httpResponseValue.statusCode)
@@ -577,21 +592,25 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                 }
                 else if let error = error{
                     let alert = self.ShowAlert()
-                    alert.title = "Alert"
+                    alert.title = "BrightUs"
                     alert.message = error.localizedDescription
                     _ = self.present(alert, animated: true, completion: nil)
                 }
             }
             catch{
                 print(error)
+                
+                //TODO: Remove indicator
+                
+                DispatchQueue.main.async {
+                    self.indicator.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                    self.view.addSubview(self.indicator)
+                }
             }
             }.resume()
         
-        DispatchQueue.main.async {
-            self.indicator.stopAnimating()
-            self.view.isUserInteractionEnabled = true
-            self.view.addSubview(self.indicator)
-        }
+        
     }
     
     //MARK: - Location Methods
@@ -717,7 +736,7 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                 jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
                 request.httpBody = jsonData
                 print(jsonData)
-                
+                                
                 _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
                     do {
                         if data != nil{
@@ -730,14 +749,8 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                                     if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                         print(dict)
                                     }
-                                    DispatchQueue.main.async {
-                                        self.indicator.startAnimating()
-                                        self.view.isUserInteractionEnabled = false
-                                        self.view.addSubview(self.indicator)
-                                        self.view.bringSubview(toFront: self.indicator)
 
-                                        self.performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
-                                    }
+                                    self.performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
                                     
                                     
                                 }
@@ -757,13 +770,14 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                         }
                         else if let error = error{
                             let alert = self.ShowAlert()
-                            alert.title = "Alert"
+                            alert.title = "BrightUs"
                             alert.message = error.localizedDescription
                             _ = self.present(alert, animated: true, completion: nil)
                         }
                     }
-                    catch{
+                    catch {
                         print(error)
+                        //TODO: Remove indicator
                     }
                     }.resume()
             }
@@ -774,7 +788,7 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         }
         else{
             let alert = ShowAlert()
-            alert.title = "Alert"
+            alert.title = "BrightUs"
             alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
@@ -795,7 +809,7 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
      */
     
     func ShowAlert() -> UIAlertController{
-        let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "BrightUs", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
             print("Okay")
@@ -805,7 +819,7 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
     }
     
     func ShowAlert2() -> UIAlertController{
-        let alertController = UIAlertController(title: "Alert", message: "We are unable to mark your attendance, Please try again", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "BrightUs", message: "We are unable to mark your attendance, Please try again", preferredStyle: UIAlertControllerStyle.alert)
         let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
             print("Okay")

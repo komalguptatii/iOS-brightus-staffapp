@@ -92,7 +92,7 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
         }
         else{
             let alert = ShowAlert()
-            alert.title = "Alert"
+            alert.title = "BrightUs"
             alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
@@ -112,7 +112,7 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
         let emptyConfirmPassword = ValidateEmptyContent(textField: confirmNewPasswordTextfield)
         let alert = self.ShowAlert()
 
-        alert.title = "Alert"
+        alert.title = "BrightUs"
         
         if !emptyCurrentPassword{
             
@@ -251,7 +251,7 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
                     }
                     else if let error = error{
                         let alert = self.ShowAlert()
-                        alert.title = "Alert"
+                        alert.title = "BrightUs"
                         alert.message = error.localizedDescription
                         _ = self.present(alert, animated: true, completion: nil)
                     }
@@ -284,7 +284,7 @@ class ChangePassword: UIViewController, UITextFieldDelegate {
      */
     
     func ShowAlert() -> UIAlertController{
-        let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "BrightUs", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
 //        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
 //            self.dismiss(animated: false, completion: nil)
 //            print("Cancel")

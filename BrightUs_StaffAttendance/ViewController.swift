@@ -49,8 +49,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-        emailTextField.text = "staff@maildrop.cc"
-        passwordTextField.text = "staff"
+//        emailTextField.text = "staff@maildrop.cc"
+//        passwordTextField.text = "staff"
 
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -157,7 +157,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         else{
             let alert = ShowAlert()
-            alert.title = "Alert"
+            alert.title = "BrightUs"
             alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
@@ -229,7 +229,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     */
     
     func ShowAlert() -> UIAlertController{
-        let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "BrightUs", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
 //        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
 //            self.dismiss(animated: false, completion: nil)
 //            print("Cancel")
@@ -319,7 +319,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                     let alert = self.ShowAlert()
                                     
                                     alert.message = "\(dict.value(forKey: "message")!)"
-                                    alert.title = "Alert"
+                                    alert.title = "BrightUs"
                                     _ = self.present(alert, animated: true, completion: nil)
                                     self.indicator.removeFromSuperview()
                                     self.view.isUserInteractionEnabled = true
@@ -332,7 +332,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     }
                     else if let error = error{
                         let alert = self.ShowAlert()
-                        alert.title = "Alert"
+                        alert.title = "BrightUs"
                         alert.message = error.localizedDescription
                         _ = self.present(alert, animated: true, completion: nil)
                     }
@@ -394,7 +394,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
                 else if let error = error{
                     let alert = self.ShowAlert()
-                    alert.title = "Alert"
+                    alert.title = "BrightUs"
                     alert.message = error.localizedDescription
                     _ = self.present(alert, animated: true, completion: nil)
                 }
@@ -428,7 +428,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         else{
             let alert = ShowAlert()
-            alert.title = "Alert"
+            alert.title = "BrightUs"
             alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
             
@@ -526,7 +526,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                         let alert = self.ShowAlert()
                                         
                                         alert.message = "Only Staff member can use this app"
-                                        alert.title = "Alert"
+                                        alert.title = "BrightUs"
                                         
                                         defaults.setValue("", forKey: "tokenType")
                                         defaults.setValue("", forKey: "accessToken")
@@ -552,7 +552,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
                 else if let error = error{
                     let alert = self.ShowAlert()
-                    alert.title = "Alert"
+                    alert.title = "BrightUs"
                     alert.message = error.localizedDescription
                     _ = self.present(alert, animated: true, completion: nil)
                 }

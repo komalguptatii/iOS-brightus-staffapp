@@ -35,7 +35,6 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         
         emailTextField.delegate = self
-//        emailTextField.text = "staff@maildrop.cc"
 
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -55,6 +54,14 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
     //MARK: - Button Actions
 
     /**
@@ -90,7 +97,7 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         }
         else{
             let alert = ShowAlert()
-            alert.title = "Alert"
+            alert.title = "BrightUs"
             alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
 
@@ -219,7 +226,7 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
                     }
                     else if let error = error{
                         let alert = self.ShowAlert()
-                        alert.title = "Alert"
+                        alert.title = "BrightUs"
                         alert.message = error.localizedDescription
                         _ = self.present(alert, animated: true, completion: nil)
                     }
@@ -268,7 +275,7 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
      */
     
     func ShowAlert() -> UIAlertController{
-        let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "BrightUs", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
             self.dismiss(animated: false, completion: nil)
             print("Cancel")

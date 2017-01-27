@@ -133,7 +133,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 self.isAlertAvailable = true
                 
                 let alert = ShowAlert()
-                alert.title = "Alert"
+                alert.title = "BrightUs"
                 alert.message = "Check the internet connection on your device"
                 _ = self.present(alert, animated: true, completion: nil)
             }
@@ -315,6 +315,14 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                             else{
                                 print("different status")
                                 
+                                if !self.isAlertAvailable{
+                                    self.isAlertAvailable = true
+                                    let alert = self.ShowAlert()
+                                    alert.title = "BrightUs"
+                                    alert.message = "QR code may have expired, Please try again"
+                                    _ = self.present(alert, animated: true, completion: nil)
+                                }
+
                                 DispatchQueue.main.async {
                                     self.randomQRCode = ""
                                     
@@ -332,6 +340,14 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                             
                             print("different code")
                             
+                            if !self.isAlertAvailable{
+                                self.isAlertAvailable = true
+                                let alert = self.ShowAlert()
+                                alert.title = "BrightUs"
+                                alert.message = "QR code may have expired, Please try again"
+                                _ = self.present(alert, animated: true, completion: nil)
+                            }
+
                             DispatchQueue.main.async {
                                 self.randomQRCode = ""
                                 
@@ -361,8 +377,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                         if !self.isAlertAvailable{
                             self.isAlertAvailable = true
                             let alert = self.ShowAlert()
-                            alert.title = "Alert"
-                            alert.message = "Invalid Code"
+                            alert.title = "BrightUs"
+                            alert.message = "QR code may have expired, Please try again"
                             _ = self.present(alert, animated: true, completion: nil)
                         }
                         
@@ -386,7 +402,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                     self.isAlertAvailable = true
                     
                     let alert = self.ShowAlert()
-                    alert.title = "Alert"
+                    alert.title = "BrightUs"
                     alert.message = "Check the internet connection on your device"
                     _ = self.present(alert, animated: true, completion: nil)
                 }
@@ -430,7 +446,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
      */
     
     func ShowAlert() -> UIAlertController{
-        let alertController = UIAlertController(title: "Alert", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "BrightUs", message: "Device not supported for this application", preferredStyle: UIAlertControllerStyle.alert)
 //        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
 //            self.dismiss(animated: false, completion: nil)
 //            print("Cancel")
