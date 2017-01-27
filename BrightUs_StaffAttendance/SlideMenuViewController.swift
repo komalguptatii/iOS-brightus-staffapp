@@ -46,8 +46,8 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
     /**
      *  Menu button which was tapped to display the menu
      */
-//    var btnMenu : UIButton!
-    var btnMenu : UIBarButtonItem!
+    var btnMenu : UIButton!
+//    var btnMenu : UIBarButtonItem!
     
     /**
      *  Delegate of the MenuVC
@@ -264,6 +264,7 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
      * NavigateToAttendanceDetail Method
     */
     func NavigateToAttendanceDetail(){
+        self.navigationController?.navigationBar.isHidden = false
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "AttendanceDetail") as UIViewController
         self.navigationController?.show(vc, sender: nil)

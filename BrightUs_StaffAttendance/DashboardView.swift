@@ -12,32 +12,43 @@ import MapKit
 
 /// Dashboard View - Display time, greet user , check - in/out timings, Mark Attendance
 
-class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
+    
+    
+    /**
+     * Dashboard Table View which holds the all detail
+    */
+    @IBOutlet var dashboardTableView: UITableView!
+    
+    /**
+     * Mark Attendance Button
+    */
+    @IBOutlet var markAttendanceButton: UIButton!
     
     /**
      * Current Date will be displayed on this label
      */
-    @IBOutlet var currentDateLabel: UILabel!
+    var currentDateLabel = UILabel()
     
     /**
      * Greet user
      */
-    @IBOutlet var greetingLabel: UILabel!
+    var greetingLabel = UILabel()
     
     /**
      *   Display User Name
      */
-    @IBOutlet var userNameLabel: UILabel!
+    var userNameLabel = UILabel()
     
     /**
      * Label that displays Check-In Time
      */
-    @IBOutlet var checkInTimeValueLabel: UILabel!
+    var checkInTimeValueLabel = UILabel()
     
     /**
      * Label that displays Check-Out Time
      */
-    @IBOutlet var checkOutTimeValueLabel: UILabel!
+    var checkOutTimeValueLabel = UILabel()
     
     /**
      * Intialized instance of CLLocationManager
@@ -46,34 +57,34 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     var locationManager = CLLocationManager()
     
     /**
+     * Time Image - Display morning, afternoon, evening images
+     */
+    var timeImage = UIImageView()
+    
+
+    /**
      * To keep check of access to mark attendance
      */
     var isAllowedToMarkAttendance = false
     
     /**
-     * Display and give alert to user that whether he is allowed or not to mark attendance
-     */
-    @IBOutlet var locationUpdateLabel: UILabel!
-    
-    /**
-     * Swipe Image Indicator
+     * Instance of Camera Class
     */
-    @IBOutlet var swipeImage: UIImageView!
-    /**
-     * Time Image - Display morning, afternoon, evening images
-    */
-    @IBOutlet var timeImage: UIImageView!
-    
-    @IBOutlet var dashboardTableView: UITableView!
-    
-    @IBOutlet var markAttendanceButton: UIButton!
-    
-    /**
-     * Attendance Detail Button
-    */
-//    @IBOutlet var attendanceDetailButton: UIButton!
-    
     let cameraController = Camera()
+    
+    
+    /**
+     * Indicator to let user know about data loading
+     */
+    var indicator = UIActivityIndicatorView()
+    
+    /**
+     * rowsForSectionTwo - Update number of rows in dashboard table view
+    */
+    var rowsForSectionTwo = 0
+
+    var noOfTimesMarkAttendanceCalled = 2
+    
     //MARK: - Methods
     
     /**
@@ -83,13 +94,21 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        //Custom Loading Indicator
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        indicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        indicator.center = self.view.center
+        indicator.backgroundColor = UIColor.clear
+        indicator.color = UIColor.black
+
+        indicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        self.view.addSubview(indicator)
+        self.view.bringSubview(toFront: indicator)
+        
         dashboardTableView.delegate = self
         dashboardTableView.dataSource = self
         dashboardTableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        dashboardTableView.backgroundColor = UIColor.lightGray
-
-        //Change Navigation Bar tint color according to theme
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 222.0/255.0, green: 60.0/255.0, blue: 77.0/255.0, alpha: 1.0)
         
         //Called class functions to display date and greet user
         currentDateLabel.text = "It's \(self.CurrentDateFormat())"
@@ -101,6 +120,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             }
             
         }
+        
         if IsConnectionAvailable(){
             performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
         }
@@ -111,6 +131,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
             _ = self.present(alert, animated: true, completion: nil)
             
         }
+        
         
         //StartUpdatingLocation()
         
@@ -124,13 +145,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         
         scrollView?.delegate = self
         
-//        print(attendanceDetailButton.frame)
-        
-        if screenheight <= 568{
-            swipeImage.frame = CGRect(x: 37.0, y: 422.0, width: 9.0, height: 10.0)
-            locationUpdateLabel.frame = CGRect(x: 58.0, y: 415.0, width: 220.0, height: 21.0)
-//            attendanceDetailButton.frame = CGRect(x: 0, y: 439, width: 320, height: 65)
-        }
+
     }
     
     /**
@@ -146,12 +161,16 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        let controller = self.parent as? HomeViewController
-        controller?.title = "Dashboard"
-
+//        let controller = self.parent as? HomeViewController
+//        controller?.title = "Dashboard"
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 
         if let nameOfUser = defaults.value(forKey: "name") as? String{
             userNameLabel.text = "\(nameOfUser)"
+        }
+        
+        DispatchQueue.main.async {
+            self.dashboardTableView.reloadData()
         }
     }
     
@@ -180,7 +199,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         if section == 0{
             return 1
         }
-        return 2
+        return rowsForSectionTwo
     }
 
     /**
@@ -191,7 +210,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
-            return 200.0
+            return 317.0
         }
         else{
             return 120.0
@@ -202,12 +221,32 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
             let greetingCell = tableView.dequeueReusableCell(withIdentifier: "GreetCell", for: indexPath) as! TiiGreetingCell
-
+            
+            greetingCell.greetingImage.image = timeImage.image
+            greetingCell.userName.text = userNameLabel.text
+            greetingCell.todaysDateTime.text = currentDateLabel.text
+            greetingCell.wishes.text = greetingLabel.text
+            
+            greetingCell.selectionStyle = UITableViewCellSelectionStyle.none
             return greetingCell
         }
         else{
             let checkInOutCell = tableView.dequeueReusableCell(withIdentifier: "CheckCell", for: indexPath) as! TiiCheckInOutCell
             
+            if indexPath.row == 0{
+                checkInOutCell.checkInOutImage.image = UIImage(named: "green-man")!
+                checkInOutCell.timeLabel.text = checkInTimeValueLabel.text
+                checkInOutCell.indicationLabel.text = "Your check-in Time"
+            }
+            
+            if indexPath.row == 1{
+                checkInOutCell.checkInOutImage.image = UIImage(named: "red-man")!
+                checkInOutCell.timeLabel.text = checkOutTimeValueLabel.text
+                checkInOutCell.indicationLabel.text = "Your check-out Time"
+
+            }
+            checkInOutCell.selectionStyle = UITableViewCellSelectionStyle.none
+
             return checkInOutCell
         }
         
@@ -224,37 +263,19 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         print(scrollView.contentOffset.x)
         if (scrollView.contentOffset.x >= self.view.frame.width){
             print("Observer added")
-            
-//            let controller = self.parent as? HomeViewController
-//            controller?.title = "Mark Attendance"
-//            controller?.navigationItem.leftBarButtonItem?.isEnabled = false
-//
-//            
-//            controller?.addChildViewController(cameraController)
-//            controller?.mainScrollView.addSubview(cameraController.view)
-//            cameraController.didMove(toParentViewController: self)
-//           
-//            cameraController.vwQRCode?.frame = CGRect.zero
-//            
-//            cameraController.objCaptureSession?.startRunning()
-//
-//            
-//            var cameraFrame : CGRect = cameraController.view.frame
-//            cameraFrame.origin.x = self.view.frame.width
-//            cameraController.view.frame = cameraFrame
-//            
-//            NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
-//            NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.RemoveController), name: NSNotification.Name(rawValue: "remove"), object: nil)
+            //Code removed from here and to Button action "Tap to MArk Attendance"
 
         }
         else if (scrollView.contentOffset.x <= self.view.frame.width){
            
             let controller = self.parent as? HomeViewController
-            controller?.title = "Dashboard"
-            controller?.navigationItem.leftBarButtonItem?.isEnabled = true
+//            controller?.title = "Dashboard"
+//            controller?.navigationItem.leftBarButtonItem?.isEnabled = true
 
             //
-            controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height - 64))
+            controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height))
+
+//            controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height - 64))
             //
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
@@ -271,8 +292,6 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         cameraController.didMove(toParentViewController: nil)
         cameraController.view.removeFromSuperview()
         cameraController.removeFromParentViewController()
-        //
-        //            print("I am done")
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "remove"), object: nil)
     }
 
@@ -287,39 +306,42 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
     
     @IBAction func TaptoMarkAttendance(_ sender: UIButton) {
         
+        self.noOfTimesMarkAttendanceCalled = 2
+        
         let controller = self.parent as? HomeViewController
-        controller?.title = "Mark Attendance"
-        controller?.navigationItem.leftBarButtonItem?.isEnabled = false
+//        controller?.title = "Mark Attendance"
+//        controller?.navigationItem.leftBarButtonItem?.isEnabled = false
         
         
         controller?.addChildViewController(cameraController)
         controller?.mainScrollView.addSubview(cameraController.view)
         cameraController.didMove(toParentViewController: self)
         
-        //
-        controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
+        // Double the scroll view size when added new camera controller as child
+        controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height))
+
+//        controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
         //
         
         cameraController.vwQRCode?.frame = CGRect.zero
         
         cameraController.objCaptureSession?.startRunning()
         
-        
         var cameraFrame : CGRect = cameraController.view.frame
         cameraFrame.origin.x = self.view.frame.width
         cameraController.view.frame = cameraFrame
         
+        
         NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.MarkAttendanceOnServer), name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.RemoveController), name: NSNotification.Name(rawValue: "remove"), object: nil)
         
+        //Automatic Swipe - always set content offset
+        controller?.mainScrollView.contentOffset = CGPoint(x: self.view.frame.width, y: 0.0)
+        
+        //Changed "Y" as navgation bar is excluded
+//        controller?.mainScrollView.contentOffset = CGPoint(x: self.view.frame.width, y: 64.0)
+        
     }
-    
-//    @IBAction func AttendanceDetailButtonAction(_ sender: UIButton) {
-//        
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "AttendanceDetail") as UIViewController
-//        self.navigationController?.show(vc, sender: nil)
-//    }
     
     
     //MARK: - Display Methods
@@ -357,26 +379,26 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         case 6..<12 :
             greetingLabel.text = "Good Morning!"
             
-            timeImage.image = UIImage(named: "morning-view")
+            timeImage.image = UIImage(named: "morning-bg")
             print(NSLocalizedString("Morning", comment: "Morning"))
         case 12 :
             greetingLabel.text = "Good Afternoon!"
-            timeImage.image = UIImage(named: "noon-view")
+            timeImage.image = UIImage(named: "afternoon-bg")
             
             print(NSLocalizedString("Noon", comment: "Noon"))
         case 13..<17 :
             greetingLabel.text = "Good Afternoon!"
-            timeImage.image = UIImage(named: "noon-view")
+            timeImage.image = UIImage(named: "afternoon-bg")
             
             print(NSLocalizedString("Afternoon", comment: "Afternoon"))
         case 17..<22 :
             greetingLabel.text = "Good Evening!"
-            timeImage.image = UIImage(named: "evening-view")
+            timeImage.image = UIImage(named: "evening-bg")
             
             print(NSLocalizedString("Evening", comment: "Evening"))
         default:
             greetingLabel.text = "Good Night!"
-            timeImage.image = UIImage(named: "evening-view")
+            timeImage.image = UIImage(named: "evening-bg")
             
             print(NSLocalizedString("Night", comment: "Night"))
         }
@@ -444,8 +466,8 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                             let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
                             print(dict)
                             
-                            let controller = self.parent as? HomeViewController
-                            let scrollView = controller?.mainScrollView
+//                            let controller = self.parent as? HomeViewController
+//                            let scrollView = controller?.mainScrollView
 
                             if let detailArray = dict.value(forKey: "data") as? NSArray{
                                 print(detailArray)
@@ -457,11 +479,10 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                                 isCheckedIn = false
                                                 DispatchQueue.main.async {
                                                     self.checkInTimeValueLabel.text = "Let's go"
-                                                    scrollView?.isScrollEnabled = true
-                                                    self.swipeImage.alpha = 1.0
-                                                    self.locationUpdateLabel.alpha = 1.0
                                                 }
-                                                
+                                                self.markAttendanceButton.alpha = 1.0
+                                                self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
+
                                             }
                                             else{
                                                 //Here it means check in time is there already
@@ -469,43 +490,82 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                                     isCheckedIn = true
                                                     let value = self.ConvertTimeStampToRequiredHours(dateValue: checkInValue)
                                                     self.checkInTimeValueLabel.text = "\(value)"
-                                                    
-                                                    if let checkOutValue = detailDictionary.value(forKey: "check_out") as? String{
-                                                        if !checkOutValue.isEmpty{
-                                                            let value = self.ConvertTimeStampToRequiredHours(dateValue: checkOutValue)
-                                                            self.checkOutTimeValueLabel.text = "\(value)"
-                                                            scrollView?.isScrollEnabled = false
-                                                            self.swipeImage.alpha = 0.0
-                                                            self.locationUpdateLabel.alpha = 0.0
+                                                    if self.rowsForSectionTwo < 1{
+                                                        self.rowsForSectionTwo = 1
+                                                        self.dashboardTableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: UITableViewRowAnimation.fade)
 
+                                                    }
+                                                    
+                                                    
+                                                }
+                                                
+                                                if let checkOutValue = detailDictionary.value(forKey: "check_out") as? String{
+                                                        print(checkOutValue)
+                                                        if !checkOutValue.isEmpty{
+                                                            DispatchQueue.main.async {
+                                                                let value = self.ConvertTimeStampToRequiredHours(dateValue: checkOutValue)
+                                                                self.checkOutTimeValueLabel.text = "\(value)"
+                                                                self.markAttendanceButton.alpha = 0.0
+                                                                if self.rowsForSectionTwo < 2{
+                                                                    self.rowsForSectionTwo = 2
+                                                                    self.dashboardTableView.insertRows(at: [IndexPath(row: 1, section: 1)], with: UITableViewRowAnimation.fade)
+
+                                                                }
+                                                            }
                                                         }
                                                         else{
-                                                            self.checkOutTimeValueLabel.text = "Pending"
-                                                            scrollView?.isScrollEnabled = true
-                                                            self.swipeImage.alpha = 1.0
-                                                            self.locationUpdateLabel.alpha = 1.0
-
-                                                            
+                                                            DispatchQueue.main.async {
+                                                                self.checkOutTimeValueLabel.text = "Pending"
+                                                                self.markAttendanceButton.alpha = 1.0
+                                                                self.markAttendanceButton.setImage(UIImage(named: "red-checkin"), for: UIControlState.normal)
+                                                            }
                                                         }
                                                     }
-                                                }
+                                                    else{
+                                                        DispatchQueue.main.async {
+                                                            self.checkOutTimeValueLabel.text = "Pending"
+                                                            self.markAttendanceButton.alpha = 1.0
+                                                            self.markAttendanceButton.setImage(UIImage(named: "red-checkin"), for: UIControlState.normal)
+                                                        }
+                                                       
+                                                    }
+                                                
                                                 
                                             }
                                         }
+                                        else{
+                                            DispatchQueue.main.async {
+                                                self.checkInTimeValueLabel.text = "Let's go"
+                                                self.markAttendanceButton.alpha = 1.0
+                                                self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
+
+                                            }
+                                        }
                                     }
+                                    
                                     
                                 }
                                 else{
                                     DispatchQueue.main.async {
                                         self.checkInTimeValueLabel.text = "Let's go"
                                         self.checkOutTimeValueLabel.text = "Pending"
+                                        self.markAttendanceButton.alpha = 1.0
+                                        self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
+
                                         isCheckedIn = false
                                     }
                                     
                                 }
                             }
                             
-                            
+//                            DispatchQueue.main.async {
+//                                self.dashboardTableView.endUpdates()
+
+//                                let sectionNumber = NSIndexSet(index: 1)
+//                                
+//                                self.dashboardTableView.reloadSections(sectionNumber as IndexSet, with: UITableViewRowAnimation.none)
+//                            }
+
                             
                         }
                         else if httpResponseValue.statusCode == 401{
@@ -526,6 +586,12 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                 print(error)
             }
             }.resume()
+        
+        DispatchQueue.main.async {
+            self.indicator.stopAnimating()
+            self.view.isUserInteractionEnabled = true
+            self.view.addSubview(self.indicator)
+        }
     }
     
     //MARK: - Location Methods
@@ -659,12 +725,33 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
                                 print(httpResponseValue.statusCode)
                                 if httpResponseValue.statusCode == 200 {
                                     
-
+                                    self.noOfTimesMarkAttendanceCalled = 2
+                                    
                                     if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                         print(dict)
                                     }
-                                    self.performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
+                                    DispatchQueue.main.async {
+                                        self.indicator.startAnimating()
+                                        self.view.isUserInteractionEnabled = false
+                                        self.view.addSubview(self.indicator)
+                                        self.view.bringSubview(toFront: self.indicator)
+
+                                        self.performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
+                                    }
                                     
+                                    
+                                }
+                                else{
+                                    if self.noOfTimesMarkAttendanceCalled <= 2 && self.noOfTimesMarkAttendanceCalled > 0{
+                                        self.noOfTimesMarkAttendanceCalled -= 1
+
+                                        self.MarkAttendanceOnServer()
+                                    }
+                                    else{
+                                        let alert = self.ShowAlert2()
+                                        _ = self.present(alert, animated: true, completion: nil)
+
+                                    }
                                 }
                             }
                         }
@@ -697,6 +784,7 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         
     }
     
+    
     //MARK: - Alert Controller
     /**
      Alert Controller Method
@@ -716,5 +804,34 @@ class DashboardView: UIViewController,CLLocationManagerDelegate, UIScrollViewDel
         return alertController
     }
     
+    func ShowAlert2() -> UIAlertController{
+        let alertController = UIAlertController(title: "Alert", message: "We are unable to mark your attendance, Please try again", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            self.dismiss(animated: false, completion: nil)
+            print("Okay")
+        }
+        
+        let retryAction = UIAlertAction(title: "Retry", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            self.MarkAttendanceOnServer()
+            self.dismiss(animated: false, completion: nil)
+            print("Retry")
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(retryAction)
+
+        return alertController
+    }
+    
+    //MARK: - Button Action
+    /**
+     Menu Button Action
+     
+     - parameter description : Slider Menu will be shown to user
+     
+     */
+    @IBAction func MenuButtonPressed(_ sender: Any) {
+        self.onSlideMenuButtonPressed(sender as! UIButton)
+    }
+
     
 }

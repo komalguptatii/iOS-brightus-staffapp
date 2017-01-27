@@ -49,7 +49,9 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
 
         
         //Changed Content Size of Scroll View
-        mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height - 64))
+        mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height))
+
+//        mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height - 64))
 
 //        mainScrollView.contentSize = CGSize(width: (self.view.frame.width * 2), height: (self.view.frame.height - 64))
         mainScrollView.tag = 200
@@ -73,15 +75,5 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
     }
 
       
-    //MARK: - Button Action
-    /**
-     Menu Button Action 
-     
-     - parameter description : Slider Menu will be shown to user
-     
-    */
-    @IBAction func MenuButtonPressed(_ sender: Any) {
-        self.onSlideMenuButtonPressed(sender as! UIBarButtonItem)
-    }
-    
+       
 }

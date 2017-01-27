@@ -60,11 +60,12 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         let btnShowMenu = UIButton(type: UIButtonType.system)
         btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
         btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+        
+        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
 //        let customBarItem = UIBarButtonItem(customView: btnShowMenu)
-        let customBarItem = UIBarButtonItem(image: self.defaultMenuImage(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)))
-
-        self.navigationItem.leftBarButtonItem = customBarItem
+//        let customBarItem = UIBarButtonItem(image: self.defaultMenuImage(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)))
+//
+//        self.navigationItem.leftBarButtonItem = customBarItem
     }
 
     /**
@@ -103,7 +104,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
      
      */
 
-    func onSlideMenuButtonPressed(_ sender : UIBarButtonItem){
+    func onSlideMenuButtonPressed(_ sender : UIButton){
         if (sender.tag == 10)
         {
             // To Hide Menu If it already there

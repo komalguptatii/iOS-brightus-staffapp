@@ -112,10 +112,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     /**
      * viewWillDisappear Method
      */
-    override func viewWillDisappear(_ animated: Bool) {
+//    override func viewWillDisappear(_ animated: Bool) {
 //        self.viewWillDisappear(true)
-        self.navigationController?.navigationBar.isHidden = false
-    }
+//        self.navigationController?.navigationBar.isHidden = false
+//    }
     
     /**
      Show Password in Text Format Action

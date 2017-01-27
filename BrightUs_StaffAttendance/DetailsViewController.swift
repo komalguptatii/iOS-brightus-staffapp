@@ -179,6 +179,13 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * ViewWill DisAppear
+    */
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     //MARK: - Button Actions
 
     /**
