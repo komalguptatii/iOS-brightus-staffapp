@@ -435,15 +435,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print(token)
         if IsConnectionAvailable(){
             FIRAuth.auth()?.signIn(withCustomToken: token ) { (user, error) in
-                if let user = FIRAuth.auth()?.currentUser {
-                    print(user)
+                
+                do{
+                    if let user = FIRAuth.auth()?.currentUser {
+                        print(user)
+                    }
+                    
+                    self.performSelector(inBackground: #selector(ViewController.ViewProfile), with: nil)
                 }
-
-                self.performSelector(inBackground: #selector(ViewController.ViewProfile), with: nil)
-
-
+                catch {
+                    DispatchQueue.main.async {
+                        self.indicator.removeFromSuperview()
+                        self.view.isUserInteractionEnabled = true
+                        self.view.window?.isUserInteractionEnabled = true
+                        
+                        let alert = self.ShowAlert()
+                        alert.title = "BrightUs"
+                        alert.message = error.localizedDescription
+                        _ = self.present(alert, animated: true, completion: nil)
+                    }
+                    
+                }
+                
+                
             }
-
+            
         }
         else{
             DispatchQueue.main.async {
@@ -456,8 +472,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 alert.message = "Check the internet connection on your device"
                 _ = self.present(alert, animated: true, completion: nil)
             }
-
-            
         }
     }
     

@@ -102,9 +102,9 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         indicator.color = UIColor.black
 
         indicator.startAnimating()
-        self.view.isUserInteractionEnabled = false
-        self.view.addSubview(indicator)
-        self.view.bringSubview(toFront: indicator)
+//        self.view.isUserInteractionEnabled = false
+//        self.view.addSubview(indicator)
+//        self.view.bringSubview(toFront: indicator)
         
         dashboardTableView.delegate = self
         dashboardTableView.dataSource = self
@@ -126,7 +126,12 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
             performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
         }
         else{
-            let alert = ShowAlert()
+            
+            self.indicator.removeFromSuperview()
+            self.view.isUserInteractionEnabled = true
+            self.view.window?.isUserInteractionEnabled = true
+            
+            let alert = self.ShowAlert()
             alert.title = "BrightUs"
             alert.message = "Check the internet connection on your device"
             _ = self.present(alert, animated: true, completion: nil)
@@ -237,13 +242,13 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
             if indexPath.row == 0{
                 checkInOutCell.checkInOutImage.image = UIImage(named: "green-man")!
                 checkInOutCell.timeLabel.text = checkInTimeValueLabel.text
-                checkInOutCell.indicationLabel.text = "Your check-in Time"
+                checkInOutCell.indicationLabel.text = "Check-in Time"
             }
             
             if indexPath.row == 1{
                 checkInOutCell.checkInOutImage.image = UIImage(named: "red-man")!
                 checkInOutCell.timeLabel.text = checkOutTimeValueLabel.text
-                checkInOutCell.indicationLabel.text = "Your check-out Time"
+                checkInOutCell.indicationLabel.text = "Check-out Time"
 
             }
             checkInOutCell.selectionStyle = UITableViewCellSelectionStyle.none
@@ -444,73 +449,74 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
             
         }
         
-        let apiString = baseURL + "/api/user/attendance?filter=today"
-        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        let url = URL(string: encodedApiString!)
-        
-        let request = NSMutableURLRequest(url: url!)
-        request.httpMethod = "GET"
-        
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let token = defaults.value(forKey: "accessToken") as! String
-        
-        let header = "Bearer" + " \(token)"
-        print(header)
-        
-        request.setValue(header, forHTTPHeaderField: "Authorization")
-        
-        
-        _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
-            do {
-                
-                DispatchQueue.main.async {
-                    self.indicator.stopAnimating()
-                    self.view.isUserInteractionEnabled = true
-                    self.view.addSubview(self.indicator)
-                }
-                
-                if data != nil{
-                    if let httpResponseValue = response as? HTTPURLResponse{
-                        print(httpResponseValue.statusCode)
-                        if httpResponseValue.statusCode == 200{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
-//                            let controller = self.parent as? HomeViewController
-//                            let scrollView = controller?.mainScrollView
-
-                            if let detailArray = dict.value(forKey: "data") as? NSArray{
-                                print(detailArray)
-                                if detailArray.count > 0{
-                                    if let detailDictionary = detailArray.object(at: 0) as? NSDictionary{
-                                        print(detailDictionary)
-                                        if let checkInValue = detailDictionary.value(forKey: "check_in") as? String{
-                                            if checkInValue.isEmpty{
-                                                isCheckedIn = false
-                                                DispatchQueue.main.async {
-                                                    self.checkInTimeValueLabel.text = "Let's go"
+        if IsConnectionAvailable(){
+            let apiString = baseURL + "/api/user/attendance?filter=today"
+            let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            let url = URL(string: encodedApiString!)
+            
+            let request = NSMutableURLRequest(url: url!)
+            request.httpMethod = "GET"
+            
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let token = defaults.value(forKey: "accessToken") as! String
+            
+            let header = "Bearer" + " \(token)"
+            print(header)
+            
+            request.setValue(header, forHTTPHeaderField: "Authorization")
+            
+            
+            _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+                do {
+                    
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.view.isUserInteractionEnabled = true
+                        self.indicator.removeFromSuperview()
+                    }
+                    
+                    if data != nil{
+                        if let httpResponseValue = response as? HTTPURLResponse{
+                            print(httpResponseValue.statusCode)
+                            if httpResponseValue.statusCode == 200{
+                                let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                                print(dict)
+                                
+                                //                            let controller = self.parent as? HomeViewController
+                                //                            let scrollView = controller?.mainScrollView
+                                
+                                if let detailArray = dict.value(forKey: "data") as? NSArray{
+                                    print(detailArray)
+                                    if detailArray.count > 0{
+                                        if let detailDictionary = detailArray.object(at: 0) as? NSDictionary{
+                                            print(detailDictionary)
+                                            if let checkInValue = detailDictionary.value(forKey: "check_in") as? String{
+                                                if checkInValue.isEmpty{
+                                                    isCheckedIn = false
+                                                    DispatchQueue.main.async {
+                                                        self.checkInTimeValueLabel.text = "Let's go"
+                                                    }
+                                                    self.markAttendanceButton.alpha = 1.0
+                                                    self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
+                                                    
                                                 }
-                                                self.markAttendanceButton.alpha = 1.0
-                                                self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
-
-                                            }
-                                            else{
-                                                //Here it means check in time is there already
-                                                DispatchQueue.main.async {
-                                                    isCheckedIn = true
-                                                    let value = self.ConvertTimeStampToRequiredHours(dateValue: checkInValue)
-                                                    self.checkInTimeValueLabel.text = "\(value)"
-                                                    if self.rowsForSectionTwo < 1{
-                                                        self.rowsForSectionTwo = 1
-                                                        self.dashboardTableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: UITableViewRowAnimation.fade)
-
+                                                else{
+                                                    //Here it means check in time is there already
+                                                    DispatchQueue.main.async {
+                                                        isCheckedIn = true
+                                                        let value = self.ConvertTimeStampToRequiredHours(dateValue: checkInValue)
+                                                        self.checkInTimeValueLabel.text = "\(value)"
+                                                        if self.rowsForSectionTwo < 1{
+                                                            self.rowsForSectionTwo = 1
+                                                            self.dashboardTableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: UITableViewRowAnimation.fade)
+                                                            
+                                                        }
+                                                        
+                                                        
                                                     }
                                                     
-                                                    
-                                                }
-                                                
-                                                if let checkOutValue = detailDictionary.value(forKey: "check_out") as? String{
+                                                    if let checkOutValue = detailDictionary.value(forKey: "check_out") as? String{
                                                         print(checkOutValue)
                                                         if !checkOutValue.isEmpty{
                                                             DispatchQueue.main.async {
@@ -520,7 +526,7 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                                                                 if self.rowsForSectionTwo < 2{
                                                                     self.rowsForSectionTwo = 2
                                                                     self.dashboardTableView.insertRows(at: [IndexPath(row: 1, section: 1)], with: UITableViewRowAnimation.fade)
-
+                                                                    
                                                                 }
                                                             }
                                                         }
@@ -538,80 +544,95 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                                                             self.markAttendanceButton.alpha = 1.0
                                                             self.markAttendanceButton.setImage(UIImage(named: "red-checkin"), for: UIControlState.normal)
                                                         }
-                                                       
+                                                        
                                                     }
-                                                
-                                                
+                                                    
+                                                    
+                                                }
+                                            }
+                                            else{
+                                                DispatchQueue.main.async {
+                                                    self.checkInTimeValueLabel.text = "Let's go"
+                                                    self.markAttendanceButton.alpha = 1.0
+                                                    self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
+                                                    
+                                                }
                                             }
                                         }
-                                        else{
-                                            DispatchQueue.main.async {
-                                                self.checkInTimeValueLabel.text = "Let's go"
-                                                self.markAttendanceButton.alpha = 1.0
-                                                self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
-
-                                            }
+                                        
+                                        
+                                    }
+                                    else{
+                                        DispatchQueue.main.async {
+                                            self.checkInTimeValueLabel.text = "Let's go"
+                                            self.checkOutTimeValueLabel.text = "Pending"
+                                            self.markAttendanceButton.alpha = 1.0
+                                            self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
+                                            
+                                            isCheckedIn = false
                                         }
+                                        
                                     }
-                                    
-                                    
                                 }
-                                else{
-                                    DispatchQueue.main.async {
-                                        self.checkInTimeValueLabel.text = "Let's go"
-                                        self.checkOutTimeValueLabel.text = "Pending"
-                                        self.markAttendanceButton.alpha = 1.0
-                                        self.markAttendanceButton.setImage(UIImage(named: "green-checkin"), for: UIControlState.normal)
-
-                                        isCheckedIn = false
-                                    }
-                                    
-                                }
+                                
+                                //                            DispatchQueue.main.async {
+                                //                                self.dashboardTableView.endUpdates()
+                                
+                                //                                let sectionNumber = NSIndexSet(index: 1)
+                                //
+                                //                                self.dashboardTableView.reloadSections(sectionNumber as IndexSet, with: UITableViewRowAnimation.none)
+                                //                            }
+                                
+                                
                             }
-                            
-//                            DispatchQueue.main.async {
-//                                self.dashboardTableView.endUpdates()
-
-//                                let sectionNumber = NSIndexSet(index: 1)
-//                                
-//                                self.dashboardTableView.reloadSections(sectionNumber as IndexSet, with: UITableViewRowAnimation.none)
-//                            }
-
-                            
-                        }
-                        else if httpResponseValue.statusCode == 401{
-                            let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
-                            print(dict)
-                            
+                            else if httpResponseValue.statusCode == 401{
+                                let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                                print(dict)
+                                
+                            }
                         }
                     }
-                }
-                else if let error = error{
-                    DispatchQueue.main.async {
-                        self.indicator.removeFromSuperview()
-                        self.view.isUserInteractionEnabled = true
-                        self.view.window?.isUserInteractionEnabled = true
+                    else if let error = error{
+                        DispatchQueue.main.async {
+                            self.indicator.removeFromSuperview()
+                            self.view.isUserInteractionEnabled = true
+                            self.view.window?.isUserInteractionEnabled = true
+                            
+                            let alert = self.ShowAlert()
+                            alert.title = "BrightUs"
+                            alert.message = error.localizedDescription
+                            _ = self.present(alert, animated: true, completion: nil)
+                        }
                         
-                        let alert = self.ShowAlert()
-                        alert.title = "BrightUs"
-                        alert.message = error.localizedDescription
-                        _ = self.present(alert, animated: true, completion: nil)
                     }
+                }
+                catch{
+                    print(error)
+                    
+                    //TODO: Remove indicator
+                    
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.view.isUserInteractionEnabled = true
+                        self.indicator.removeFromSuperview()
+                    }
+                }
+                }.resume()
 
-                }
-            }
-            catch{
-                print(error)
+        }
+        else{
+            DispatchQueue.main.async {
+                self.indicator.removeFromSuperview()
+                self.view.isUserInteractionEnabled = true
+                self.view.window?.isUserInteractionEnabled = true
                 
-                //TODO: Remove indicator
-                
-                DispatchQueue.main.async {
-                    self.indicator.stopAnimating()
-                    self.view.isUserInteractionEnabled = true
-                    self.view.addSubview(self.indicator)
-                }
+                let alert = self.ShowAlert()
+                alert.title = "BrightUs"
+                alert.message = "Check the internet connection on your device"
+                _ = self.present(alert, animated: true, completion: nil)
             }
-            }.resume()
+
+        }
         
         
     }
@@ -770,8 +791,12 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                                         self.MarkAttendanceOnServer()
                                     }
                                     else{
+                                        self.view.isUserInteractionEnabled = true
+                                        self.view.window?.isUserInteractionEnabled = true
+
                                         let alert = self.ShowAlert2()
                                         _ = self.present(alert, animated: true, completion: nil)
+                                        
 
                                     }
                                 }

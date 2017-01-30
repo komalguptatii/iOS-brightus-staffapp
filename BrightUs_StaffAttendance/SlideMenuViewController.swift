@@ -208,7 +208,7 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         cell.preservesSuperviewLayoutMargins = false
         
         if ((indexPath as NSIndexPath).section == 0){
-            cell.backgroundColor = UIColor(red: 222.0/255.0, green: 60.0/255.0, blue: 77.0/255.0, alpha: 1.0)
+            cell.backgroundColor = UIColor(red: 255.0/255.0, green: 197.0/255.0, blue: 17.0/255.0, alpha: 1.0)
             cell.textLabel?.textColor = UIColor.white
             cell.textLabel?.text = "User Information"
         }
