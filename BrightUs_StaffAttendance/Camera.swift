@@ -298,16 +298,21 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                 self.ref.child("mainAttendanceApp").child("branches").child(branchCode).child("qrCode").child("users").child(userId).updateChildValues(["status" : "old"])
                                 
                                 DispatchQueue.main.async {
+
                                     self.randomQRCode = ""
                                     
                                     self.vwQRCode?.frame = CGRect.zero
                                     self.objCaptureSession?.startRunning()
+                                    
                                     let controller = self.parent as? HomeViewController
                                     let scrollView = controller?.mainScrollView
+                                    
+
                                     scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-                                    
-                                    
+                                    scrollView?.isScrollEnabled = false
                                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+
+                                    
                                     //                            self.ref.removeAllObservers()
                                 }
                                 
@@ -319,7 +324,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                     self.isAlertAvailable = true
                                     let alert = self.ShowAlert()
                                     alert.title = "BrightUs"
-                                    alert.message = "QR code may have expired, Please try again"
+                                    alert.message = "QR code may have expired or invalid, Please try again"
                                     _ = self.present(alert, animated: true, completion: nil)
                                 }
 
@@ -331,6 +336,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                     
                                     let controller = self.parent as? HomeViewController
                                     let scrollView = controller?.mainScrollView
+                                    scrollView?.isScrollEnabled = false
+
                                     scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
                                 }
                                 
@@ -344,7 +351,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                 self.isAlertAvailable = true
                                 let alert = self.ShowAlert()
                                 alert.title = "BrightUs"
-                                alert.message = "QR code may have expired, Please try again"
+                                alert.message = "QR code may have expired or invalid, Please try again"
                                 _ = self.present(alert, animated: true, completion: nil)
                             }
 
@@ -356,6 +363,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                 
                                 let controller = self.parent as? HomeViewController
                                 let scrollView = controller?.mainScrollView
+                                scrollView?.isScrollEnabled = false
+
                                 scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
                             }
                             
@@ -378,7 +387,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                             self.isAlertAvailable = true
                             let alert = self.ShowAlert()
                             alert.title = "BrightUs"
-                            alert.message = "QR code may have expired, Please try again"
+                            alert.message = "QR code may have expired or invalid, Please try again"
                             _ = self.present(alert, animated: true, completion: nil)
                         }
                         

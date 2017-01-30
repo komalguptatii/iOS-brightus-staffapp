@@ -74,6 +74,6 @@ class HomeViewController: BaseViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-      
+    //Removed Menu bar button from here due to change in structure
        
 }

@@ -720,10 +720,17 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                 }
                 else if let error = error{
-                    let alert = self.ShowAlert()
-                    alert.title = "BrightUs"
-                    alert.message = error.localizedDescription
-                    _ = self.present(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self.indicator.removeFromSuperview()
+                        self.view.isUserInteractionEnabled = true
+                        self.view.window?.isUserInteractionEnabled = true
+                        
+                        let alert = self.ShowAlert()
+                        alert.title = "BrightUs"
+                        alert.message = error.localizedDescription
+                        _ = self.present(alert, animated: true, completion: nil)
+                    }
+
                 }
             }
             catch{

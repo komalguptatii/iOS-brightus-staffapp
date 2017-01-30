@@ -270,14 +270,8 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         else if (scrollView.contentOffset.x <= self.view.frame.width){
            
             let controller = self.parent as? HomeViewController
-//            controller?.title = "Dashboard"
-//            controller?.navigationItem.leftBarButtonItem?.isEnabled = true
-
-            //
             controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height))
 
-//            controller?.mainScrollView.contentSize = CGSize(width: (self.view.frame.width), height: (self.view.frame.height - 64))
-            //
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
             
@@ -469,11 +463,13 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         
         _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
             do {
+                
                 DispatchQueue.main.async {
                     self.indicator.stopAnimating()
                     self.view.isUserInteractionEnabled = true
                     self.view.addSubview(self.indicator)
                 }
+                
                 if data != nil{
                     if let httpResponseValue = response as? HTTPURLResponse{
                         print(httpResponseValue.statusCode)
@@ -591,10 +587,17 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                     }
                 }
                 else if let error = error{
-                    let alert = self.ShowAlert()
-                    alert.title = "BrightUs"
-                    alert.message = error.localizedDescription
-                    _ = self.present(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self.indicator.removeFromSuperview()
+                        self.view.isUserInteractionEnabled = true
+                        self.view.window?.isUserInteractionEnabled = true
+                        
+                        let alert = self.ShowAlert()
+                        alert.title = "BrightUs"
+                        alert.message = error.localizedDescription
+                        _ = self.present(alert, animated: true, completion: nil)
+                    }
+
                 }
             }
             catch{
@@ -697,9 +700,15 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
     
     func MarkAttendanceOnServer(){
         
+        self.view.isUserInteractionEnabled = false
+        self.view.addSubview(indicator)
+        self.view.bringSubview(toFront: indicator)
+        
         let controller = self.parent as? HomeViewController
+        
         controller?.title = "Dashboard"
         controller?.navigationItem.leftBarButtonItem?.isEnabled = true
+
 
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
         
@@ -769,10 +778,17 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                             }
                         }
                         else if let error = error{
-                            let alert = self.ShowAlert()
-                            alert.title = "BrightUs"
-                            alert.message = error.localizedDescription
-                            _ = self.present(alert, animated: true, completion: nil)
+                            DispatchQueue.main.async {
+                                self.indicator.removeFromSuperview()
+                                self.view.isUserInteractionEnabled = true
+                                self.view.window?.isUserInteractionEnabled = true
+                                
+                                let alert = self.ShowAlert()
+                                alert.title = "BrightUs"
+                                alert.message = error.localizedDescription
+                                _ = self.present(alert, animated: true, completion: nil)
+                            }
+
                         }
                     }
                     catch {
@@ -787,11 +803,17 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
             
         }
         else{
-            let alert = ShowAlert()
-            alert.title = "BrightUs"
-            alert.message = "Check the internet connection on your device"
-            _ = self.present(alert, animated: true, completion: nil)
             
+            DispatchQueue.main.async {
+                self.indicator.removeFromSuperview()
+                self.view.isUserInteractionEnabled = true
+                self.view.window?.isUserInteractionEnabled = true
+                
+                let alert = self.ShowAlert()
+                alert.title = "BrightUs"
+                alert.message = "Check the internet connection on your device"
+                _ = self.present(alert, animated: true, completion: nil)
+            }
         }
         
         

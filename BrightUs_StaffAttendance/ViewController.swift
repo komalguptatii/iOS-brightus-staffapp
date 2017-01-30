@@ -95,6 +95,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        emailTextField.text = ""
+        passwordTextField.text = ""
+
         if let tokenValue = defaults.value(forKey: "accessToken"){
             if tokenValue as! String == ""{
                 print("No token exists")
@@ -331,10 +335,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         }
                     }
                     else if let error = error{
-                        let alert = self.ShowAlert()
-                        alert.title = "BrightUs"
-                        alert.message = error.localizedDescription
-                        _ = self.present(alert, animated: true, completion: nil)
+                        
+                        DispatchQueue.main.async {
+                            self.indicator.removeFromSuperview()
+                            self.view.isUserInteractionEnabled = true
+                            self.view.window?.isUserInteractionEnabled = true
+
+                            let alert = self.ShowAlert()
+                            alert.title = "BrightUs"
+                            alert.message = error.localizedDescription
+                            _ = self.present(alert, animated: true, completion: nil)
+                        }
+                        
                     }
                 }
                 catch{
@@ -393,10 +405,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
                 else if let error = error{
-                    let alert = self.ShowAlert()
-                    alert.title = "BrightUs"
-                    alert.message = error.localizedDescription
-                    _ = self.present(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self.indicator.removeFromSuperview()
+                        self.view.isUserInteractionEnabled = true
+                        self.view.window?.isUserInteractionEnabled = true
+                        
+                        let alert = self.ShowAlert()
+                        alert.title = "BrightUs"
+                        alert.message = error.localizedDescription
+                        _ = self.present(alert, animated: true, completion: nil)
+                    }
+
                 }
             }
             catch{
@@ -427,10 +446,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
         }
         else{
-            let alert = ShowAlert()
-            alert.title = "BrightUs"
-            alert.message = "Check the internet connection on your device"
-            _ = self.present(alert, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.indicator.removeFromSuperview()
+                self.view.isUserInteractionEnabled = true
+                self.view.window?.isUserInteractionEnabled = true
+                
+                let alert = self.ShowAlert()
+                alert.title = "BrightUs"
+                alert.message = "Check the internet connection on your device"
+                _ = self.present(alert, animated: true, completion: nil)
+            }
+
             
         }
     }
@@ -551,10 +577,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
                 else if let error = error{
-                    let alert = self.ShowAlert()
-                    alert.title = "BrightUs"
-                    alert.message = error.localizedDescription
-                    _ = self.present(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self.indicator.removeFromSuperview()
+                        self.view.isUserInteractionEnabled = true
+                        self.view.window?.isUserInteractionEnabled = true
+                        
+                        let alert = self.ShowAlert()
+                        alert.title = "BrightUs"
+                        alert.message = error.localizedDescription
+                        _ = self.present(alert, animated: true, completion: nil)
+                    }
                 }
             }
             catch{
