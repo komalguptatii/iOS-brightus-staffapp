@@ -28,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
        
         //Changed Color of Navigation Bar
-        UINavigationBar.appearance().barTintColor = UIColor(red: 222.0/255.0, green: 60.0/255.0, blue: 77.0/255.0, alpha: 1.0)
+//        UINavigationBar.appearance().barTintColor = UIColor(red: 222.0/255.0, green: 60.0/255.0, blue: 77.0/255.0, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 255.0/255.0, green: 195.0/255.0, blue: 17.0/255.0, alpha: 1.0)
 
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
