@@ -285,6 +285,14 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         
     }
     
+    //MARK: - Remove Controller Action
+    /**
+     Remove Controller Action
+     
+     - Camera Controller will be removed once the attendance marked on server
+     
+     */
+    
     func RemoveController(){
         cameraController.vwQRCode?.frame = CGRect.zero
         
@@ -403,7 +411,7 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
             print(NSLocalizedString("Night", comment: "Night"))
         }
     }
-    
+
     //MARK: - TimeStamp Conversion
     
     /**

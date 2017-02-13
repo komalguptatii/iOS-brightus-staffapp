@@ -1,6 +1,6 @@
 version: "Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1)"
-options: "0ae5240867a11cb8dc4be01779d3e53e"
-build_time: [537357840, 421981000]
+options: "d07eb35dde2034cb5934e05fbbe23676"
+build_time: [540282619, 192269000]
 inputs:
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DeviceExtension.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/BaseViewController.swift": [9223372036854775807, 0]
@@ -13,6 +13,8 @@ inputs:
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/AppDelegate.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ChangePassword.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/TextFieldsEffects.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/TiiCheckInOutCell.swift": [9223372036854775807, 0]
+  "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/TiiGreetingCell.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/Reachability.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/DetailsViewController.swift": [9223372036854775807, 0]
   "/Volumes/Mac 2/Techies/2016/BrightUsStaffAttendance/BrightUs_StaffAttendance/ForgotPassViewController.swift": [9223372036854775807, 0]

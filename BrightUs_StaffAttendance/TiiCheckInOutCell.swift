@@ -13,10 +13,19 @@ import UIKit
 
 class TiiCheckInOutCell: UITableViewCell {
     
+    /**
+     * Time Label - Shows Attendance to display the time at which attendance is marked
+     */
     @IBOutlet var timeLabel: UILabel!
     
+    /**
+     *Indication Label - Indicate check - in/out
+     */
     @IBOutlet var indicationLabel: UILabel!
     
+    /**
+     Check In/Out Image
+     */
     @IBOutlet var checkInOutImage: UIImageView!
     
 }

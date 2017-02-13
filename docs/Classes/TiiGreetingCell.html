@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>String Extension Reference</title>
+    <title>TiiGreetingCell Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/String" class="dashAnchor"></a>
-    <a title="String Extension Reference"></a>
+    <a name="//apple_ref/swift/Class/TiiGreetingCell" class="dashAnchor"></a>
+    <a title="TiiGreetingCell Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (91% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        String Extension Reference
+        TiiGreetingCell Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -141,14 +141,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>String</h1>
+            <h1>TiiGreetingCell</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">String</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">TiiGreetingCell</span><span class="p">:</span> <span class="kt">UITableViewCell</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Greeting Cell - Custom Cell to greet user</p>
+
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -156,9 +157,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vE24BrightUs_StaffAttendanceSS10isNotEmptySb"></a>
-                    <a name="//apple_ref/swift/Property/isNotEmpty" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vE24BrightUs_StaffAttendanceSS10isNotEmptySb">isNotEmpty</a>
+                    <a name="/s:vC24BrightUs_StaffAttendance15TiiGreetingCell13greetingImageGSQCSo11UIImageView_"></a>
+                    <a name="//apple_ref/swift/Property/greetingImage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance15TiiGreetingCell13greetingImageGSQCSo11UIImageView_">greetingImage</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -166,14 +167,95 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>true iff self contains characters.</p>
+                        <p>Greeting Image - Change everytime according to morning, afternoon &amp; so on</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isNotEmpty</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">greetingImage</span><span class="p">:</span> <span class="kt">UIImageView</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance15TiiGreetingCell6wishesGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/wishes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance15TiiGreetingCell6wishesGSQCSo7UILabel_">wishes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Wishes - to greet user</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">wishes</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance15TiiGreetingCell8userNameGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/userName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance15TiiGreetingCell8userNameGSQCSo7UILabel_">userName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>User Name - Display the user name</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">userName</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance15TiiGreetingCell14todaysDateTimeGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/todaysDateTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance15TiiGreetingCell14todaysDateTimeGSQCSo7UILabel_">todaysDateTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Today&rsquo;s Date time - Displays Current date &amp; Time</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">todaysDateTime</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>

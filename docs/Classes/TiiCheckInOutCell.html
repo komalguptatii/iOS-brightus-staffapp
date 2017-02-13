@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>String Extension Reference</title>
+    <title>TiiCheckInOutCell Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/String" class="dashAnchor"></a>
-    <a title="String Extension Reference"></a>
+    <a name="//apple_ref/swift/Class/TiiCheckInOutCell" class="dashAnchor"></a>
+    <a title="TiiCheckInOutCell Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (91% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        String Extension Reference
+        TiiCheckInOutCell Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -141,14 +141,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>String</h1>
+            <h1>TiiCheckInOutCell</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">String</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">TiiCheckInOutCell</span><span class="p">:</span> <span class="kt">UITableViewCell</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Check - In/Out detail Cell</p>
+
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -156,9 +157,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vE24BrightUs_StaffAttendanceSS10isNotEmptySb"></a>
-                    <a name="//apple_ref/swift/Property/isNotEmpty" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vE24BrightUs_StaffAttendanceSS10isNotEmptySb">isNotEmpty</a>
+                    <a name="/s:vC24BrightUs_StaffAttendance17TiiCheckInOutCell9timeLabelGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/timeLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance17TiiCheckInOutCell9timeLabelGSQCSo7UILabel_">timeLabel</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -166,14 +167,68 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>true iff self contains characters.</p>
+                        <p>Time Label - Shows Attendance to display the time at which attendance is marked</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isNotEmpty</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">timeLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance17TiiCheckInOutCell15indicationLabelGSQCSo7UILabel_"></a>
+                    <a name="//apple_ref/swift/Property/indicationLabel" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance17TiiCheckInOutCell15indicationLabelGSQCSo7UILabel_">indicationLabel</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indication Label - Indicate check - in/out</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">indicationLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC24BrightUs_StaffAttendance17TiiCheckInOutCell15checkInOutImageGSQCSo11UIImageView_"></a>
+                    <a name="//apple_ref/swift/Property/checkInOutImage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC24BrightUs_StaffAttendance17TiiCheckInOutCell15checkInOutImageGSQCSo11UIImageView_">checkInOutImage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check In/Out Image</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">var</span> <span class="nv">checkInOutImage</span><span class="p">:</span> <span class="kt">UIImageView</span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>

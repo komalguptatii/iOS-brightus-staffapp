@@ -164,7 +164,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11AppDelegate")
 @end
 
 @class UIImage;
-@class UIBarButtonItem;
+@class UIButton;
 @class NSBundle;
 @class NSCoder;
 
@@ -200,7 +200,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18BaseViewController")
   \param argument UIBarButtonItem
 
 */
-- (void)onSlideMenuButtonPressed:(UIBarButtonItem * _Nonnull)sender;
+- (void)onSlideMenuButtonPressed:(UIButton * _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -255,6 +255,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
   userId - Id seperated from scanned QR code
 */
 @property (nonatomic, copy) NSString * _Nonnull userId;
+@property (nonatomic) BOOL isAlertAvailable;
 /**
   viewDidLoad Method
 */
@@ -269,6 +270,11 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 
 */
 - (void)viewWillAppear:(BOOL)animated;
+- (void)StartObjectCatureAgain;
+/**
+  GetSnapshotFromFirebase - Provide Reference structure to firebase at particular branch code & users and get snapshot reference
+*/
+- (void)GetSnapshotFromFirebase;
 /**
   Method - configureVideoCapture
   \param description It configures the AVCaptureDevice
@@ -324,7 +330,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance6Camera")
 
 @class HoshiTextField;
 @class UIActivityIndicatorView;
-@class UIButton;
+@class UIBarButtonItem;
 
 /**
   Change Password
@@ -399,9 +405,11 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UITableView;
 @class UILabel;
 @class CLLocationManager;
 @class UIImageView;
+@class UITableViewCell;
 @class UIScrollView;
 @class CLLocation;
 
@@ -409,43 +417,60 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ChangePassword")
   Dashboard View - Display time, greet user , check - in/out timings, Mark Attendance
 */
 SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
-@interface DashboardView : UIViewController <CLLocationManagerDelegate, UIScrollViewDelegate>
+@interface DashboardView : BaseViewController <CLLocationManagerDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+/**
+  Dashboard Table View which holds the all detail
+*/
+@property (nonatomic, strong) IBOutlet UITableView * _Null_unspecified dashboardTableView;
+/**
+  Mark Attendance Button
+*/
+@property (nonatomic, strong) IBOutlet UIButton * _Null_unspecified markAttendanceButton;
 /**
   Current Date will be displayed on this label
 */
-@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified currentDateLabel;
+@property (nonatomic, strong) UILabel * _Nonnull currentDateLabel;
 /**
   Greet user
 */
-@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified greetingLabel;
+@property (nonatomic, strong) UILabel * _Nonnull greetingLabel;
 /**
   Display User Name
 */
-@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified userNameLabel;
+@property (nonatomic, strong) UILabel * _Nonnull userNameLabel;
 /**
   Label that displays Check-In Time
 */
-@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified checkInTimeValueLabel;
+@property (nonatomic, strong) UILabel * _Nonnull checkInTimeValueLabel;
 /**
   Label that displays Check-Out Time
 */
-@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified checkOutTimeValueLabel;
+@property (nonatomic, strong) UILabel * _Nonnull checkOutTimeValueLabel;
 /**
   Intialized instance of CLLocationManager
 */
 @property (nonatomic, strong) CLLocationManager * _Nonnull locationManager;
 /**
+  Time Image - Display morning, afternoon, evening images
+*/
+@property (nonatomic, strong) UIImageView * _Nonnull timeImage;
+/**
   To keep check of access to mark attendance
 */
 @property (nonatomic) BOOL isAllowedToMarkAttendance;
 /**
-  Display and give alert to user that whether he is allowed or not to mark attendance
+  Instance of Camera Class
 */
-@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified locationUpdateLabel;
+@property (nonatomic, readonly, strong) Camera * _Nonnull cameraController;
 /**
-  Time Image - Display morning, afternoon, evening images
+  Indicator to let user know about data loading
 */
-@property (nonatomic, strong) IBOutlet UIImageView * _Null_unspecified timeImage;
+@property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
+/**
+  rowsForSectionTwo - Update number of rows in dashboard table view
+*/
+@property (nonatomic) NSInteger rowsForSectionTwo;
+@property (nonatomic) NSInteger noOfTimesMarkAttendanceCalled;
 /**
   <ul>
     <li>
@@ -463,17 +488,45 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 */
 - (void)viewWillAppear:(BOOL)animated;
 /**
+  Number of Sections in TableView
+  \param return number of sections
+
+*/
+- (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView;
+/**
+  Number of Rows in Section
+  \param return number of rows in one section
+
+*/
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
+/**
+  Height of Row
+  \param return CGFLoat (height)
+
+*/
+- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+/**
   scrollViewDidEndDecelerating Method
   \param argument UIScrollView
 
 */
 - (void)scrollViewDidEndDecelerating:(UIScrollView * _Nonnull)scrollView;
 /**
+  Remove Controller Action
+  <ul>
+    <li>
+      Camera Controller will be removed once the attendance marked on server
+    </li>
+  </ul>
+*/
+- (void)RemoveController;
+/**
   Attendance Detail Button Action
   \param description When user tap this button, app navigates to attendance detail section
 
 */
-- (IBAction)AttendanceDetailButtonAction:(UIButton * _Nonnull)sender;
+- (IBAction)TaptoMarkAttendance:(UIButton * _Nonnull)sender;
 /**
   Specify date format Methods
   \param return Returns String Value in format of Day, Date Month
@@ -527,15 +580,20 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance13DashboardView")
 
 */
 - (UIAlertController * _Nonnull)ShowAlert;
+- (UIAlertController * _Nonnull)ShowAlert2;
+/**
+  Menu Button Action
+  \param description Slider Menu will be shown to user
+
+*/
+- (IBAction)MenuButtonPressed:(id _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UITableView;
 @class UIPickerView;
 @class UIDatePicker;
 @class NSMutableArray;
-@class UITableViewCell;
 
 /**
   Attendance Details - Shows the history, user can apply filters and choose time period
@@ -575,6 +633,9 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 */
 @property (nonatomic, strong) IBOutlet UIImageView * _Null_unspecified noDataImage;
 /**
+*/
+@property (nonatomic, strong) IBOutlet UIButton * _Null_unspecified searchButton;
+/**
   Indicator to let user know about data loading
 */
 @property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
@@ -587,7 +648,7 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 */
 @property (nonatomic, strong) NSMutableArray * _Nonnull attendanceDetailArray;
 /**
-  Selected Filer Value, default is “Today”
+  Selected Filer Value, default is “this_week”
 */
 @property (nonatomic, copy) NSString * _Nonnull selectedFilter;
 /**
@@ -611,6 +672,14 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
 */
 @property (nonatomic, copy) NSString * _Nonnull selectedToDate;
 /**
+  <ul>
+    <li>
+      No Record Found Label
+    </li>
+  </ul>
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified noRecordFound;
+/**
   viewDidLoad Method
 */
 - (void)viewDidLoad;
@@ -618,6 +687,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance21DetailsViewController")
   didReceiveMemoryWarning Method
 */
 - (void)didReceiveMemoryWarning;
+/**
+  ViewWill DisAppear
+*/
+- (void)viewWillDisappear:(BOOL)animated;
 /**
   Back Button Action
   <ul>
@@ -759,6 +832,8 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance24ForgotPassViewController")
   didReceiveMemoryWarning Method
 */
 - (void)didReceiveMemoryWarning;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 /**
   Back Button Action
   \param description When user tap on back button, app will navigate to previous screen along with animation
@@ -826,12 +901,6 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance18HomeViewController")
   didReceiveMemoryWarning Method
 */
 - (void)didReceiveMemoryWarning;
-/**
-  Menu Button Action
-  \param description Slider Menu will be shown to user
-
-*/
-- (IBAction)MenuButtonPressed:(id _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -965,7 +1034,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23SlideMenuViewController")
   Array containing menu options
 */
 @property (nonatomic, copy) NSArray<NSDictionary<NSString *, NSString *> *> * _Nonnull arrayMenuOptions;
-@property (nonatomic, strong) UIBarButtonItem * _Null_unspecified btnMenu;
+/**
+  Menu button which was tapped to display the menu
+*/
+@property (nonatomic, strong) UIButton * _Null_unspecified btnMenu;
 /**
   *viewDidLoad Method
 */
@@ -1023,6 +1095,10 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23SlideMenuViewController")
 */
 - (void)NavigateToProfile;
 /**
+  NavigateToAttendanceDetail Method
+*/
+- (void)NavigateToAttendanceDetail;
+/**
   LogoutCall Method
 */
 - (void)LogoutCall;
@@ -1062,6 +1138,54 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance23TiiAttendanceDetailCell")
 @end
 
 
+/**
+  Check - In/Out detail Cell
+*/
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance17TiiCheckInOutCell")
+@interface TiiCheckInOutCell : UITableViewCell
+/**
+  Time Label - Shows Attendance to display the time at which attendance is marked
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified timeLabel;
+/**
+  *Indication Label - Indicate check - in/out
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified indicationLabel;
+/**
+  Check In/Out Image
+*/
+@property (nonatomic, strong) IBOutlet UIImageView * _Null_unspecified checkInOutImage;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/**
+  Greeting Cell - Custom Cell to greet user
+*/
+SWIFT_CLASS("_TtC24BrightUs_StaffAttendance15TiiGreetingCell")
+@interface TiiGreetingCell : UITableViewCell
+/**
+  Greeting Image - Change everytime according to morning, afternoon & so on
+*/
+@property (nonatomic, strong) IBOutlet UIImageView * _Null_unspecified greetingImage;
+/**
+  Wishes - to greet user
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified wishes;
+/**
+  User Name - Display the user name
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified userName;
+/**
+  Today’s Date time - Displays Current date & Time
+*/
+@property (nonatomic, strong) IBOutlet UILabel * _Null_unspecified todaysDateTime;
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 @interface UIDevice (SWIFT_EXTENSION(BrightUs_StaffAttendance))
 /**
   model Name extracted
@@ -1088,11 +1212,17 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance11UserProfile")
 */
 @property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified roleLabel;
 /**
+  Every individual has its unique pin
+*/
+@property (nonatomic, strong) IBOutlet HoshiTextField * _Null_unspecified pinCode;
+/**
   Indicator to let user know about data loading
 */
 @property (nonatomic, strong) UIActivityIndicatorView * _Nonnull indicator;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 /**
   Back Button Action
   <ul>
@@ -1159,10 +1289,6 @@ SWIFT_CLASS("_TtC24BrightUs_StaffAttendance14ViewController")
   viewWillAppear Method
 */
 - (void)viewWillAppear:(BOOL)animated;
-/**
-  viewWillDisappear Method
-*/
-- (void)viewWillDisappear:(BOOL)animated;
 /**
   Show Password in Text Format Action
   -parameter description : User can tap on eye to view password and then again to hide the same

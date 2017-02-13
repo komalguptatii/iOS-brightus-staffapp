@@ -247,13 +247,20 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 //"9:5SF2imzKrrOpcCYC6b8pZQmjSIIDGsWQzDnuKpJM" - LDH2 (Testing)
 //                randomQRCode = ""
                 let mathString: String = randomQRCode
-                let numbers = mathString.components(separatedBy: [":"])
-                print(numbers)
-                userId = numbers[0]
-                
-                getQrCodeStatus()
-                
-                objCaptureSession?.stopRunning()
+                if let numbers = mathString.components(separatedBy: [":"]) as? [String]{
+                    print(numbers)
+                    userId = numbers[0]
+                    
+                    getQrCodeStatus()
+                    
+                    objCaptureSession?.stopRunning()
+                }
+                else{
+                    let alert = self.ShowAlert()
+                    alert.title = "BrightUs"
+                    alert.message = "QR code may have expired or invalid, Please try again"
+                    _ = self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -271,54 +278,82 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             print(snapshotReference)
             print(userId)
             if userId.isEmpty{
-               return
+                return
             }
-            if let dict : FIRDataSnapshot = snapshotReference.childSnapshot(forPath: userId){
-                print(dict)
-                if dict.childrenCount != 0{
-                    print(dict.childrenCount)
-                    if let snapValue = dict.value as? NSMutableDictionary{
-                        print(snapValue)
-                        let status = snapValue.value(forKey: "status")
-                        let randomNmbr = snapValue.value(forKey: "code")
-                        self.attendanceStatus = status as! String
-                        let nmbr = String(describing: randomNmbr!)
-                        
-                        print(nmbr)
-                        print(self.randomQRCode)
-                        
-                        
-                        if (nmbr == self.randomQRCode){
+            if let _ : Int = Int(userId){
+                if let dict : FIRDataSnapshot = snapshotReference.childSnapshot(forPath: userId){
+                    print(dict)
+                    if dict.childrenCount != 0{
+                        print(dict.childrenCount)
+                        if let snapValue = dict.value as? NSMutableDictionary{
+                            print(snapValue)
+                            let status = snapValue.value(forKey: "status")
+                            let randomNmbr = snapValue.value(forKey: "code")
+                            self.attendanceStatus = status as! String
+                            let nmbr = String(describing: randomNmbr!)
+                            
                             print(nmbr)
                             print(self.randomQRCode)
-                            if (self.attendanceStatus == "new"){
-                                
-                                let branchCode = defaults.value(forKey: "branchCode") as! String
-                                
-                                self.ref.child("mainAttendanceApp").child("branches").child(branchCode).child("qrCode").child("users").child(userId).updateChildValues(["status" : "old"])
-                                
-                                DispatchQueue.main.async {
-
-                                    self.randomQRCode = ""
+                            
+                            
+                            if (nmbr == self.randomQRCode){
+                                print(nmbr)
+                                print(self.randomQRCode)
+                                if (self.attendanceStatus == "new"){
                                     
-                                    self.vwQRCode?.frame = CGRect.zero
-                                    self.objCaptureSession?.startRunning()
+                                    let branchCode = defaults.value(forKey: "branchCode") as! String
                                     
-                                    let controller = self.parent as? HomeViewController
-                                    let scrollView = controller?.mainScrollView
+                                    self.ref.child("mainAttendanceApp").child("branches").child(branchCode).child("qrCode").child("users").child(userId).updateChildValues(["status" : "old"])
                                     
-
-                                    scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-                                    scrollView?.isScrollEnabled = false
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
-
+                                    DispatchQueue.main.async {
+                                        
+                                        self.randomQRCode = ""
+                                        
+                                        self.vwQRCode?.frame = CGRect.zero
+                                        self.objCaptureSession?.startRunning()
+                                        
+                                        let controller = self.parent as? HomeViewController
+                                        let scrollView = controller?.mainScrollView
+                                        
+                                        
+                                        scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                                        scrollView?.isScrollEnabled = false
+                                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "MarkAttendanceOnServer"), object: nil)
+                                        
+                                        
+                                        //                            self.ref.removeAllObservers()
+                                    }
                                     
-                                    //                            self.ref.removeAllObservers()
+                                }
+                                else{
+                                    print("different status")
+                                    
+                                    if !self.isAlertAvailable{
+                                        self.isAlertAvailable = true
+                                        let alert = self.ShowAlert()
+                                        alert.title = "BrightUs"
+                                        alert.message = "QR code may have expired or invalid, Please try again"
+                                        _ = self.present(alert, animated: true, completion: nil)
+                                    }
+                                    
+                                    DispatchQueue.main.async {
+                                        self.randomQRCode = ""
+                                        
+                                        self.vwQRCode?.frame = CGRect.zero
+                                        self.objCaptureSession?.startRunning()
+                                        
+                                        let controller = self.parent as? HomeViewController
+                                        let scrollView = controller?.mainScrollView
+                                        scrollView?.isScrollEnabled = false
+                                        
+                                        scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                                    }
+                                    
                                 }
                                 
-                            }
-                            else{
-                                print("different status")
+                            }else {
+                                
+                                print("different code")
                                 
                                 if !self.isAlertAvailable{
                                     self.isAlertAvailable = true
@@ -327,7 +362,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                     alert.message = "QR code may have expired or invalid, Please try again"
                                     _ = self.present(alert, animated: true, completion: nil)
                                 }
-
+                                
                                 DispatchQueue.main.async {
                                     self.randomQRCode = ""
                                     
@@ -337,15 +372,24 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                     let controller = self.parent as? HomeViewController
                                     let scrollView = controller?.mainScrollView
                                     scrollView?.isScrollEnabled = false
-
+                                    
                                     scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
                                 }
                                 
                             }
                             
-                        }else {
+                        }
+                    }
+                    else{
+                        print("Null Snapshot")
+                        
+                        
+                        DispatchQueue.main.async {
+                            self.objCaptureSession?.stopRunning()
+                            self.randomQRCode = ""
                             
-                            print("different code")
+                            self.vwQRCode?.frame = CGRect.zero
+                            self.objCaptureSession?.startRunning()
                             
                             if !self.isAlertAvailable{
                                 self.isAlertAvailable = true
@@ -354,48 +398,31 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                                 alert.message = "QR code may have expired or invalid, Please try again"
                                 _ = self.present(alert, animated: true, completion: nil)
                             }
-
-                            DispatchQueue.main.async {
-                                self.randomQRCode = ""
-                                
-                                self.vwQRCode?.frame = CGRect.zero
-                                self.objCaptureSession?.startRunning()
-                                
-                                let controller = self.parent as? HomeViewController
-                                let scrollView = controller?.mainScrollView
-                                scrollView?.isScrollEnabled = false
-
-                                scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-                            }
+                            
                             
                         }
-                        
                     }
-                }
-                else{
-                    print("Null Snapshot")
                     
-                    
-                    DispatchQueue.main.async {
-                        self.objCaptureSession?.stopRunning()
-                        self.randomQRCode = ""
-                        
-                        self.vwQRCode?.frame = CGRect.zero
-                        self.objCaptureSession?.startRunning()
-
-                        if !self.isAlertAvailable{
-                            self.isAlertAvailable = true
-                            let alert = self.ShowAlert()
-                            alert.title = "BrightUs"
-                            alert.message = "QR code may have expired or invalid, Please try again"
-                            _ = self.present(alert, animated: true, completion: nil)
-                        }
-                        
-
-                    }
                 }
-                
             }
+            else{
+                print("HACK")
+                DispatchQueue.main.async {
+                    self.objCaptureSession?.stopRunning()
+                    
+                    self.randomQRCode = ""
+                    
+                    self.vwQRCode?.frame = CGRect.zero
+                    self.objCaptureSession?.startRunning()
+                    
+                    let alert = self.ShowAlert()
+                    alert.title = "BrightUs"
+                    alert.message = "QR code may have expired or invalid, Please try again"
+                    _ = self.present(alert, animated: true, completion: nil)
+                    
+                }
+            }
+            
             
         }
         else{
@@ -419,7 +446,7 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             }
             
         }
-
+        
     }
     
     /**
