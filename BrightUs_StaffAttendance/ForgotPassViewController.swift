@@ -44,6 +44,9 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
         indicator.color = UIColor.black
         indicator.startAnimating()
 
+        if screenheight <= 480{
+            emailTextField.font = UIFont.systemFont(ofSize: 11.0)
+        }
     }
     
     /**
@@ -266,9 +269,30 @@ class ForgotPassViewController: UIViewController, UITextFieldDelegate {
     */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailTextField{
+            if screenheight <= 480{
+                
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+                    self.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
+                }, completion: { finished in
+                })
+            }
             emailTextField.resignFirstResponder()
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == emailTextField{
+            
+            if screenheight <= 480{
+                
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+                    self.view.frame = CGRect(x: 0, y: -60, width: 320, height: 480)
+                }, completion: { finished in
+                })
+            }
+        }
+        
     }
     
     //MARK: - Alert Controller

@@ -54,6 +54,14 @@ class UserProfile: UIViewController, UITextFieldDelegate {
         self.view.isUserInteractionEnabled = false
         self.view.window?.isUserInteractionEnabled = false
         
+        if screenheight <= 480{
+            nameLabel.font = UIFont.systemFont(ofSize: 11.0)
+            emailLabel.font = UIFont.systemFont(ofSize: 11.0)
+            roleLabel.font = UIFont.systemFont(ofSize: 11.0)
+            pinCode.font = UIFont.systemFont(ofSize: 11.0)
+
+        }
+        
         if IsConnectionAvailable(){
             self.ViewProfile()
         }

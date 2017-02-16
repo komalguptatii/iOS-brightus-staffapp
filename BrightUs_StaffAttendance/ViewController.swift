@@ -62,8 +62,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // Custom Button to show password
         let showPasswordButton = UIButton()
-        
-        if screenheight <= 568{
+        if screenheight <= 480{
+            showPasswordButton.frame = CGRect(x: 236.0, y: 266.0, width: 35.0, height: 35.0)
+            emailTextField.font = UIFont.systemFont(ofSize: 11.0)
+            passwordTextField.font = UIFont.systemFont(ofSize: 11.0)
+
+        }
+        else if screenheight <= 568{
             showPasswordButton.frame = CGRect(x: 236.0, y: 316.0, width: 35.0, height: 35.0)
 
         }
@@ -486,9 +491,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
             passwordTextField.becomeFirstResponder()
         }
         else if textField == passwordTextField{
+            
+            if screenheight <= 480{
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+                    self.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
+                }, completion: { finished in
+                })
+            }
+           
+
             passwordTextField.resignFirstResponder()
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == passwordTextField{
+            if screenheight <= 480{
+                
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+                    self.view.frame = CGRect(x: 0, y: -60, width: 320, height: 480)
+                }, completion: { finished in
+                })
+            }
+        }
     }
     
     //MARK: - View Profile Request
