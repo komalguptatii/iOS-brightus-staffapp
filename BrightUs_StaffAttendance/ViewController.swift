@@ -300,6 +300,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                     let accessTokenValue = dict.value(forKey: "access_token")
                                     let refreshTokenValue = dict.value(forKey: "refresh_token")
                                     
+                                    defaults.setValue(self.emailTextField.text, forKey: "email")
                                     defaults.setValue(self.passwordTextField.text!, forKey: "password")
                                     defaults.setValue(tokenTypeValue, forKey: "tokenType")
                                     defaults.setValue(accessTokenValue, forKey: "accessToken")

@@ -164,10 +164,10 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var rowHeight : CGFloat! = 0
         if ((indexPath as NSIndexPath).section == 0) {
-            rowHeight = 100.0
+            rowHeight = 200.0
         }
         else if ((indexPath as NSIndexPath).section == 1){
-            rowHeight = 40.0
+            rowHeight = 60.0
  
         }
         return rowHeight
@@ -209,16 +209,62 @@ class SlideMenuViewController: UIViewController, UITableViewDataSource, UITableV
         
         if ((indexPath as NSIndexPath).section == 0){
             cell.backgroundColor = UIColor(red: 255.0/255.0, green: 197.0/255.0, blue: 17.0/255.0, alpha: 1.0)
-            cell.textLabel?.textColor = UIColor.white
-            cell.textLabel?.text = "User Information"
+            
+            let userImageView = UIImageView()
+            userImageView.frame = CGRect(x: 15.0, y: 40.0, width: 48.0, height: 48.0)
+            
+            userImageView.image = UIImage(named : "user")
+            
+            let emailLabel = UILabel()
+            emailLabel.text = defaults.value(forKey: "email") as? String
+            emailLabel.frame = CGRect(x: 15.0, y: 160.0, width: 240.0, height: 30.0)
+            emailLabel.font = UIFont.systemFont(ofSize: 16)
+            emailLabel.textColor = UIColor.white
+            
+            let nameLabel = UILabel()
+            nameLabel.text = defaults.value(forKey: "name") as? String
+            nameLabel.frame = CGRect(x: 15.0, y: 120.0, width: 240.0, height: 30.0)
+            nameLabel.font = UIFont.systemFont(ofSize: 18)
+            nameLabel.textColor = UIColor.white
+            
+            cell.contentView.addSubview(userImageView)
+            cell.contentView.addSubview(emailLabel)
+            cell.contentView.addSubview(nameLabel)
+            
+            //            cell.textLabel?.textColor = UIColor.white
+            //            cell.textLabel?.text = "User Information"
         }
         else if ((indexPath as NSIndexPath).section == 1){
-            cell.textLabel?.text = arrayMenuOptions[(indexPath as NSIndexPath).row]["title"]!
+            
+            let iconImageView = UIImageView()
+            iconImageView.frame = CGRect(x: 10.0, y: 20.0, width: 24.0, height: 24.0)
+            
+            if indexPath.row == 0{
+                iconImageView.image = UIImage(named : "profile_icon")
+                
+            }
+            else if indexPath.row == 1{
+                iconImageView.image = UIImage(named : "detail_icon")
+                
+            }
+            else if indexPath.row == 2{
+                iconImageView.image = UIImage(named : "logout_icon")
+                
+            }
+            
+            let nameLabel = UILabel()
+            nameLabel.text = arrayMenuOptions[(indexPath as NSIndexPath).row]["title"]!
+            nameLabel.frame = CGRect(x: 60.0, y: 18.0, width: 200.0, height: 30.0)
+            nameLabel.textColor = UIColor.black
+            
+            cell.contentView.addSubview(iconImageView)
+            cell.contentView.addSubview(nameLabel)
+            //            cell.textLabel?.text = arrayMenuOptions[(indexPath as NSIndexPath).row]["title"]!
             cell.textLabel?.textColor = UIColor.black
             cell.backgroundColor = UIColor.clear
-
+            
         }
-
+        
         return cell
     }
     
