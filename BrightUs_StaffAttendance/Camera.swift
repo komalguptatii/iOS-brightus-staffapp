@@ -243,24 +243,54 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                 //4:abcd - 4 is user id, abcd is code
                 //already have array as snapshot
                 //Break code here
-                //"9:4RatPeKzgYT11ke7zPlpYtLNUw9212UMLnIchav0" - LDH1 (Testing)
-                //"9:5SF2imzKrrOpcCYC6b8pZQmjSIIDGsWQzDnuKpJM" - LDH2 (Testing)
-//                randomQRCode = ""
+                // 2:NVjo1cnYHNEz7mDRrso5OYmrI4bVAmYGLvIfR4bs+2+LDH1
                 let mathString: String = randomQRCode
-                if let numbers = mathString.components(separatedBy: [":"]) as? [String]{
+                if !randomQRCode.isEmpty{
+                    let numbers : [String] = mathString.components(separatedBy: [":"])
                     print(numbers)
                     userId = numbers[0]
                     
-                    getQrCodeStatus()
+                    let dynamicCode = numbers[1]
                     
-                    objCaptureSession?.stopRunning()
+                    let getCode : [String] = dynamicCode.components(separatedBy: ["+"])
+                    print(getCode)
+                    let userBranchId = getCode[2]
+                    let branchCode = defaults.value(forKey: "branchCode") as! String
+                    print(branchCode)
+                    if userBranchId == branchCode{
+                        print("You can mark attendance")
+                        getQrCodeStatus()
+                        
+                        objCaptureSession?.stopRunning()
+                    }
+                    else{
+                        let alert = self.ShowAlert()
+                        alert.title = "BrightUs"
+                        alert.message = "You are not allowed to mark attendance in this Branch"
+                        _ = self.present(alert, animated: true, completion: nil)
+                        
+                        DispatchQueue.main.async {
+                            self.randomQRCode = ""
+                            
+                            self.vwQRCode?.frame = CGRect.zero
+                            self.objCaptureSession?.startRunning()
+                            
+                            let controller = self.parent as? HomeViewController
+                            let scrollView = controller?.mainScrollView
+                            scrollView?.isScrollEnabled = false
+                            
+                            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                        }
+                    }
                 }
-                else{
-                    let alert = self.ShowAlert()
-                    alert.title = "BrightUs"
-                    alert.message = "QR code may have expired or invalid, Please try again"
-                    _ = self.present(alert, animated: true, completion: nil)
-                }
+                
+//                }
+//                else{
+//                    let alert = self.ShowAlert()
+//                    alert.title = "BrightUs"
+//                    alert.message = "QR code may have expired or invalid, Please try again"
+//                    _ = self.present(alert, animated: true, completion: nil)
+//                }
             }
         }
     }

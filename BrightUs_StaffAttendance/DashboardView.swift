@@ -151,6 +151,8 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         
         scrollView?.delegate = self
         
+        NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.GetTodayAttendanceDetail),
+                                               name: NSNotification.Name(rawValue: "getAttendanceDetail"), object: nil)
 
     }
     
@@ -738,7 +740,6 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         controller?.title = "Dashboard"
         controller?.navigationItem.leftBarButtonItem?.isEnabled = true
 
-
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
         
         if IsConnectionAvailable(){
@@ -768,6 +769,15 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                 jsonDict.setValue("check_in", forKey: "type")
             }
             
+            // TODO : - Send UUID & App version
+            let deviceID = UIDevice.current.identifierForVendor!.uuidString
+            print(deviceID)
+            
+            jsonDict.setValue(deviceID, forKey: "uuid")
+            
+            let strVersion = Bundle.main .object(forInfoDictionaryKey: "CFBundleShortVersionString")
+            print(strVersion!)
+            
             var jsonData = Data()
             
             do{
@@ -791,6 +801,13 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                                     self.performSelector(inBackground: #selector(DashboardView.GetTodayAttendanceDetail), with: nil)
                                     
                                     
+                                }
+                                else if httpResponseValue.statusCode == 403{
+                                    if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                        print(dict)
+                                        self.GetTodayAttendanceDetail()
+                                    }
+
                                 }
                                 else{
                                     if self.noOfTimesMarkAttendanceCalled <= 2 && self.noOfTimesMarkAttendanceCalled > 0{
@@ -819,6 +836,7 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
                                 let alert = self.ShowAlert()
                                 alert.title = "BrightUs"
                                 alert.message = error.localizedDescription
+                                
                                 _ = self.present(alert, animated: true, completion: nil)
                             }
 

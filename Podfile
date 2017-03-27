@@ -10,7 +10,8 @@ target 'BrightUs_StaffAttendance' do
   pod 'Firebase/Crash'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
-  
+  pod 'Firebase/Messaging'
+
   # Pods for BrightUs_StaffAttendance
 
   target 'BrightUs_StaffAttendanceTests' do

@@ -30,8 +30,10 @@ var screenheight = UIScreen.main.bounds.height
 
 //let baseURL = "https://brightus-attendance.herokuapp.com"
 
+let baseURL2 = "http://api.brightusdev.seobudd.com/"
 let baseURL = "https://brightus--attendance-herokuapp-com-hf2xh802zzn7.runscope.net"
 
+var firInstanceToken = ""
 //Staff App - client_id = 2, client_secret = XNgcybCHTfz0wfehSQcDOStyGCnwakCIIECZzWtD
 
 //Student App - client_id = 3, client_secret = LlHv7I5ROyd61U3R2FJDtmiuYLAoT5IXWdn6ldS7

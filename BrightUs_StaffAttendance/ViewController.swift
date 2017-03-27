@@ -49,9 +49,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-//        emailTextField.text = "staff@maildrop.cc"
-//        passwordTextField.text = "staff"
+        emailTextField.text = "test@maildrop.cc"
+        passwordTextField.text = "jagdeep"
 
+//        emailTextField.text = "staff@maildrop.cc"
+//        passwordTextField.text = "jagdeep"
+        
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         indicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
@@ -101,15 +104,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        emailTextField.text = ""
-        passwordTextField.text = ""
+//        emailTextField.text = ""
+//        passwordTextField.text = ""
 
         if let tokenValue = defaults.value(forKey: "accessToken"){
             if tokenValue as! String == ""{
                 print("No token exists")
             }
             else{
-                
+                self.SendNotificationToken()
                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
                 self.navigationController?.pushViewController(vc, animated: false)
             }
@@ -265,6 +268,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     */
     func AuthorizeUser() {
         let apiString = baseURL + "/oauth/token"
+
+//        let apiString = baseURL2 + "oauth2/token"
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
         
@@ -277,6 +282,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let jsonDict = NSMutableDictionary()
         jsonDict.setValue("2", forKey: "client_id")
         jsonDict.setValue("XNgcybCHTfz0wfehSQcDOStyGCnwakCIIECZzWtD", forKey: "client_secret")
+        
+//        jsonDict.setValue("3", forKey: "client_id")
+//        jsonDict.setValue("cccf7f79b0c7da7b31617a8b1309d3fc44a6fd98", forKey: "client_secret")
+
         jsonDict.setValue("password", forKey: "grant_type")
         jsonDict.setValue(emailTextField.text, forKey: "username")
         jsonDict.setValue(passwordTextField.text, forKey: "password")
@@ -337,6 +346,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 }
                                 
                             }
+                            else if httpResponseValue.statusCode == 404{
+                                let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as!  NSDictionary
+                                print(dict)
+                                
+                            }
                             
                         }
                     }
@@ -375,8 +389,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
  
     */
     func TokenForFirebase(){
+        //http://api.brightusdev.seobudd.com/v1/user/firebase
         let apiString = baseURL + "/api/user/firebase"
-        
+//        let apiString = baseURL2 + "v1/user/firebase"
+
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
         
@@ -408,6 +424,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 self.FirebaseLogin(token: "\(firebaseTokenValue)")
                             }
                         }
+                        else if httpResponseValue.statusCode == 401{
+                            if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
+                                print(dict)
+                                
+                               
+                            }
+                        }
+
                     }
                 }
                 else if let error = error{
@@ -446,7 +470,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     if let user = FIRAuth.auth()?.currentUser {
                         print(user)
                     }
-                    
+                    self.SendNotificationToken()
                     self.performSelector(inBackground: #selector(ViewController.ViewProfile), with: nil)
                 }
                 catch {
@@ -481,6 +505,78 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
+    func SendNotificationToken(){
+        
+        let apiString = baseURL + "/api/user/device-token"
+        
+        //        let apiString = baseURL2 + "oauth2/token"
+        let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        let url = URL(string: encodedApiString!)
+        
+        let request = NSMutableURLRequest(url: url!)
+        request.httpMethod = "POST"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let token = defaults.value(forKey: "accessToken") as! String
+        
+        let header = "Bearer" + " \(token)"
+        //        print(header)
+        
+        request.setValue(header, forHTTPHeaderField: "Authorization")
+
+        let jsonDict = NSMutableDictionary()
+        print(firInstanceToken)
+        jsonDict.setValue(firInstanceToken, forKey: "device_token")
+        
+        print(jsonDict)
+        
+        var jsonData = Data()
+        
+        do{
+            jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            
+            request.httpBody = jsonData
+            print(jsonData)
+            
+            _ = URLSession.shared.dataTask(with: request as URLRequest){(data, response, error) -> Void in
+                do {
+                    if data != nil{
+                        if let httpResponseValue = response as? HTTPURLResponse{
+                            print(httpResponseValue.statusCode)
+                            if httpResponseValue.statusCode == 204 {
+                                print("token send successfully")
+//                                self.performSelector(inBackground: #selector(ViewController.ViewProfile), with: nil)
+                            }
+                        }
+                    }
+                    else if let error = error{
+                        
+                        DispatchQueue.main.async {
+                            self.indicator.removeFromSuperview()
+                            self.view.isUserInteractionEnabled = true
+                            self.view.window?.isUserInteractionEnabled = true
+                            
+                            let alert = self.ShowAlert()
+                            alert.title = "BrightUs"
+                            alert.message = error.localizedDescription
+                            _ = self.present(alert, animated: true, completion: nil)
+                        }
+                        
+                    }
+                }
+                catch{
+                    print("error")
+                }
+                
+            }.resume()
+        }
+        catch{
+            print("Error")
+        }
+    }
     //MARK: - TextField Delegate
 
     /**
@@ -528,7 +624,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
      
      */
     func ViewProfile() {
+        
+        //http://api.brightusdev.seobudd.com/v1/user
         let apiString = baseURL + "/api/user"
+//        let apiString = baseURL2 + "v1/user"
+
         let encodedApiString = apiString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         let url = URL(string: encodedApiString!)
         
@@ -549,7 +649,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             do {
                 if data != nil{
                     if let httpResponseValue = response as? HTTPURLResponse{
-                        //                        print(httpResponseValue.statusCode)
+                        print(httpResponseValue.statusCode)
                         if httpResponseValue.statusCode == 200{
                             if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                 print(dict)

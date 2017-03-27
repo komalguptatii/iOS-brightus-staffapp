@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0522D28272CC1B633A797703 /* Pods_BrightUs_StaffAttendance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */; };
 		2917278E1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917278D1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift */; };
+		2935B3FF1E88F5EB00BB8C1F /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2935B3FD1E88F5EB00BB8C1F /* UserNotifications.framework */; };
+		2935B4001E88F5EB00BB8C1F /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2935B3FE1E88F5EB00BB8C1F /* UserNotificationsUI.framework */; };
 		2961C4351E235F9D002635B8 /* DeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961C4341E235F9D002635B8 /* DeviceExtension.swift */; };
 		2976797B1E10F49F00DFFDDA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297679791E10F49F00DFFDDA /* BaseViewController.swift */; };
 		2976797C1E10F49F00DFFDDA /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2976797A1E10F49F00DFFDDA /* SlideMenuViewController.swift */; };
@@ -58,6 +60,8 @@
 		208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightUs_StaffAttendanceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26137209C2F3B185FB897100 /* Pods-BrightUs_StaffAttendanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightUs_StaffAttendanceTests/Pods-BrightUs_StaffAttendanceTests.release.xcconfig"; sourceTree = "<group>"; };
 		2917278D1E0AA5860099AFB3 /* TiiAttendanceDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiiAttendanceDetailCell.swift; sourceTree = "<group>"; };
+		2935B3FD1E88F5EB00BB8C1F /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		2935B3FE1E88F5EB00BB8C1F /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		2961C4341E235F9D002635B8 /* DeviceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceExtension.swift; sourceTree = "<group>"; };
 		297679791E10F49F00DFFDDA /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2976797A1E10F49F00DFFDDA /* SlideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2935B3FF1E88F5EB00BB8C1F /* UserNotifications.framework in Frameworks */,
+				2935B4001E88F5EB00BB8C1F /* UserNotificationsUI.framework in Frameworks */,
 				0522D28272CC1B633A797703 /* Pods_BrightUs_StaffAttendance.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +136,8 @@
 		12A713377EE102F74CAE8716 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2935B3FD1E88F5EB00BB8C1F /* UserNotifications.framework */,
+				2935B3FE1E88F5EB00BB8C1F /* UserNotificationsUI.framework */,
 				42CE24E8ACB967432C66307F /* Pods_BrightUs_StaffAttendance.framework */,
 				208830605FC21096B61EE1C0 /* Pods_BrightUs_StaffAttendanceTests.framework */,
 				6DD344126C5BEF96491CB364 /* Pods_BrightUs_StaffAttendanceUITests.framework */,
@@ -357,20 +365,25 @@
 					91EC4A5B1DFE6A22008F874D = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = C4UY7M99L8;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
 					};
 					91EC4A6F1DFE6A24008F874D = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = C4UY7M99L8;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 91EC4A5B1DFE6A22008F874D;
 					};
 					91EC4A7A1DFE6A24008F874D = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = C4UY7M99L8;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 91EC4A5B1DFE6A22008F874D;
 					};
@@ -748,14 +761,14 @@
 				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Techies India Inc. (C4UY7M99L8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.brightus.techies.StaffApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "1c12437d-a6bc-4dc0-b83d-b55fbf9153da";
+				PROVISIONING_PROFILE_SPECIFIER = staffAppDev;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -769,14 +782,14 @@
 				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Techies India Inc. (C4UY7M99L8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.brightus.techies.StaffApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "1c12437d-a6bc-4dc0-b83d-b55fbf9153da";
+				PROVISIONING_PROFILE_SPECIFIER = staffAppDev;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -788,7 +801,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendanceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceTests";
@@ -806,7 +819,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendanceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceTests";
@@ -823,7 +836,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendanceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceUITests";
@@ -840,7 +853,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C4UY7M99L8;
 				INFOPLIST_FILE = BrightUs_StaffAttendanceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.techies.firebasepractise.BrightUs-StaffAttendanceUITests";
