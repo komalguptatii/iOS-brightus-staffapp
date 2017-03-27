@@ -49,8 +49,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-        emailTextField.text = "test@maildrop.cc"
-        passwordTextField.text = "jagdeep"
+//        emailTextField.text = "test@maildrop.cc"
+//        passwordTextField.text = "jagdeep"
 
 //        emailTextField.text = "staff@maildrop.cc"
 //        passwordTextField.text = "jagdeep"
@@ -104,8 +104,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-//        emailTextField.text = ""
-//        passwordTextField.text = ""
+        emailTextField.text = ""
+        passwordTextField.text = ""
 
         if let tokenValue = defaults.value(forKey: "accessToken"){
             if tokenValue as! String == ""{
