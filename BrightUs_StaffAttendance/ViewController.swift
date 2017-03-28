@@ -49,11 +49,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-//        emailTextField.text = "test@maildrop.cc"
-//        passwordTextField.text = "jagdeep"
+        emailTextField.text = "komalstaff@maildrop.cc"
+        passwordTextField.text = "jagdeep"
 
-//        emailTextField.text = "staff@maildrop.cc"
-//        passwordTextField.text = "jagdeep"
         
         //Custom Loading Indicator
         indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -104,8 +102,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        emailTextField.text = ""
-        passwordTextField.text = ""
+//        emailTextField.text = ""
+//        passwordTextField.text = ""
 
         if let tokenValue = defaults.value(forKey: "accessToken"){
             if tokenValue as! String == ""{
@@ -665,6 +663,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 //Get Latitude & longitude of branch
                                 if let locationValues = dict.value(forKey: "branches") as? NSArray{
                                     print(locationValues)
+                                    defaults.setValue(locationValues, forKey: "branchAccess")
                                     if let locationDict = locationValues.object(at: 0) as? NSDictionary{
                                         print(locationDict)
                                         defaults.setValue(locationDict.value(forKey: "branch_code"), forKey: "branchCode")
@@ -782,6 +781,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
      */
     func deviceInfo(_ appBuild : String, appVersion : String, deviceModel : String,deviceName : String,systemName : String,systemVersion : String) {
         let userId = defaults.value(forKey: "userId") as! Int
+        
+        
         let branchCode = defaults.value(forKey: "branchCode") as! String
         
         let ref = FIRDatabase.database().reference()

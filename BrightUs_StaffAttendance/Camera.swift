@@ -50,7 +50,8 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
      * snapshotReference - To fetch and save reference of FIRDataSnapshot
     */
     var snapshotReference = FIRDataSnapshot()
-    
+    var snapshotReferenceArray : NSMutableArray = [FIRDataSnapshot()]
+    var saveSnapshotNumber = 0
     /**
      * userId - Id seperated from scanned QR code
     */
@@ -116,16 +117,34 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     func GetSnapshotFromFirebase(){
         if IsConnectionAvailable(){
             
-            if let branchCode = defaults.value(forKey: "branchCode") as? String{
-                ref.child("mainAttendanceApp").child("branches").child(branchCode).child("qrCode").child("users").observe(.value, with: {(snapshot) in
-                    print("Reading data")
-                    
-                    if (snapshot.hasChildren() == true){
-                        self.snapshotReference = snapshot
+            if let branchArray = defaults.value(forKey: "branchAccess") as? NSMutableArray{
+                print(branchArray)
+                for i in 0..<branchArray.count{
+                    print(branchArray.count)
+                    if let dictionaryValues = branchArray.object(at: i) as? NSDictionary{
+                        let thisBranchCode = dictionaryValues.value(forKey: "branch_code") as! String
+                        ref.child("mainAttendanceApp").child("branches").child(thisBranchCode).child("qrCode").child("users").observe(.value, with: {(snapshot) in
+                            print("Reading data")
+                            
+                            if (snapshot.hasChildren() == true){
+//                                self.snapshotReference = snapshot
+                                self.snapshotReferenceArray.insert(snapshot, at: i)
+                            }
+                        })
                     }
-                })
-                
+                }
             }
+            
+//            if let branchCode = defaults.value(forKey: "branchCode") as? String{
+//                ref.child("mainAttendanceApp").child("branches").child(branchCode).child("qrCode").child("users").observe(.value, with: {(snapshot) in
+//                    print("Reading data")
+//                    
+//                    if (snapshot.hasChildren() == true){
+//                        self.snapshotReference = snapshot
+//                    }
+//                })
+//                
+//            }
             
         }
         else{
@@ -255,42 +274,81 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
                     let getCode : [String] = dynamicCode.components(separatedBy: ["+"])
                     print(getCode)
                     let userBranchId = getCode[2]
-                    let branchCode = defaults.value(forKey: "branchCode") as! String
-                    print(branchCode)
-                    if userBranchId == branchCode{
-                        print("You can mark attendance")
-                        getQrCodeStatus()
-                        
-                        objCaptureSession?.stopRunning()
-                    }
-                    else{
-                        let alert = self.ShowAlert()
-                        alert.title = "BrightUs"
-                        alert.message = "You are not allowed to mark attendance in this Branch"
-                        _ = self.present(alert, animated: true, completion: nil)
-                        
-                        DispatchQueue.main.async {
-                            self.randomQRCode = ""
-                            
-                            self.vwQRCode?.frame = CGRect.zero
-                            self.objCaptureSession?.startRunning()
-                            
-                            let controller = self.parent as? HomeViewController
-                            let scrollView = controller?.mainScrollView
-                            scrollView?.isScrollEnabled = false
-                            
-                            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                    
+                    if let branchArray = defaults.value(forKey: "branchAccess") as? NSMutableArray{
+                        print(branchArray)
+                        for i in 0..<branchArray.count{
+                            print(branchArray.count)
+                            if let dictionaryValues = branchArray.object(at: i) as? NSDictionary{
+                                if let thisBranchCode = dictionaryValues.value(forKey: "branch_code") as? String{
+                                    if userBranchId == thisBranchCode{
+                                        saveSnapshotNumber = i
+                                        print("You can mark attendance")
+                                        getQrCodeStatus()
+                                        
+                                        objCaptureSession?.stopRunning()
+                                        return
+                                    }
+                                    else{
+                                        let alert = self.ShowAlert()
+                                        alert.title = "BrightUs"
+                                        alert.message = "You are not allowed to mark attendance in this Branch"
+                                        _ = self.present(alert, animated: true, completion: nil)
+                                        
+                                        DispatchQueue.main.async {
+                                            self.randomQRCode = ""
+                                            
+                                            self.vwQRCode?.frame = CGRect.zero
+                                            self.objCaptureSession?.startRunning()
+                                            
+                                            let controller = self.parent as? HomeViewController
+                                            let scrollView = controller?.mainScrollView
+                                            scrollView?.isScrollEnabled = false
+                                            
+                                            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                                        }
+
+                                    }
+                                }
+                                
+                            }
                         }
                     }
+                    
+                    ////
+//                    let branchCode = defaults.value(forKey: "branchCode") as! String
+//                    print(branchCode)
+//                    
+//                    
+//                    if userBranchId == branchCode{
+//                        print("You can mark attendance")
+//                        getQrCodeStatus()
+//                        
+//                        objCaptureSession?.stopRunning()
+//                    }
+//                    else{
+//                        let alert = self.ShowAlert()
+//                        alert.title = "BrightUs"
+//                        alert.message = "You are not allowed to mark attendance in this Branch"
+//                        _ = self.present(alert, animated: true, completion: nil)
+//                        
+//                        DispatchQueue.main.async {
+//                            self.randomQRCode = ""
+//                            
+//                            self.vwQRCode?.frame = CGRect.zero
+//                            self.objCaptureSession?.startRunning()
+//                            
+//                            let controller = self.parent as? HomeViewController
+//                            let scrollView = controller?.mainScrollView
+//                            scrollView?.isScrollEnabled = false
+//                            
+//                            scrollView?.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+//                        }
+//                    }
+                    ////
                 }
                 
-//                }
-//                else{
-//                    let alert = self.ShowAlert()
-//                    alert.title = "BrightUs"
-//                    alert.message = "QR code may have expired or invalid, Please try again"
-//                    _ = self.present(alert, animated: true, completion: nil)
-//                }
+
             }
         }
     }
@@ -305,13 +363,16 @@ class Camera: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     func getQrCodeStatus (){
         
         if IsConnectionAvailable(){
-            print(snapshotReference)
+            print(saveSnapshotNumber)
+            print(snapshotReferenceArray[saveSnapshotNumber] as AnyObject)
             print(userId)
             if userId.isEmpty{
                 return
             }
             if let _ : Int = Int(userId){
-                if let dict : FIRDataSnapshot = snapshotReference.childSnapshot(forPath: userId){
+                if let dict : FIRDataSnapshot = (snapshotReferenceArray[saveSnapshotNumber] as AnyObject).childSnapshot(forPath: userId){
+
+//                if let dict : FIRDataSnapshot = snapshotReference.childSnapshot(forPath: userId){
                     print(dict)
                     if dict.childrenCount != 0{
                         print(dict.childrenCount)
