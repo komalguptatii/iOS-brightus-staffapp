@@ -56,13 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)
         }
-        
+//        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         application.registerForRemoteNotifications()
         
-        firInstanceToken = FIRInstanceID.instanceID().token()!
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification),
-                                                         name: NSNotification.Name.firInstanceIDTokenRefresh, object: nil)
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "getRefreshToken") , object: nil)
+//        firInstanceToken = FIRInstanceID.instanceID().token()!
+
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification),
+//                                                         name: NSNotification.Name.firInstanceIDTokenRefresh, object: nil)
 
         return true
     }
@@ -107,9 +108,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print(remoteMessage.appData)
     }
    
-    func tokenRefreshNotification(_ notification: Notification) {
+    func tokenRefreshNotification() {   //_ notification: Notification
         if let refreshedToken = FIRInstanceID.instanceID().token() {
             print("InstanceID token: \(refreshedToken)")
+            firInstanceToken = refreshedToken
         }
         
         // Connect to FCM since connection may have failed when attempted before having a token.
@@ -137,6 +139,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        if let tokenAvailable = FIRInstanceID.instanceID().token(){
+            firInstanceToken = tokenAvailable
+        }
+
         FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.sandbox)   //FIRInstanceIDAPNSTokenTypeSandbox
     }
     

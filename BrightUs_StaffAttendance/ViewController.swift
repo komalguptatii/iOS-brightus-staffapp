@@ -161,7 +161,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.view.addSubview(indicator)
                 self.view.isUserInteractionEnabled = false
                 self.view.window?.isUserInteractionEnabled = false
-                
+//                if let settings = UIApplication.shared.currentUserNotificationSettings {
+//                    if settings.types != UIUserNotificationType() {
+//                        print("is on!")
+//                        
+////                        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.tokenRefreshNotification),
+////                                                               name: NSNotification.Name(rawValue: "getRefreshToken"), object: nil)
+//
+//                        
+//                    }else{
+//                        print("is off!")
+//                    }
+//                }else{
+//                    print("is off")
+//                }
                 AuthorizeUser()
             }
         }
@@ -308,6 +321,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                     print(dict)
                                     
+
                                     let tokenTypeValue = dict.value(forKey: "token_type")
                                     let accessTokenValue = dict.value(forKey: "access_token")
                                     let refreshTokenValue = dict.value(forKey: "refresh_token")
@@ -527,6 +541,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
         let jsonDict = NSMutableDictionary()
         print(firInstanceToken)
+        
+        if firInstanceToken.isEmpty {
+            let delegateObject = AppDelegate()
+            delegateObject.tokenRefreshNotification()
+            
+        }
+        else {
+            
+        }
+        
         jsonDict.setValue(firInstanceToken, forKey: "device_token")
         
         print(jsonDict)

@@ -141,10 +141,10 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         
         //StartUpdatingLocation()
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
         
         let controller = self.parent as? HomeViewController
         let scrollView = controller?.mainScrollView
@@ -652,25 +652,25 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
     /**
      Authorization Status to use location method
      */
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        if status == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-        }
-    }
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        
+//        if status == .authorizedWhenInUse {
+//            locationManager.startUpdatingLocation()
+//        }
+//    }
     
     /**
      Update Location Method
      
      - parameter description : Check whether user is in premises or not
      */
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print (locations)
-        if let location = locations.first {
-            print(location)
-            
-//            locationUpdateLabel.text = "You are allowed to mark attendance"
-            locationManager.stopUpdatingLocation()
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        print (locations)
+//        if let location = locations.first {
+//            print(location)
+//            
+////            locationUpdateLabel.text = "You are allowed to mark attendance"
+//            locationManager.stopUpdatingLocation()
             // Techies Office Location = 30.892668,75.8225618
             // Grand Walk Location = 30.8868835,75.7906816
 //            if let destinationLatitude = defaults.value(forKey: "latitude") as? Double{
@@ -718,8 +718,8 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
             //            let destinationLatitude = 30.892668
             //            let destinationLongitude = 75.8225618
             
-        }
-    }
+//        }
+//    }
     
     
     /**
