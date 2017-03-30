@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         application.registerForRemoteNotifications()
         
+//        FIRDatabase.database().persistenceEnabled = true
 //        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "getRefreshToken") , object: nil)
 //        firInstanceToken = FIRInstanceID.instanceID().token()!
 
@@ -77,6 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print(userInfo)
     }
     
+    
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // If you are receiving a notification message while your app is in the background,
@@ -87,14 +90,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //
         // Print full message.
         print(userInfo)
-        if let messageID = userInfo["status"] {  //gcmMessageIDKey
-            print("Message ID: \(messageID)")
-//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove"), object: nil)
 
+        DispatchQueue.main.async {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "getAttendanceDetail"), object: nil)
-            
         }
-
+        
+        if let rootViewController = window?.rootViewController as? UINavigationController {
+            print(rootViewController.viewControllers.count)
+            
+            for controllers in rootViewController.viewControllers{
+                print(controllers)
+                if let vc = controllers as? HomeViewController {
+                    for subView in vc.childViewControllers {
+                        if let subView = subView as? DashboardView {
+                            subView.GetTodayAttendanceDetail()
+                        }
+                    }
+                }
+            }
+        }
+        
         completionHandler(UIBackgroundFetchResult.newData)
     }
     

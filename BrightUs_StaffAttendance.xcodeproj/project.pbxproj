@@ -365,7 +365,7 @@
 					91EC4A5B1DFE6A22008F874D = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = C4UY7M99L8;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -761,14 +761,14 @@
 				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Techies India Inc. (C4UY7M99L8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = C4UY7M99L8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.brightus.techies.StaffApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1c12437d-a6bc-4dc0-b83d-b55fbf9153da";
-				PROVISIONING_PROFILE_SPECIFIER = staffAppDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -782,14 +782,14 @@
 				CODE_SIGN_ENTITLEMENTS = BrightUs_StaffAttendance/BrightUs_StaffAttendance.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Techies India Inc. (C4UY7M99L8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = C4UY7M99L8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BrightUs_StaffAttendance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = in.brightus.techies.StaffApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1c12437d-a6bc-4dc0-b83d-b55fbf9153da";
-				PROVISIONING_PROFILE_SPECIFIER = staffAppDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

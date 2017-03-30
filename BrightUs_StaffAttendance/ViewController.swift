@@ -35,6 +35,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     */
     var indicator = UIActivityIndicatorView()
     
+    let delegateObject = AppDelegate()
+
     /**
      * viewDidLoad Method
      */
@@ -49,8 +51,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //Default Email ID & Password for Testing
         
-        emailTextField.text = "komalstaff@maildrop.cc"
-        passwordTextField.text = "jagdeep"
+//        emailTextField.text = "komalstaff@maildrop.cc"
+//        passwordTextField.text = "jagdeep"
 
         
         //Custom Loading Indicator
@@ -102,14 +104,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-//        emailTextField.text = ""
-//        passwordTextField.text = ""
+        emailTextField.text = ""
+        passwordTextField.text = ""
 
         if let tokenValue = defaults.value(forKey: "accessToken"){
             if tokenValue as! String == ""{
                 print("No token exists")
             }
             else{
+                if firInstanceToken.isEmpty {
+                    self.delegateObject.tokenRefreshNotification()
+                    
+                }
+                else {
+                    print("already there")
+                }
+                
                 self.SendNotificationToken()
                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
                 self.navigationController?.pushViewController(vc, animated: false)
@@ -321,6 +331,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 if let dict = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as?  NSDictionary{
                                     print(dict)
                                     
+                                    if firInstanceToken.isEmpty {
+                                        self.delegateObject.tokenRefreshNotification()
+                                        
+                                    }
+                                    else {
+                                        print("already there")
+                                    }
+                                    
 
                                     let tokenTypeValue = dict.value(forKey: "token_type")
                                     let accessTokenValue = dict.value(forKey: "access_token")
@@ -433,6 +451,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 let firebaseTokenValue = dict.value(forKey: "token") as! String
                                 defaults.setValue(firebaseTokenValue, forKey: "firebaseToken")
                                 defaults.synchronize()
+                                
                                 self.FirebaseLogin(token: "\(firebaseTokenValue)")
                             }
                         }
@@ -542,14 +561,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let jsonDict = NSMutableDictionary()
         print(firInstanceToken)
         
-        if firInstanceToken.isEmpty {
-            let delegateObject = AppDelegate()
-            delegateObject.tokenRefreshNotification()
-            
-        }
-        else {
-            
-        }
+       
         
         jsonDict.setValue(firInstanceToken, forKey: "device_token")
         

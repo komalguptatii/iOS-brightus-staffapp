@@ -151,8 +151,6 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         
         scrollView?.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.GetTodayAttendanceDetail),
-                                               name: NSNotification.Name(rawValue: "getAttendanceDetail"), object: nil)
 
     }
     
@@ -169,6 +167,9 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(DashboardView.GetTodayAttendanceDetail),
+                                               name: NSNotification.Name(rawValue: "getAttendanceDetail"), object: nil)
+
 //        let controller = self.parent as? HomeViewController
 //        controller?.title = "Dashboard"
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -302,6 +303,10 @@ class DashboardView: BaseViewController,CLLocationManagerDelegate, UIScrollViewD
         cameraController.didMove(toParentViewController: nil)
         cameraController.view.removeFromSuperview()
         cameraController.removeFromParentViewController()
+        
+        
+       
+
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "remove"), object: nil)
     }
 
