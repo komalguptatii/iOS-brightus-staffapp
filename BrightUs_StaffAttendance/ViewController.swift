@@ -107,18 +107,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         emailTextField.text = ""
         passwordTextField.text = ""
 
+        if firInstanceToken.isEmpty {
+            self.delegateObject.tokenRefreshNotification()
+            
+        }
+        else {
+            print("already there")
+        }
+
         if let tokenValue = defaults.value(forKey: "accessToken"){
             if tokenValue as! String == ""{
                 print("No token exists")
             }
             else{
-                if firInstanceToken.isEmpty {
-                    self.delegateObject.tokenRefreshNotification()
-                    
-                }
-                else {
-                    print("already there")
-                }
                 
                 self.SendNotificationToken()
                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
@@ -539,6 +540,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func SendNotificationToken(){
         
+        if firInstanceToken.isEmpty {
+            self.delegateObject.tokenRefreshNotification()
+            
+        }
+        
         let apiString = baseURL + "/api/user/device-token"
         
         //        let apiString = baseURL2 + "oauth2/token"
@@ -561,7 +567,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let jsonDict = NSMutableDictionary()
         print(firInstanceToken)
         
-       
+        
         
         jsonDict.setValue(firInstanceToken, forKey: "device_token")
         
